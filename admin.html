@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidate Profile Management</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <div id="admin-app">
+        <header>
+            <h1>{{ title }}</h1>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="admin.html" class="active">Candidates</a>
+            </nav>
+        </header>
+        
+        <main class="admin-panel">
+            <div class="search-container">
+                <input type="text" v-model="searchId" placeholder="Enter Candidate ID to search..." @keyup.enter="searchCandidate">
+                <button @click="searchCandidate" class="search-btn">Search</button>
+                <button @click="newCandidate" class="new-btn">New Candidate</button>
+            </div>
+            <h2>Candidate Profile Information</h2>
+            
+            <div class="candidate-id" v-if="profile.id">
+                <label>Candidate ID:</label>
+                <span>{{ profile.id }}</span>
+            </div>
+            
+            <div class="shareable-link" v-if="profile.accessUrl">
+                <label>Shareable Profile URL:</label>
+                <div class="url-container">
+                    <input type="text" readonly :value="getFullProfileUrl()" class="url-input" ref="urlInput">
+                    <button type="button" @click="copyUrlToClipboard" class="copy-btn">Copy</button>
+                </div>
+                <button type="button" @click="regenerateProfileUrl" class="regenerate-btn">Generate New URL</button>
+            </div>
+            
+            <form @submit.prevent="saveProfile">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" v-model="profile.name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="linkedin">LinkedIn URL</label>
+                    <input type="url" id="linkedin" v-model="profile.linkedin" placeholder="https://www.linkedin.com/in/username" 
+                           :class="{ 'input-error': !isValidLinkedIn && profile.linkedin }">
+                    <div class="validation-message" v-if="!isValidLinkedIn && profile.linkedin">
+                        Please enter a valid LinkedIn URL (should contain linkedin.com/)
+                    </div>
+                    <small class="field-note">Must be unique across all candidates</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" v-model="profile.email" required
+                           :class="{ 'input-error': !isValidEmail && profile.email }">
+                    <div class="validation-message" v-if="!isValidEmail && profile.email">
+                        Please enter a valid email address
+                    </div>
+                    <small class="field-note">Must be unique across all candidates</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" v-model="profile.phone" placeholder="123-456-7890"
+                           :class="{ 'input-error': !isValidPhone && profile.phone }">
+                    <div class="validation-message" v-if="!isValidPhone && profile.phone">
+                        Please enter a valid phone number (e.g., 123-456-7890)
+                    </div>
+                    <small class="field-note">Must be unique across all candidates</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="summary">Recommendation Summary</label>
+                    <textarea id="summary" v-model="profile.summary" rows="4"></textarea>
+                </div>
+                
+                <div class="form-section">
+                    <h3>Strengths</h3>
+                    <div v-for="(strength, index) in profile.strengths" :key="'str-'+index" class="list-item">
+                        <input type="text" v-model="profile.strengths[index]">
+                        <button type="button" @click="removeItem('strengths', index)" class="remove-btn">Remove</button>
+                    </div>
+                    <button type="button" @click="addItem('strengths')" class="add-btn">Add Strength</button>
+                </div>
+                
+                <div class="form-section">
+                    <h3>Areas for Improvement</h3>
+                    <div v-for="(weakness, index) in profile.weaknesses" :key="'wk-'+index" class="list-item">
+                        <input type="text" v-model="profile.weaknesses[index]">
+                        <button type="button" @click="removeItem('weaknesses', index)" class="remove-btn">Remove</button>
+                    </div>
+                    <button type="button" @click="addItem('weaknesses')" class="add-btn">Add Area</button>
+                </div>
+                
+                <div class="form-section">
+                    <h3>Skills</h3>
+                    <div v-for="(skill, index) in profile.skills" :key="'sk-'+index" class="list-item">
+                        <input type="text" v-model="profile.skills[index]">
+                        <button type="button" @click="removeItem('skills', index)" class="remove-btn">Remove</button>
+                    </div>
+                    <button type="button" @click="addItem('skills')" class="add-btn">Add Skill</button>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="save-btn" :disabled="!isFormValid || isLoading">
+                        {{ profile.id ? 'Update Profile' : 'Save New Profile' }}
+                    </button>
+                    <button type="button" @click="resetForm" class="reset-btn" :disabled="isLoading">Reset</button>
+                </div>
+            </form>
+            
+            <div class="candidates-list" v-if="candidatesList.length > 0">
+                <h3>Saved Candidates</h3>
+                <div class="candidate-item" v-for="candidate in candidatesList" :key="candidate.id">
+                    <div>
+                        <strong>{{ candidate.name }}</strong> (ID: {{ candidate.id }})
+                    </div>
+                    <div class="candidate-actions">
+                        <button @click="loadCandidate(candidate.id)" class="load-btn">Load</button>
+                        <button @click="deleteCandidate(candidate.id)" class="delete-btn">Delete</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="loading-indicator" v-if="isLoading">
+                <div class="spinner"></div>
+                <p>Loading...</p>
+            </div>
+            
+            <div v-if="saveStatus" class="save-status" :class="saveStatus.type">
+                {{ saveStatus.message }}
+            </div>
+        </main>
+    </div>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="admin.js"></script>
+</body>
+</html>

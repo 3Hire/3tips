@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reactive Website</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>{{ title }}</h1>
+            <nav>
+                <a href="index.html" class="active">Home</a>
+                <a href="admin.html">Candidates</a>
+            </nav>
+        </header>
+        
+        <div class="content">
+            <p>Welcome to your dashboard. Use the Admin page to manage your profile information.</p>
+            
+            <div class="task-list">
+                <h2>Quick Tasks</h2>
+                <input type="text" v-model="newItem" @keyup.enter="addItem" placeholder="Add a new task...">
+                <button @click="addItem">Add</button>
+                <ul>
+                    <li v-for="(item, index) in items" :key="index">
+                        {{ item }}
+                        <button @click="removeItem(index)">Remove</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="app.js"></script>
+</body>
+</html>
