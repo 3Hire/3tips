@@ -3,140 +3,187 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Candidate Profile Management</title>
+    <title>Admin Panel - 3Hire</title>
+    <meta name="description" content="Coaching. Hiring. Consulting">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="admin.css">
 </head>
 <body>
-    <div id="admin-app">
+    <div id="app">
         <header>
-            <h1>{{ title }}</h1>
+            <div class="logo-container">
+                <img src="https://img1.wsimg.com/isteam/ip/8703b2e9-5832-4c2f-bf7b-fb281aa3e9f1/3Hire%20-%20Logo%20-%20transparent.jpg/:/rs=w:108,h:108,cg:true,m/cr=w:108,h:108/qt=q:100" 
+                     alt="Three Hire Logo" class="logo-image">
+                <div class="logo"></div>
+            </div>
             <nav>
-                <a href="index.html">Home</a>
-                <a href="admin.html" class="active">Candidates</a>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="admin.html" class="active">Admin</a></li>
+                    <li><a href="candidate-report.html">Reports</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
             </nav>
         </header>
         
-        <main class="admin-panel">
-            <div class="search-container">
-                <input type="text" v-model="searchId" placeholder="Enter Candidate ID to search..." @keyup.enter="searchCandidate">
-                <button @click="searchCandidate" class="search-btn">Search</button>
-                <button @click="newCandidate" class="new-btn">New Candidate</button>
-            </div>
-            <h2>Candidate Profile Information</h2>
-            
-            <div class="candidate-id" v-if="profile.id">
-                <label>Candidate ID:</label>
-                <span>{{ profile.id }}</span>
-            </div>
-            
-            <div class="shareable-link" v-if="profile.accessUrl">
-                <label>Shareable Profile URL:</label>
-                <div class="url-container">
-                    <input type="text" readonly :value="getFullProfileUrl()" class="url-input" ref="urlInput">
-                    <button type="button" @click="copyUrlToClipboard" class="copy-btn">Copy</button>
-                </div>
-                <button type="button" @click="regenerateProfileUrl" class="regenerate-btn">Generate New URL</button>
-            </div>
-            
-            <form @submit.prevent="saveProfile">
-                <div class="form-group">
-                    <label for="name">Full Name</label>
-                    <input type="text" id="name" v-model="profile.name" required>
-                </div>
+        <main>
+            <div id="admin-app">
+                <h1>{{ title }}</h1>
                 
-                <div class="form-group">
-                    <label for="linkedin">LinkedIn URL</label>
-                    <input type="url" id="linkedin" v-model="profile.linkedin" placeholder="https://www.linkedin.com/in/username" 
-                           :class="{ 'input-error': !isValidLinkedIn && profile.linkedin }">
-                    <div class="validation-message" v-if="!isValidLinkedIn && profile.linkedin">
-                        Please enter a valid LinkedIn URL (should contain linkedin.com/)
+                <div class="admin-panel">
+                    <div class="search-container">
+                        <input type="text" v-model="searchId" placeholder="Search by ID, name, email, phone, or LinkedIn..." @keyup.enter="searchCandidate">
+                        <button @click="searchCandidate" class="search-btn">Search</button>
+                        <button @click="newCandidate" class="new-btn">New Candidate</button>
                     </div>
-                    <small class="field-note">Must be unique across all candidates</small>
-                </div>
-                
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" v-model="profile.email" required
-                           :class="{ 'input-error': !isValidEmail && profile.email }">
-                    <div class="validation-message" v-if="!isValidEmail && profile.email">
-                        Please enter a valid email address
+                    <h2>Candidate Profile Information</h2>
+                    
+                    <div class="candidate-id" v-if="profile.id">
+                        <label>Candidate ID:</label>
+                        <span>{{ profile.id }}</span>
                     </div>
-                    <small class="field-note">Must be unique across all candidates</small>
-                </div>
-                
-                <div class="form-group">
-                    <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" v-model="profile.phone" placeholder="123-456-7890"
-                           :class="{ 'input-error': !isValidPhone && profile.phone }">
-                    <div class="validation-message" v-if="!isValidPhone && profile.phone">
-                        Please enter a valid phone number (e.g., 123-456-7890)
+                    
+                    <div class="shareable-link" v-if="profile.accessUrl">
+                        <label>Shareable Profile URL:</label>
+                        <div class="url-container">
+                            <input type="text" readonly :value="getFullProfileUrl()" class="url-input" ref="urlInput">
+                            <button type="button" @click="copyUrlToClipboard" class="copy-btn">Copy</button>
+                        </div>
+                        <button type="button" @click="regenerateProfileUrl" class="regenerate-btn">Generate New URL</button>
                     </div>
-                    <small class="field-note">Must be unique across all candidates</small>
-                </div>
-                
-                <div class="form-group">
-                    <label for="summary">Recommendation Summary</label>
-                    <textarea id="summary" v-model="profile.summary" rows="4"></textarea>
-                </div>
-                
-                <div class="form-section">
-                    <h3>Strengths</h3>
-                    <div v-for="(strength, index) in profile.strengths" :key="'str-'+index" class="list-item">
-                        <input type="text" v-model="profile.strengths[index]">
-                        <button type="button" @click="removeItem('strengths', index)" class="remove-btn">Remove</button>
+                    
+                    <div class="shareable-link" v-if="profile.accessKey">
+                        <label>Assessment Report Access:</label>
+                        <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;">
+                            <div style="display: flex; align-items: center; gap: 5px;">
+                                <span style="font-weight: bold; min-width: 100px;">Report URL:</span>
+                                <span>http://localhost:3000/candidate-report.html</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 5px;">
+                                <span style="font-weight: bold; min-width: 100px;">Candidate ID:</span>
+                                <span>{{ profile.id }}</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 5px;">
+                                <span style="font-weight: bold; min-width: 100px;">Access Key:</span>
+                                <span>{{ profile.accessKey }}</span>
+                                <button type="button" @click="copyAccessKey" class="copy-btn">Copy</button>
+                            </div>
+                            <p style="font-size: 0.85em; color: #666; margin-top: 5px;">
+                                Share these details with the candidate to allow them to access their assessment report.
+                            </p>
+                        </div>
                     </div>
-                    <button type="button" @click="addItem('strengths')" class="add-btn">Add Strength</button>
-                </div>
-                
-                <div class="form-section">
-                    <h3>Areas for Improvement</h3>
-                    <div v-for="(weakness, index) in profile.weaknesses" :key="'wk-'+index" class="list-item">
-                        <input type="text" v-model="profile.weaknesses[index]">
-                        <button type="button" @click="removeItem('weaknesses', index)" class="remove-btn">Remove</button>
+                    
+                    <form @submit.prevent="saveProfile">
+                        <div class="form-row" style="display: flex; gap: 15px; margin-bottom: 20px;">
+                            <div style="flex: 1;">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" v-model="profile.name" required>
+                            </div>
+                            <div style="flex: 1;">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" v-model="profile.email" required
+                                       :class="{ 'input-error': !isValidEmail && profile.email }">
+                                <div class="validation-message" v-if="!isValidEmail && profile.email">
+                                    Please enter a valid email address
+                                </div>
+                            </div>
+                            <div style="flex: 1;">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" v-model="profile.phone" placeholder="123-456-7890"
+                                       :class="{ 'input-error': !isValidPhone && profile.phone }">
+                                <div class="validation-message" v-if="!isValidPhone && profile.phone">
+                                    Please enter a valid phone number (e.g., 123-456-7890)
+                                </div>
+                            </div>
+                        </div>
+                        <small class="field-note" style="margin-top: -15px; margin-bottom: 15px; display: block;">Email and phone must be unique across all candidates</small>
+                        
+                        <div class="form-group">
+                            <label for="linkedin">LinkedIn URL</label>
+                            <input type="url" id="linkedin" v-model="profile.linkedin" placeholder="https://www.linkedin.com/in/username" 
+                                   :class="{ 'input-error': !isValidLinkedIn && profile.linkedin }">
+                            <div class="validation-message" v-if="!isValidLinkedIn && profile.linkedin">
+                                Please enter a valid LinkedIn URL (should contain linkedin.com/)
+                            </div>
+                            <small class="field-note">Must be unique across all candidates</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="summary">Summary</label>
+                            <textarea id="summary" v-model="profile.summary" rows="4" placeholder="Enter candidate summary here..."></textarea>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h3>Timing</h3>
+                            <div class="form-group">
+                                <textarea id="timing" v-model="profile.timing" rows="3" placeholder="Enter timing assessment here..."></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h3>Facial Expressions</h3>
+                            <div class="form-group">
+                                <textarea id="facial" v-model="profile.facial" rows="3" placeholder="Enter facial expression assessment here..."></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h3>Video Presence</h3>
+                            <div class="form-group">
+                                <textarea id="video" v-model="profile.video" rows="3" placeholder="Enter video presence assessment here..."></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h3>Communication</h3>
+                            <div class="form-group">
+                                <textarea id="communication" v-model="profile.communication" rows="3" placeholder="Enter communication assessment here..."></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="save-btn" :disabled="!isFormValid || isLoading">
+                                {{ profile.id ? 'Update Profile' : 'Save New Profile' }}
+                            </button>
+                            <button type="button" @click="resetForm" class="reset-btn" :disabled="isLoading">Reset</button>
+                        </div>
+                    </form>
+                    
+                    <div class="candidates-list" v-if="candidatesList.length > 0">
+                        <h3>Saved Candidates</h3>
+                        <div class="candidate-item" v-for="candidate in candidatesList" :key="candidate.id">
+                            <div>
+                                <strong>{{ candidate.name }}</strong> (ID: {{ candidate.id }})
+                            </div>
+                            <div class="candidate-actions">
+                                <button @click="loadCandidate(candidate.id)" class="load-btn">Load</button>
+                                <button @click="deleteCandidate(candidate.id)" class="delete-btn">Delete</button>
+                            </div>
+                        </div>
                     </div>
-                    <button type="button" @click="addItem('weaknesses')" class="add-btn">Add Area</button>
-                </div>
-                
-                <div class="form-section">
-                    <h3>Skills</h3>
-                    <div v-for="(skill, index) in profile.skills" :key="'sk-'+index" class="list-item">
-                        <input type="text" v-model="profile.skills[index]">
-                        <button type="button" @click="removeItem('skills', index)" class="remove-btn">Remove</button>
+                    
+                    <div class="loading-indicator" v-if="isLoading">
+                        <div class="spinner"></div>
+                        <p>Loading...</p>
                     </div>
-                    <button type="button" @click="addItem('skills')" class="add-btn">Add Skill</button>
-                </div>
-                
-                <div class="form-actions">
-                    <button type="submit" class="save-btn" :disabled="!isFormValid || isLoading">
-                        {{ profile.id ? 'Update Profile' : 'Save New Profile' }}
-                    </button>
-                    <button type="button" @click="resetForm" class="reset-btn" :disabled="isLoading">Reset</button>
-                </div>
-            </form>
-            
-            <div class="candidates-list" v-if="candidatesList.length > 0">
-                <h3>Saved Candidates</h3>
-                <div class="candidate-item" v-for="candidate in candidatesList" :key="candidate.id">
-                    <div>
-                        <strong>{{ candidate.name }}</strong> (ID: {{ candidate.id }})
-                    </div>
-                    <div class="candidate-actions">
-                        <button @click="loadCandidate(candidate.id)" class="load-btn">Load</button>
-                        <button @click="deleteCandidate(candidate.id)" class="delete-btn">Delete</button>
+                    
+                    <div v-if="saveStatus" class="save-status" :class="saveStatus.type">
+                        {{ saveStatus.message }}
                     </div>
                 </div>
-            </div>
-            
-            <div class="loading-indicator" v-if="isLoading">
-                <div class="spinner"></div>
-                <p>Loading...</p>
-            </div>
-            
-            <div v-if="saveStatus" class="save-status" :class="saveStatus.type">
-                {{ saveStatus.message }}
             </div>
         </main>
+
+        <footer>
+            <p>&copy; 2025 3Hire. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="contact.html">Contact</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+        </footer>
     </div>
     <script src="https://unpkg.com/vue@3"></script>
     <script src="admin.js"></script>

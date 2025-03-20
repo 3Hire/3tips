@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - 3Hire - Candidate Management System</title>
+    <meta name="description" content="Coaching. Hiring. Consulting">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* About page specific styles */
+        .about-section {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 30px 0;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .about-section:last-child {
+            border-bottom: none;
+        }
+
+        .about-section .text-content {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+
+        .about-section .image-content {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .about-section:nth-child(odd) .text-content {
+            order: 1;
+        }
+
+        .about-section:nth-child(odd) .image-content {
+            order: 2;
+        }
+
+        .about-section:nth-child(even) .text-content {
+            order: 2;
+        }
+
+        .about-section:nth-child(even) .image-content {
+            order: 1;
+        }
+
+        .about-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .about-section h2:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+
+        .about-section p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .about-section img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .about-section img:hover {
+            transform: scale(1.02);
+        }
+
+        @media (max-width: 768px) {
+            .about-section .text-content,
+            .about-section .image-content {
+                flex: 100%;
+                min-width: 100%;
+            }
+
+            .about-section:nth-child(odd) .text-content,
+            .about-section:nth-child(even) .text-content,
+            .about-section:nth-child(odd) .image-content,
+            .about-section:nth-child(even) .image-content {
+                order: unset;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <div class="logo-container">
+                <img src="https://img1.wsimg.com/isteam/ip/8703b2e9-5832-4c2f-bf7b-fb281aa3e9f1/3Hire%20-%20Logo%20-%20transparent.jpg/:/rs=w:108,h:108,cg:true,m/cr=w:108,h:108/qt=q:100" 
+                     alt="Three Hire Logo" class="logo-image">
+                <div class="logo"></div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html" class="active">About</a></li>
+                    <li><a href="admin.html">Admin</a></li>
+                    <li><a href="candidate-report.html">Reports</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <main>
+            <section class="hero">
+                <h1>About 3Hire</h1>
+                <p>Accelerate your career development with our comprehensive coaching, hiring, and consulting services</p>
+            </section>
+    
+            <section class="about-section">
+                <div class="text-content">
+                    <h2>Our Mission</h2>
+                    <p>At 3Hire, we are dedicated to transforming the way organizations approach their hiring processes. Our mission is to streamline candidate management, provide insightful analytics, and help companies make better hiring decisions.</p>
+                    <p>We strive to create an environment where both employers and candidates can thrive, by providing tools that make the hiring process more efficient, transparent, and effective.</p>
+                </div>
+                <div class="image-content">
+                    <img src="images/mission.jpeg" alt="3Hire Mission" width="400">
+                </div>
+            </section>
+            
+            <section class="about-section">
+                <div class="text-content">
+                    <h2>Our Vision</h2>
+                    <p>We envision a future where the hiring process is seamless, efficient, and equitable for all parties involved. Our vision is to be the leading platform that bridges the gap between talent and opportunity.</p>
+                    <p>Through innovative technology and expert guidance, we aim to revolutionize how organizations find, assess, and develop talent, creating lasting impacts on businesses and careers alike.</p>
+                </div>
+                <div class="image-content">
+                    <img src="images/vision.jpeg" alt="3Hire Vision" width="400">
+                </div>
+            </section>
+            
+            <section class="about-section">
+                <div class="text-content">
+                    <h2>Our Beliefs</h2>
+                    <p>We believe that the right match between talent and opportunity can transform organizations and lives. Our core beliefs center around transparency, equity, and excellence in the hiring process.</p>
+                    <p>We're committed to providing tools that not only simplify candidate management but also promote fair assessment practices, data-driven decision making, and continuous improvement in the talent acquisition process.</p>
+                </div>
+                <div class="image-content">
+                    <img src="images/belief.jpeg" alt="3Hire Beliefs" width="400">
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 3Hire. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="contact.html">Contact</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+        </footer>
+    </div>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="app.js"></script>
+</body>
+</html>

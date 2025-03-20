@@ -58,9 +58,10 @@ const candidateSchema = new mongoose.Schema({
     }
   },
   summary: String,
-  strengths: [String],
-  weaknesses: [String],
-  skills: [String]
+  timing: String,
+  facial: String,
+  video: String,
+  communication: String
 }, {
   timestamps: true
 });

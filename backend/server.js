@@ -6,6 +6,7 @@ require('dotenv').config();
 
 // Import routes
 const candidateRoutes = require('./routes/candidates');
+const contactRoutes = require('./routes/contact');
 
 // Initialize Express app
 const app = express();
@@ -23,6 +24,7 @@ mongoose.connect(MONGODB_URI)
 
 // Routes
 app.use('/api/candidates', candidateRoutes);
+app.use('/api/contact', contactRoutes);
 
 // Serve static files from the parent directory
 app.use(express.static(path.join(__dirname, '..')));

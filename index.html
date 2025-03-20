@@ -3,36 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reactive Website</title>
+    <title>3Hire - Candidate Management System</title>
+    <meta name="description" content="Coaching. Hiring. Consulting">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div id="app">
         <header>
-            <h1>{{ title }}</h1>
-            <nav>
-                <a href="index.html" class="active">Home</a>
-                <a href="admin.html">Candidates</a>
+            <div class="logo-container">
+                <img src="https://img1.wsimg.com/isteam/ip/8703b2e9-5832-4c2f-bf7b-fb281aa3e9f1/3Hire%20-%20Logo%20-%20transparent.jpg/:/rs=w:108,h:108,cg:true,m/cr=w:108,h:108/qt=q:100" 
+                     alt="Three Hire Logo" class="logo-image">
+                <div class="logo"></div>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="admin.html">Admin</a></li>
+                    <li><a href="candidate-report.html">Reports</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
             </nav>
         </header>
         
-        <div class="content">
-            <p>Welcome to your dashboard. Use the Admin page to manage your profile information.</p>
-            
-            <div class="task-list">
-                <h2>Quick Tasks</h2>
-                <input type="text" v-model="newItem" @keyup.enter="addItem" placeholder="Add a new task...">
-                <button @click="addItem">Add</button>
-                <ul>
-                    <li v-for="(item, index) in items" :key="index">
-                        {{ item }}
-                        <button @click="removeItem(index)">Remove</button>
-                    </li>
-                </ul>
+        <main>
+            <section class="hero">
+                <div class="hero-content">
+                    <h1>Accelerate Career Development</h1>
+                    <h2>Coaching. Hiring. Consulting.</h2>
+                    <div>
+                        <a href="purchase.html" class="btn">Get Started</a>
+                        <a href="admin.html" class="btn btn-secondary">Manage Candidates</a>
+                    </div>
+                </div>
+            </section>
+    
+            <h2 class="section-title">Our Services</h2>
+            <section class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3>Profile Management</h3>
+                    <p>Create and manage detailed candidate profiles with real-time updates. Track progress, store assessments, and maintain comprehensive records.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Search Functionality</h3>
+                    <p>Find the right candidates quickly with powerful search capabilities. Filter by skills, experience, location, and more to identify ideal matches.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Advanced Reporting</h3>
+                    <p>Generate comprehensive reports on your candidate pipeline. Get insights into assessment metrics, hiring trends, and candidate progress.</p>
+                </div>
+            </section>
+
+            <section class="services">
+                <h2 class="section-title">Why Choose 3Hire</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <img src="https://images.unsplash.com/photo-1565688534245-05d6b5be184a?auto=format&fit=crop&w=600&h=200&q=80" alt="Expert Coaching">
+                        <div class="service-content">
+                            <h3>Expert Coaching</h3>
+                            <p>Our experienced coaches provide personalized guidance to help candidates excel in interviews and career development.</p>
+                            <a href="about.html">Learn More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=600&h=200&q=80" alt="Professional Hiring">
+                        <div class="service-content">
+                            <h3>Professional Hiring</h3>
+                            <p>Our streamlined hiring process helps organizations find and secure the best talent efficiently and effectively.</p>
+                            <a href="about.html">Learn More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <img src="https://images.unsplash.com/photo-1558403194-611308249627?auto=format&fit=crop&w=600&h=200&q=80" alt="Strategic Consulting">
+                        <div class="service-content">
+                            <h3>Strategic Consulting</h3>
+                            <p>We provide tailored consulting services to optimize your recruitment strategy and improve hiring outcomes.</p>
+                            <a href="about.html">Learn More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer>
+            <p>&copy; 2025 3Hire. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="contact.html">Contact</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
             </div>
-        </div>
+        </footer>
     </div>
+    
     <script src="https://unpkg.com/vue@3"></script>
     <script src="app.js"></script>
+    <script>
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mainNav = document.getElementById('mainNav');
+            
+            if (mobileMenuBtn && mainNav) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    mainNav.classList.toggle('active');
+                });
+            }
+        });
+    </script>
 </body>
 </html>

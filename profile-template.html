@@ -78,7 +78,7 @@
             margin-top: 0;
         }
         
-        .summary {
+        .summary, .assessment {
             background-color: #e8f5e9;
             padding: 20px;
             border-radius: 4px;
@@ -134,24 +134,31 @@
         </div>
         
         <div class="info-block">
-            <h2>Strengths</h2>
-            <ul>
-                {{strengths}}
-            </ul>
+            <h2>Timing</h2>
+            <div class="assessment">
+                <p>{{timing}}</p>
+            </div>
         </div>
         
         <div class="info-block">
-            <h2>Areas for Improvement</h2>
-            <ul>
-                {{weaknesses}}
-            </ul>
+            <h2>Facial Expressions</h2>
+            <div class="assessment">
+                <p>{{facial}}</p>
+            </div>
         </div>
         
         <div class="info-block">
-            <h2>Skills</h2>
-            <ul>
-                {{skills}}
-            </ul>
+            <h2>Video Presence</h2>
+            <div class="assessment">
+                <p>{{video}}</p>
+            </div>
+        </div>
+        
+        <div class="info-block">
+            <h2>Communication</h2>
+            <div class="assessment">
+                <p>{{communication}}</p>
+            </div>
         </div>
     </div>
     

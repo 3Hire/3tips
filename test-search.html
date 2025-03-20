@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            white-space: pre-wrap;
+        }
+        button {
+            margin-left: 10px;
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        input {
+            padding: 5px;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Search API</h1>
+    <div>
+        <input type="text" id="searchInput" placeholder="Enter search term (ID, name, email, etc.)">
+        <button onclick="searchCandidate()">Search</button>
+    </div>
+    <div id="result">Results will appear here...</div>
+
+    <script>
+        async function searchCandidate() {
+            const searchTerm = document.getElementById('searchInput').value.trim();
+            const resultDiv = document.getElementById('result');
+            
+            if (!searchTerm) {
+                resultDiv.textContent = 'Please enter a search term';
+                return;
+            }
+            
+            resultDiv.textContent = 'Searching...';
+            
+            try {
+                const response = await fetch(`http://localhost:3000/api/candidates/${encodeURIComponent(searchTerm)}`);
+                
+                if (response.status === 404) {
+                    resultDiv.textContent = `No candidate found matching: ${searchTerm}`;
+                    return;
+                }
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                resultDiv.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                resultDiv.textContent = `Error: ${error.message}`;
+                console.error('Error searching candidate:', error);
+            }
+        }
+    </script>
+</body>
+</html>

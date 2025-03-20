@@ -2,7 +2,7 @@ const { createApp, ref, reactive, onMounted, computed } = Vue;
 
 createApp({
     setup() {
-        const title = ref('Candidate Profile Management');
+        const title = ref('Admin Panel');
         const saveStatus = ref(null);
         const searchId = ref('');
         const isLoading = ref(false);
@@ -41,9 +41,10 @@ createApp({
             email: '',
             phone: '',
             summary: '',
-            strengths: [''],
-            weaknesses: [''],
-            skills: [''] 
+            timing: '',
+            facial: '',
+            video: '',
+            communication: ''
         });
         
         // Get list of candidates
@@ -93,12 +94,12 @@ createApp({
             return 'CAN-' + Date.now().toString().slice(-6);
         }
         
-        // Search for a candidate by ID
+        // Search for a candidate by ID, name, email, phone, or LinkedIn
         async function searchCandidate() {
             if (!searchId.value.trim()) {
                 saveStatus.value = {
                     type: 'error',
-                    message: 'Please enter a candidate ID to search'
+                    message: 'Please enter a search term (ID, name, email, phone, or LinkedIn)'
                 };
                 setTimeout(() => { saveStatus.value = null; }, 3000);
                 return;
@@ -106,12 +107,12 @@ createApp({
             
             try {
                 isLoading.value = true;
-                const response = await fetch(`${apiBaseUrl}/${searchId.value.trim()}`);
+                const response = await fetch(`${apiBaseUrl}/${encodeURIComponent(searchId.value.trim())}`);
                 
                 if (response.status === 404) {
                     saveStatus.value = {
                         type: 'error',
-                        message: 'No candidate found with ID: ' + searchId.value
+                        message: 'No candidate found matching: ' + searchId.value
                     };
                     setTimeout(() => { saveStatus.value = null; }, 3000);
                     return;
@@ -175,10 +176,10 @@ createApp({
                 }
             });
             
-            // Ensure arrays have at least one empty item for the UI
-            ['strengths', 'weaknesses', 'skills'].forEach(field => {
-                if (!profile[field] || profile[field].length === 0) {
-                    profile[field] = [''];
+            // Ensure all fields exist
+            ['timing', 'facial', 'video', 'communication'].forEach(field => {
+                if (!profile[field]) {
+                    profile[field] = '';
                 }
             });
         }
@@ -192,9 +193,10 @@ createApp({
             profile.email = '';
             profile.phone = '';
             profile.summary = '';
-            profile.strengths = [''];
-            profile.weaknesses = [''];
-            profile.skills = [''];
+            profile.timing = '';
+            profile.facial = '';
+            profile.video = '';
+            profile.communication = '';
             searchId.value = '';
             
             saveStatus.value = {
@@ -270,10 +272,7 @@ createApp({
                 // Clone the profile and clean up data
                 const cleanProfile = JSON.parse(JSON.stringify(profile));
                 
-                // Filter out empty items from arrays
-                cleanProfile.strengths = profile.strengths.filter(s => s.trim() !== '');
-                cleanProfile.weaknesses = profile.weaknesses.filter(w => w.trim() !== '');
-                cleanProfile.skills = profile.skills.filter(s => s.trim() !== '');
+                // No need to filter arrays anymore
                 
                 // Determine if this is a new candidate or an update
                 const isExisting = candidatesList.value.some(c => c.id === cleanProfile.id);
@@ -360,9 +359,10 @@ createApp({
             profile.email = '';
             profile.phone = '';
             profile.summary = '';
-            profile.strengths = [''];
-            profile.weaknesses = [''];
-            profile.skills = [''];
+            profile.timing = '';
+            profile.facial = '';
+            profile.video = '';
+            profile.communication = '';
             searchId.value = '';
         }
         
@@ -382,6 +382,23 @@ createApp({
             saveStatus.value = {
                 type: 'success',
                 message: 'URL copied to clipboard!'
+            };
+            setTimeout(() => { saveStatus.value = null; }, 2000);
+        }
+        
+        // Copy the access key to clipboard
+        function copyAccessKey() {
+            // Create a temporary input element
+            const tempInput = document.createElement('input');
+            tempInput.value = profile.accessKey;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            
+            saveStatus.value = {
+                type: 'success',
+                message: 'Access key copied to clipboard!'
             };
             setTimeout(() => { saveStatus.value = null; }, 2000);
         }
@@ -439,6 +456,7 @@ createApp({
             deleteCandidate,
             getFullProfileUrl,
             copyUrlToClipboard,
+            copyAccessKey,
             regenerateProfileUrl
         };
     }

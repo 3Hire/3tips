@@ -31,21 +31,11 @@ async function generateProfileHtml(candidate) {
       : 'Not provided');
     template = template.replace(/{{summary}}/g, candidate.summary || 'Not provided');
     
-    // Handle arrays
-    const strengthsList = candidate.strengths && candidate.strengths.length 
-      ? candidate.strengths.map(s => `<li>${s}</li>`).join('') 
-      : '<li>No strengths listed</li>';
-    template = template.replace(/{{strengths}}/g, strengthsList);
-    
-    const weaknessesList = candidate.weaknesses && candidate.weaknesses.length 
-      ? candidate.weaknesses.map(w => `<li>${w}</li>`).join('') 
-      : '<li>No areas for improvement listed</li>';
-    template = template.replace(/{{weaknesses}}/g, weaknessesList);
-    
-    const skillsList = candidate.skills && candidate.skills.length 
-      ? candidate.skills.map(s => `<li>${s}</li>`).join('') 
-      : '<li>No skills listed</li>';
-    template = template.replace(/{{skills}}/g, skillsList);
+    // Replace new assessment fields
+    template = template.replace(/{{timing}}/g, candidate.timing || 'Not provided');
+    template = template.replace(/{{facial}}/g, candidate.facial || 'Not provided');
+    template = template.replace(/{{video}}/g, candidate.video || 'Not provided');
+    template = template.replace(/{{communication}}/g, candidate.communication || 'Not provided');
     
     // Save the generated HTML file
     const outputPath = path.join(__dirname, '../..', candidate.accessUrl);
@@ -68,11 +58,27 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Get candidate by ID
-router.get('/:id', async (req, res) => {
+// Get candidate by ID, name, email, phone, or LinkedIn
+router.get('/:searchTerm', async (req, res) => {
   try {
-    const candidate = await Candidate.findOne({ id: req.params.id });
-    if (!candidate) return res.status(404).json({ message: 'Candidate not found' });
+    const searchTerm = req.params.searchTerm;
+    
+    // Try to find by ID first
+    let candidate = await Candidate.findOne({ id: searchTerm });
+    
+    // If not found, try other fields
+    if (!candidate) {
+      candidate = await Candidate.findOne({
+        $or: [
+          { name: { $regex: searchTerm, $options: 'i' } },  // Case insensitive name search
+          { email: { $regex: searchTerm, $options: 'i' } }, // Case insensitive email search
+          { phone: { $regex: searchTerm, $options: 'i' } }, // Case insensitive phone search
+          { linkedin: { $regex: searchTerm, $options: 'i' } } // Case insensitive LinkedIn search
+        ]
+      });
+    }
+    
+    if (!candidate) return res.status(404).json({ message: 'No candidate found matching: ' + searchTerm });
     res.json(candidate);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -199,6 +205,36 @@ router.get('/:id/shareableUrl', async (req, res) => {
     res.json({ 
       url: candidate.accessUrl,
       fullUrl: `${req.protocol}://${req.get('host')}/${candidate.accessUrl}`
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Verify candidate access key
+router.post('/:id/verify', async (req, res) => {
+  try {
+    const { accessKey } = req.body;
+    if (!accessKey) {
+      return res.status(400).json({ message: 'Access key is required' });
+    }
+    
+    const candidate = await Candidate.findOne({ id: req.params.id });
+    if (!candidate) {
+      return res.status(404).json({ message: 'Candidate not found' });
+    }
+    
+    // Verify the access key
+    if (candidate.accessKey !== accessKey) {
+      return res.status(401).json({ message: 'Invalid access key' });
+    }
+    
+    // Return success if key matches
+    res.json({ 
+      verified: true, 
+      message: 'Access key verified successfully',
+      candidateId: candidate.id,
+      candidateName: candidate.name
     });
   } catch (err) {
     res.status(500).json({ message: err.message });
