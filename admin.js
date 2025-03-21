@@ -410,8 +410,8 @@ createApp({
             setTimeout(() => { saveStatus.value = null; }, 2000);
         }
         
-        // Email report access details to the candidate
-        async function emailReportAccess() {
+        // Open default email client with pre-composed report access email
+        function emailReportAccess() {
             if (!profile.email || !profile.id || !profile.accessKey) {
                 saveStatus.value = {
                     type: 'error',
@@ -422,41 +422,56 @@ createApp({
             }
             
             try {
-                isLoading.value = true;
-                const response = await fetch(`${apiBaseUrl}/${profile.id}/emailAccess`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        name: profile.name,
-                        email: profile.email,
-                        candidateId: profile.id,
-                        accessKey: profile.accessKey
-                    })
-                });
+                // Construct the email content
+                const subject = encodeURIComponent("Interview Report from 3Hire");
+                const baseUrl = window.location.origin;
+                const reportUrl = `${baseUrl}/candidate-report.html`;
                 
-                if (!response.ok) {
-                    const data = await response.json();
-                    throw new Error(data.message || 'Failed to send email');
+                // Format the candidate's name properly
+                let candidateName = profile.name || '';
+                if (candidateName) {
+                    // Capitalize first letter of each word
+                    candidateName = candidateName.split(' ')
+                        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+                        .join(' ');
                 }
                 
-                const data = await response.json();
+                // Construct email body with proper formatting
+                const body = encodeURIComponent(`Dear ${candidateName},
+
+We're pleased to inform you that your interview assessment report is now ready for your review.
+
+To access your report, please visit:
+${reportUrl}
+
+You will need the following credentials:
+Candidate ID: ${profile.id}
+Access Key: ${profile.accessKey}
+
+This report provides valuable insights into your interview performance and offers recommendations for your professional development.
+
+If you have any questions or need further assistance, please don't hesitate to reach out.
+
+Best regards,
+Team 3Hire
+www.threehire.com
+`);
+                
+                // Open default email client with pre-composed email
+                window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`;
                 
                 saveStatus.value = {
                     type: 'success',
-                    message: 'Email sent successfully to ' + profile.email
+                    message: 'Email client opened with pre-composed message'
                 };
                 setTimeout(() => { saveStatus.value = null; }, 3000);
             } catch (error) {
-                console.error('Error sending email:', error);
+                console.error('Error opening email client:', error);
                 saveStatus.value = {
                     type: 'error',
-                    message: 'Error sending email: ' + error.message
+                    message: 'Error opening email client: ' + error.message
                 };
                 setTimeout(() => { saveStatus.value = null; }, 3000);
-            } finally {
-                isLoading.value = false;
             }
         }
         
