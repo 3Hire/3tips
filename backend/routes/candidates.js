@@ -312,7 +312,7 @@ router.post('/:id/emailAccess', async (req, res) => {
     
     // Create email content
     const siteUrl = `${req.protocol}://${req.get('host')}`;
-    const reportUrl = `${siteUrl}/candidate-report.html`;
+    const reportUrl = `${siteUrl}/candidates.html`;
     
     const mailOptions = {
       from: process.env.EMAIL_USER || '3@threehire.com',

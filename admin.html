@@ -12,16 +12,23 @@
     <div id="app">
         <header>
             <div class="logo-container">
-                <img src="https://img1.wsimg.com/isteam/ip/8703b2e9-5832-4c2f-bf7b-fb281aa3e9f1/3Hire%20-%20Logo%20-%20transparent.jpg/:/rs=w:108,h:108,cg:true,m/cr=w:108,h:108/qt=q:100" 
-                     alt="Three Hire Logo" class="logo-image">
-                <div class="logo"></div>
+                <a href="index.html">
+                    <img src="https://img1.wsimg.com/isteam/ip/8703b2e9-5832-4c2f-bf7b-fb281aa3e9f1/3Hire%20-%20Logo%20-%20transparent.jpg/:/rs=w:108,h:108,cg:true,m/cr=w:108,h:108/qt=q:100" 
+                         alt="Three Hire Logo" class="logo-image">
+                    <div class="logo"></div>
+                </a>
             </div>
-            <nav>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav id="mainNav">
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="about.html">About</a></li>
                     <li><a href="admin.html" class="active">Admin</a></li>
-                    <li><a href="candidate-report.html">Reports</a></li>
+                    <li><a href="candidates.html">Candidates</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
             </nav>
@@ -48,15 +55,15 @@
                     <div class="shareable-link" v-if="profile.accessKey">
                         <label>Assessment Report Access:</label>
                         <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;">
-                            <div style="display: flex; align-items: center; gap: 5px;">
+                            <div style="display: flex; align-items: center; gap: 5px; flex-wrap: wrap;">
                                 <span style="font-weight: bold; min-width: 100px;">Report URL:</span>
-                                <span>http://localhost:3000/candidate-report.html</span>
+                                <span>http://localhost:3000/candidates.html</span>
                             </div>
-                            <div style="display: flex; align-items: center; gap: 5px;">
+                            <div style="display: flex; align-items: center; gap: 5px; flex-wrap: wrap;">
                                 <span style="font-weight: bold; min-width: 100px;">Candidate ID:</span>
                                 <span>{{ profile.id }}</span>
                             </div>
-                            <div style="display: flex; align-items: center; gap: 5px;">
+                            <div style="display: flex; align-items: center; gap: 5px; flex-wrap: wrap;">
                                 <span style="font-weight: bold; min-width: 100px;">Access Key:</span>
                                 <span>{{ profile.accessKey }}</span>
                                 <button type="button" @click="copyAllAccessInfo" class="copy-btn">Copy All</button>
@@ -69,12 +76,12 @@
                     </div>
                     
                     <form @submit.prevent="saveProfile">
-                        <div class="form-row" style="display: flex; gap: 15px; margin-bottom: 20px;">
-                            <div style="flex: 1;">
+                        <div class="form-row" style="display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap;">
+                            <div style="flex: 1; min-width: 250px;">
                                 <label for="name">Full Name</label>
                                 <input type="text" id="name" v-model="profile.name" required>
                             </div>
-                            <div style="flex: 1;">
+                            <div style="flex: 1; min-width: 250px;">
                                 <label for="email">Email Address</label>
                                 <input type="email" id="email" v-model="profile.email" required
                                        :class="{ 'input-error': !isValidEmail && profile.email }">
@@ -82,7 +89,7 @@
                                     Please enter a valid email address
                                 </div>
                             </div>
-                            <div style="flex: 1;">
+                            <div style="flex: 1; min-width: 250px;">
                                 <label for="phone">Phone Number</label>
                                 <input type="tel" id="phone" v-model="profile.phone" placeholder="123-456-7890"
                                        :class="{ 'input-error': !isValidPhone && profile.phone }">
@@ -103,38 +110,27 @@
                             <small class="field-note">Must be unique across all candidates</small>
                         </div>
                         
-                        <div class="form-group">
-                            <label for="summary">Summary</label>
-                            <textarea id="summary" v-model="profile.summary" rows="4" placeholder="Enter candidate summary here..."></textarea>
-                        </div>
-                        
                         <div class="form-section">
-                            <h3>Timing</h3>
+                            <h3>Summary</h3>
                             <div class="form-group">
-                                <textarea id="timing" v-model="profile.timing" rows="3" placeholder="Enter timing assessment here..."></textarea>
+                                <textarea id="summary" v-model="profile.summary" rows="6" placeholder="Write a summary and list 3 things that the candidate did well..."></textarea>
+                                <small class="field-note">Provide a comprehensive overview of the candidate's interview performance</small>
                             </div>
                         </div>
                         
                         <div class="form-section">
-                            <h3>Facial Expressions</h3>
+                            <h3>Recommendations</h3>
                             <div class="form-group">
-                                <textarea id="facial" v-model="profile.facial" rows="3" placeholder="Enter facial expression assessment here..."></textarea>
+                                <textarea id="recommendations" v-model="profile.recommendations" rows="6" placeholder="Enter up to three specific recommendations for the candidate's improvement..."></textarea>
+                                <small class="field-note">Provide actionable advice for the candidate to improve their interviewing skills</small>
                             </div>
                         </div>
                         
-                        <div class="form-section">
-                            <h3>Video Presence</h3>
-                            <div class="form-group">
-                                <textarea id="video" v-model="profile.video" rows="3" placeholder="Enter video presence assessment here..."></textarea>
-                            </div>
-                        </div>
-                        
-                        <div class="form-section">
-                            <h3>Communication</h3>
-                            <div class="form-group">
-                                <textarea id="communication" v-model="profile.communication" rows="3" placeholder="Enter communication assessment here..."></textarea>
-                            </div>
-                        </div>
+                        <!-- Hidden fields to maintain database compatibility -->
+                        <input type="hidden" id="timing" v-model="profile.timing">
+                        <input type="hidden" id="facial" v-model="profile.facial">
+                        <input type="hidden" id="video" v-model="profile.video">
+                        <input type="hidden" id="communication" v-model="profile.communication">
                         
                         <div class="form-actions">
                             <button type="submit" class="save-btn" :disabled="!isFormValid || isLoading">
@@ -179,5 +175,37 @@
     </div>
     <script src="https://unpkg.com/vue@3"></script>
     <script src="admin.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu functionality
+            const mobileMenuBtn = document.createElement('button');
+            mobileMenuBtn.className = 'mobile-menu-btn';
+            mobileMenuBtn.innerHTML = '<span></span><span></span><span></span>';
+            
+            const logoContainer = document.querySelector('.logo-container');
+            const nav = document.querySelector('nav');
+            
+            if (window.innerWidth <= 768) {
+                logoContainer.appendChild(mobileMenuBtn);
+                
+                mobileMenuBtn.addEventListener('click', function() {
+                    nav.classList.toggle('active');
+                });
+            }
+            
+            window.addEventListener('resize', function() {
+                if (window.innerWidth <= 768) {
+                    if (!logoContainer.contains(mobileMenuBtn)) {
+                        logoContainer.appendChild(mobileMenuBtn);
+                    }
+                } else {
+                    if (logoContainer.contains(mobileMenuBtn)) {
+                        logoContainer.removeChild(mobileMenuBtn);
+                    }
+                    nav.classList.remove('active');
+                }
+            });
+        });
+    </script>
 </body>
 </html>

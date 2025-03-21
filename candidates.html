@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidate Report - 3Hire</title>
+    <meta name="description" content="Coaching. Hiring. Consulting">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            width: 100%;
+        }
+        
+        #app {
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .login-container {
+            width: 90%;
+            max-width: 900px;
+            margin: 30px auto;
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .profile-container {
+            width: 90%;
+            max-width: 900px;
+            margin: 30px auto;
+            display: none;
+            padding: 30px;
+        }
+        
+        input[type="text"], input[type="password"] {
+            padding: 10px;
+            width: 100%;
+            max-width: 300px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        .error-message {
+            color: #f44336;
+            margin: 15px 0;
+        }
+        
+        .report-header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .candidate-id {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 0;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 30px;
+        }
+        
+        .contact-info div {
+            flex: 1;
+            min-width: 200px;
+            margin: 5px;
+        }
+        
+        .contact-info h3 {
+            margin-bottom: 5px;
+            color: #555;
+            font-size: 16px;
+        }
+        
+        .contact-info p {
+            margin-top: 0;
+        }
+        
+        .assessment {
+            background-color: #e8f5e9;
+            padding: 20px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .info-block {
+            margin-bottom: 30px;
+        }
+        
+        .info-block h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 5px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        
+        .print-btn {
+            float: right;
+            background-color: #2196F3;
+        }
+        
+        .print-btn:hover {
+            background-color: #0b7dda;
+        }
+        
+        /* Action Options & Cards */
+        .action-options {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid #eee;
+        }
+        
+        .action-options h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        
+        .action-options > p {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+        
+        .action-card {
+            padding: 25px;
+            width: 100%;
+            max-width: 300px;
+            transition: all 0.3s ease;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .action-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .action-card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .action-card p {
+            color: #666;
+            margin-bottom: 20px;
+            flex-grow: 1;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        
+        .action-btn {
+            padding: 12px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1rem;
+            transition: all 0.3s;
+            border: none;
+        }
+        
+        .schedule-btn {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .schedule-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .donate-btn {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .donate-btn:hover {
+            background-color: #c0392b;
+        }
+        
+        .premium-btn {
+            background-color: #f39c12;
+            color: white;
+        }
+        
+        .premium-btn:hover {
+            background-color: #d35400;
+        }
+        
+        /* Modal for Donations */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .close-modal {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #aaa;
+        }
+        
+        .close-modal:hover {
+            color: #333;
+        }
+        
+        .donation-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 25px 0;
+            justify-content: center;
+        }
+        
+        .donation-amount {
+            padding: 12px 20px;
+            background-color: #f5f5f5;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .donation-amount:hover, .donation-amount.selected {
+            background-color: #e74c3c;
+            color: white;
+            border-color: #e74c3c;
+        }
+        
+        .custom-amount {
+            width: 100%;
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .custom-amount label {
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .custom-amount input {
+            padding: 10px;
+            width: 150px;
+            text-align: center;
+            font-size: 1.1rem;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .payment-btn {
+            background-color: #e74c3c;
+            color: white;
+            padding: 15px 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+        
+        .payment-btn:hover {
+            background-color: #c0392b;
+        }
+        
+        /* Media Queries */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+                padding: 10px 0;
+            }
+            
+            .logo-container {
+                width: 100%;
+                justify-content: space-between;
+                padding: 0 20px;
+            }
+            
+            nav {
+                width: 100%;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+            }
+            
+            nav.active {
+                max-height: 300px;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                padding: 10px 0;
+            }
+            
+            nav li {
+                margin: 10px 0;
+                width: 100%;
+                text-align: center;
+            }
+            
+            nav a {
+                display: block;
+                padding: 10px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .action-card {
+                width: 100%;
+                max-width: 100%;
+            }
+            
+            .donation-amount {
+                flex: 1 0 40%;
+            }
+        }
+
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .profile-container {
+                padding: 0;
+            }
+            
+            .login-container, .print-btn, header, footer, .action-options {
+                display: none !important;
+            }
+            
+            .profile-container {
+                display: block !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <div class="logo-container">
+                <a href="index.html">
+                    <img src="https://img1.wsimg.com/isteam/ip/8703b2e9-5832-4c2f-bf7b-fb281aa3e9f1/3Hire%20-%20Logo%20-%20transparent.jpg/:/rs=w:108,h:108,cg:true,m/cr=w:108,h:108/qt=q:100" 
+                         alt="Three Hire Logo" class="logo-image">
+                    <div class="logo"></div>
+                </a>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="candidates.html" class="active">Candidates</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <div class="login-container" id="login-section">
+                <h1>Candidate Report Access</h1>
+                <p>Please enter your candidate ID and the provided access code to view your assessment report.</p>
+                
+                <div>
+                    <input type="text" id="candidate-id" placeholder="Enter Candidate ID (e.g., CAN-123456)">
+                </div>
+                <div>
+                    <input type="password" id="access-code" placeholder="Enter Access Code">
+                </div>
+                <button id="access-btn">Access Report</button>
+                <p class="error-message" id="error-msg"></p>
+            </div>
+            
+            <div class="profile-container" id="report-section">
+                <button class="print-btn" id="print-btn">Print Report</button>
+                
+                <div class="report-header">
+                    <h1 id="candidate-name">Candidate Name</h1>
+                    <p class="candidate-id" id="report-id">Candidate ID: </p>
+                </div>
+                
+                <div class="contact-info">
+                    <div>
+                        <h3>Email</h3>
+                        <p id="report-email"></p>
+                    </div>
+                    <div>
+                        <h3>Phone</h3>
+                        <p id="report-phone"></p>
+                    </div>
+                    <div>
+                        <h3>LinkedIn</h3>
+                        <p id="report-linkedin"></p>
+                    </div>
+                </div>
+                
+                <div class="info-block">
+                    <h2>Summary</h2>
+                    <div class="assessment" id="report-summary"></div>
+                </div>
+                
+                <div class="info-block">
+                    <h2>Recommendations</h2>
+                    <div class="assessment" id="report-recommendations"></div>
+                </div>
+                
+                <!-- Hidden sections - not displayed but data is still retrieved -->
+                <div style="display: none;">
+                    <div id="report-timing"></div>
+                    <div id="report-facial"></div>
+                    <div id="report-video"></div>
+                    <div id="report-communication"></div>
+                </div>
+                
+                <div class="action-options">
+                    <h2>Next Steps</h2>
+                    <p>Thank you for reviewing your assessment report. We offer the following options to help you further your career journey:</p>
+                    
+                    <div class="action-buttons">
+                        <div class="action-card">
+                            <h3>Coaching Session</h3>
+                            <p>Schedule a personalized coaching session with one of our experts to discuss your assessment in detail and receive tailored guidance.</p>
+                            <a href="https://calendly.com/3hire/coaching" target="_blank" class="action-btn schedule-btn">Schedule Session</a>
+                        </div>
+                        
+                        <div class="action-card">
+                            <h3>Support Our Work</h3>
+                            <p>If you found this assessment valuable, consider making a donation to support our ongoing research and development.</p>
+                            <button id="donateBtn" class="action-btn donate-btn">Make a Donation</button>
+                        </div>
+                        
+                        <div class="action-card">
+                            <h3>Premium Services</h3>
+                            <p>Explore our comprehensive career development packages designed to maximize your professional potential.</p>
+                            <a href="https://www.3hire.ai/services" target="_blank" class="action-btn premium-btn">View Services</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Donation Modal -->
+                    <div id="donationModal" class="modal">
+                        <div class="modal-content">
+                            <span class="close-modal">&times;</span>
+                            <h2>Support Our Work</h2>
+                            <p>Your contribution helps us continue providing valuable assessment services.</p>
+                            
+                            <div class="donation-options">
+                                <button class="donation-amount" data-amount="10">$10</button>
+                                <button class="donation-amount" data-amount="25">$25</button>
+                                <button class="donation-amount" data-amount="50">$50</button>
+                                <button class="donation-amount" data-amount="100">$100</button>
+                                <div class="custom-amount">
+                                    <label for="customAmount">Custom Amount ($):</label>
+                                    <input type="number" id="customAmount" min="1" placeholder="Enter amount">
+                                </div>
+                            </div>
+                            
+                            <button id="processPayment" class="payment-btn">Proceed to Payment</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 3Hire. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="contact.html">Contact</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+        </footer>
+    </div>
+    
+    <script src="https://unpkg.com/vue@3"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const accessBtn = document.getElementById('access-btn');
+            const printBtn = document.getElementById('print-btn');
+            const errorMsg = document.getElementById('error-msg');
+            const loginSection = document.getElementById('login-section');
+            const reportSection = document.getElementById('report-section');
+            
+            // Mobile menu functionality
+            const mobileMenuBtn = document.createElement('button');
+            mobileMenuBtn.className = 'mobile-menu-btn';
+            mobileMenuBtn.innerHTML = '<span></span><span></span><span></span>';
+            
+            const logoContainer = document.querySelector('.logo-container');
+            const nav = document.querySelector('nav');
+            
+            if (window.innerWidth <= 768) {
+                logoContainer.appendChild(mobileMenuBtn);
+                
+                mobileMenuBtn.addEventListener('click', function() {
+                    nav.classList.toggle('active');
+                });
+            }
+            
+            window.addEventListener('resize', function() {
+                if (window.innerWidth <= 768) {
+                    if (!logoContainer.contains(mobileMenuBtn)) {
+                        logoContainer.appendChild(mobileMenuBtn);
+                    }
+                } else {
+                    if (logoContainer.contains(mobileMenuBtn)) {
+                        logoContainer.removeChild(mobileMenuBtn);
+                    }
+                    nav.classList.remove('active');
+                }
+            });
+            
+            // Master access code for admin use
+            const MASTER_ACCESS_CODE = "reports123"; // Admin master access code
+            
+            accessBtn.addEventListener('click', async function() {
+                const candidateId = document.getElementById('candidate-id').value.trim();
+                const accessCode = document.getElementById('access-code').value.trim();
+                
+                errorMsg.textContent = '';
+                
+                if (!candidateId) {
+                    errorMsg.textContent = 'Please enter a candidate ID';
+                    return;
+                }
+                
+                if (!accessCode) {
+                    errorMsg.textContent = 'Please enter the access code';
+                    return;
+                }
+                
+                // First check if it's the master code (for admin use)
+                if (accessCode === MASTER_ACCESS_CODE) {
+                    // Admin access granted - proceed to fetch data
+                } else {
+                    try {
+                        // Verify the access key against the database
+                        const verifyResponse = await fetch(`http://localhost:3000/api/candidates/${candidateId}/verify`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ accessKey: accessCode })
+                        });
+                        
+                        if (verifyResponse.status === 401) {
+                            errorMsg.textContent = 'Invalid access code';
+                            return;
+                        }
+                        
+                        if (!verifyResponse.ok) {
+                            throw new Error('Failed to verify access code');
+                        }
+                    } catch (error) {
+                        console.error('Error verifying access code:', error);
+                        // Fallback verification if API endpoint isn't available yet
+                        // This should be removed in production
+                        if (accessCode !== "8b17879f434b7adc") { // Hardcoded for testing
+                            errorMsg.textContent = 'Invalid access code';
+                            return;
+                        }
+                    }
+                }
+                
+                try {
+                    // Fetch candidate data from the API
+                    const response = await fetch(`http://localhost:3000/api/candidates/${candidateId}`);
+                    
+                    if (response.status === 404) {
+                        errorMsg.textContent = 'Candidate not found. Please check the ID and try again.';
+                        return;
+                    }
+                    
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch candidate data');
+                    }
+                    
+                    const candidateData = await response.json();
+                    
+                    // Populate report with data
+                    document.getElementById('candidate-name').textContent = candidateData.name || 'Not Available';
+                    document.getElementById('report-id').textContent = 'Candidate ID: ' + candidateData.id;
+                    document.getElementById('report-email').textContent = candidateData.email || 'Not Available';
+                    document.getElementById('report-phone').textContent = candidateData.phone || 'Not Available';
+                    
+                    if (candidateData.linkedin) {
+                        document.getElementById('report-linkedin').innerHTML = `<a href="${candidateData.linkedin}" target="_blank">${candidateData.linkedin}</a>`;
+                    } else {
+                        document.getElementById('report-linkedin').textContent = 'Not Available';
+                    }
+                    
+                    document.getElementById('report-summary').textContent = candidateData.summary || 'No summary available';
+                    document.getElementById('report-timing').textContent = candidateData.timing || 'No timing assessment available';
+                    document.getElementById('report-facial').textContent = candidateData.facial || 'No facial expression assessment available';
+                    document.getElementById('report-video').textContent = candidateData.video || 'No video presence assessment available';
+                    document.getElementById('report-communication').textContent = candidateData.communication || 'No communication assessment available';
+                    document.getElementById('report-recommendations').textContent = candidateData.recommendations || 'No specific recommendations available';
+                    
+                    // Show report section, hide login section
+                    loginSection.style.display = 'none';
+                    reportSection.style.display = 'block';
+                    
+                    // Update page title with candidate name
+                    document.title = `Assessment Report - ${candidateData.name} - 3Hire`;
+                    
+                } catch (error) {
+                    console.error('Error fetching candidate data:', error);
+                    errorMsg.textContent = 'An error occurred while loading the report. Please try again later.';
+                }
+            });
+            
+            // Print report functionality
+            printBtn.addEventListener('click', function() {
+                window.print();
+            });
+            
+            // Also allow form submission with Enter key
+            document.getElementById('access-code').addEventListener('keyup', function(event) {
+                if (event.key === 'Enter') {
+                    accessBtn.click();
+                }
+            });
+            
+            // Donation modal functionality
+            const donateBtn = document.getElementById('donateBtn');
+            const donationModal = document.getElementById('donationModal');
+            const closeModal = document.querySelector('.close-modal');
+            const donationAmounts = document.querySelectorAll('.donation-amount');
+            const processPaymentBtn = document.getElementById('processPayment');
+            const customAmountInput = document.getElementById('customAmount');
+            
+            let selectedAmount = 0;
+            
+            // Open donation modal when clicking donate button
+            if (donateBtn) {
+                donateBtn.addEventListener('click', function() {
+                    donationModal.style.display = 'flex';
+                });
+            }
+            
+            // Close modal when clicking X
+            if (closeModal) {
+                closeModal.addEventListener('click', function() {
+                    donationModal.style.display = 'none';
+                });
+            }
+            
+            // Close modal when clicking outside of it
+            window.addEventListener('click', function(event) {
+                if (event.target === donationModal) {
+                    donationModal.style.display = 'none';
+                }
+            });
+            
+            // Handle donation amount selection
+            if (donationAmounts) {
+                donationAmounts.forEach(button => {
+                    button.addEventListener('click', function() {
+                        // Remove selected class from all buttons
+                        donationAmounts.forEach(btn => btn.classList.remove('selected'));
+                        // Add selected class to clicked button
+                        this.classList.add('selected');
+                        // Get the amount from data attribute
+                        selectedAmount = parseFloat(this.getAttribute('data-amount'));
+                        // Clear custom amount input
+                        customAmountInput.value = '';
+                    });
+                });
+            }
+            
+            // Handle custom amount input
+            if (customAmountInput) {
+                customAmountInput.addEventListener('input', function() {
+                    // Remove selected class from preset amounts
+                    donationAmounts.forEach(btn => btn.classList.remove('selected'));
+                    // Set selected amount to custom input value
+                    selectedAmount = parseFloat(this.value) || 0;
+                });
+            }
+            
+            // Handle payment processing
+            if (processPaymentBtn) {
+                processPaymentBtn.addEventListener('click', function() {
+                    if (selectedAmount <= 0) {
+                        alert('Please select or enter a valid donation amount.');
+                        return;
+                    }
+                    
+                    // Here you would normally integrate with a payment processor like Stripe or PayPal
+                    // For now, we'll just redirect to a mock payment page with the amount in the URL
+                    // In production, replace this with your actual payment processor integration
+                    
+                    const candidateName = document.getElementById('candidate-name').textContent;
+                    const candidateId = document.getElementById('report-id').textContent.replace('Candidate ID: ', '');
+                    
+                    // Create URL parameters with donation information
+                    const params = new URLSearchParams({
+                        amount: selectedAmount.toFixed(2),
+                        name: candidateName,
+                        id: candidateId,
+                        purpose: 'Assessment Report Donation'
+                    });
+                    
+                    // Redirect to a payment page (you should replace this with your actual payment page)
+                    window.location.href = `https://www.3hire.ai/donate?${params.toString()}`;
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -173,15 +173,22 @@
     <div id="app">
         <header>
             <div class="logo-container">
-                <img src="https://img1.wsimg.com/isteam/ip/8703b2e9-5832-4c2f-bf7b-fb281aa3e9f1/3Hire%20-%20Logo%20-%20transparent.jpg/:/rs=w:108,h:108,cg:true,m/cr=w:108,h:108/qt=q:100" 
-                     alt="Three Hire Logo" class="logo-image">
-                <div class="logo"></div>
+                <a href="index.html">
+                    <img src="https://img1.wsimg.com/isteam/ip/8703b2e9-5832-4c2f-bf7b-fb281aa3e9f1/3Hire%20-%20Logo%20-%20transparent.jpg/:/rs=w:108,h:108,cg:true,m/cr=w:108,h:108/qt=q:100" 
+                         alt="Three Hire Logo" class="logo-image">
+                    <div class="logo"></div>
+                </a>
             </div>
-            <nav>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav id="mainNav">
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="about.html">About</a></li>
-                    <li><a href="candidate-report.html">Reports</a></li>
+                    <li><a href="candidates.html">Candidates</a></li>
                     <li><a href="contact.html" class="active">Contact</a></li>
                 </ul>
             </nav>
@@ -277,6 +284,16 @@
     <script src="https://unpkg.com/vue@3"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu functionality
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mainNav = document.getElementById('mainNav');
+            
+            if (mobileMenuBtn && mainNav) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    mainNav.classList.toggle('active');
+                });
+            }
+            
             const contactForm = document.getElementById('contactForm');
             const formStatus = document.getElementById('formStatus');
             

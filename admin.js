@@ -44,7 +44,8 @@ createApp({
             timing: '',
             facial: '',
             video: '',
-            communication: ''
+            communication: '',
+            recommendations: ''
         });
         
         // Get list of candidates
@@ -363,6 +364,7 @@ createApp({
             profile.facial = '';
             profile.video = '';
             profile.communication = '';
+            profile.recommendations = '';
             searchId.value = '';
         }
         
@@ -389,7 +391,7 @@ createApp({
         // Copy all access information to clipboard
         function copyAllAccessInfo() {
             // Create formatted text with all access information
-            const reportUrl = 'http://localhost:3000/candidate-report.html';
+            const reportUrl = 'http://localhost:3000/candidates.html';
             const allAccessInfo = 
                 `Report URL: ${reportUrl}\n` +
                 `Candidate ID: ${profile.id}\n` +
@@ -425,7 +427,7 @@ createApp({
                 // Construct the email content
                 const subject = encodeURIComponent("Interview Report from 3Hire");
                 const baseUrl = window.location.origin;
-                const reportUrl = `${baseUrl}/candidate-report.html`;
+                const reportUrl = `${baseUrl}/candidates.html`;
                 
                 // Format the candidate's name properly
                 let candidateName = profile.name || '';

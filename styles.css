@@ -38,12 +38,14 @@ body {
     color: var(--text-color);
     background-color: var(--background-color);
     line-height: 1.6;
+    width: 100%;
 }
 
 #app {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 /* Header Styles */
@@ -51,7 +53,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 0;
+    padding: 20px 5%;
     border-bottom: 1px solid #ddd;
     margin-bottom: 0;
     position: sticky;
@@ -59,11 +61,18 @@ header {
     background-color: rgba(255, 255, 255, 0.95);
     z-index: 1000;
     backdrop-filter: blur(5px);
+    width: 100%;
 }
 
 .logo-container {
     display: flex;
     align-items: center;
+}
+
+.logo-container a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
 }
 
 .logo-image {
@@ -110,10 +119,12 @@ nav a:hover {
 /* Hero Section */
 .hero {
     text-align: center;
-    padding: 120px 20px;
+    padding: 120px 5%;
+    margin: 0;
     margin-bottom: 40px;
     background: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.7)), url('images/ocean-waves.jpg') no-repeat center center;
     background-size: cover;
+    background-attachment: fixed;
     color: white;
     position: relative;
     display: flex;
@@ -121,7 +132,12 @@ nav a:hover {
     align-items: center;
     justify-content: center;
     min-height: 500px;
-    border-radius: 0;
+    width: 100vw;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    max-width: none;
 }
 
 .hero::after {
@@ -137,6 +153,7 @@ nav a:hover {
 .hero-content {
     max-width: 800px;
     z-index: 1;
+    padding: 0 20px;
 }
 
 .hero h1 {
@@ -145,6 +162,7 @@ nav a:hover {
     margin-bottom: 20px;
     line-height: 1.2;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    white-space: nowrap;
 }
 
 .hero h2 {
@@ -202,7 +220,8 @@ nav a:hover {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
     margin-bottom: 60px;
-    padding: 20px;
+    padding: 20px 5%;
+    width: 100%;
 }
 
 .section-title {
@@ -277,7 +296,8 @@ nav a:hover {
 
 /* Content area */
 main {
-    margin-bottom: 40px;
+    width: 100%;
+    padding: 0 5%;
 }
 
 /* Task List Styles */
@@ -391,11 +411,12 @@ ul {
 /* Footer Styles */
 footer {
     text-align: center;
-    padding: 40px 0;
+    padding: 40px 5%;
     margin-top: 60px;
     border-top: 1px solid #ddd;
     color: #777;
     background-color: #f9f9f9;
+    width: 100%;
 }
 
 .footer-links {
@@ -420,6 +441,8 @@ footer {
     flex-direction: column;
     gap: 30px;
     margin-bottom: 40px;
+    width: 100%;
+    padding: 0 5%;
 }
 
 .about-card {
@@ -468,6 +491,7 @@ footer {
     flex-wrap: wrap;
     gap: 30px;
     margin: 40px 0;
+    width: 100%;
 }
 
 .contact-info {
@@ -671,12 +695,14 @@ footer {
     }
     
     .hero {
-        padding: 80px 20px;
+        padding: 80px 5%;
         min-height: 400px;
+        background-attachment: scroll;
     }
     
     .hero h1 {
         font-size: 2.5rem;
+        white-space: normal;
     }
     
     .hero h2 {
@@ -686,6 +712,7 @@ footer {
     .btn {
         padding: 12px 20px;
         font-size: 0.9rem;
+        margin-bottom: 10px;
     }
     
     .features {
@@ -720,5 +747,13 @@ footer {
     
     .service-card {
         margin-bottom: 20px;
+    }
+    
+    main {
+        padding: 0 10px;
+    }
+    
+    footer {
+        padding: 30px 10px;
     }
 }
