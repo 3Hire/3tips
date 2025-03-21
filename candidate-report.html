@@ -142,6 +142,226 @@
             background-color: #0b7dda;
         }
         
+        /* Action Options & Cards */
+        .action-options {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid #eee;
+        }
+        
+        .action-options h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        
+        .action-options > p {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+        
+        .action-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            padding: 25px;
+            width: 100%;
+            max-width: 300px;
+            transition: all 0.3s ease;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .action-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+        
+        .action-card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .action-card p {
+            color: #666;
+            margin-bottom: 20px;
+            flex-grow: 1;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        
+        .action-btn {
+            padding: 12px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1rem;
+            transition: all 0.3s;
+            border: none;
+        }
+        
+        .schedule-btn {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .schedule-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .donate-btn {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .donate-btn:hover {
+            background-color: #c0392b;
+        }
+        
+        .premium-btn {
+            background-color: #f39c12;
+            color: white;
+        }
+        
+        .premium-btn:hover {
+            background-color: #d35400;
+        }
+        
+        /* Modal for Donations */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .close-modal {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #aaa;
+        }
+        
+        .close-modal:hover {
+            color: #333;
+        }
+        
+        .donation-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 25px 0;
+            justify-content: center;
+        }
+        
+        .donation-amount {
+            padding: 12px 20px;
+            background-color: #f5f5f5;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .donation-amount:hover, .donation-amount.selected {
+            background-color: #e74c3c;
+            color: white;
+            border-color: #e74c3c;
+        }
+        
+        .custom-amount {
+            width: 100%;
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .custom-amount label {
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .custom-amount input {
+            padding: 10px;
+            width: 150px;
+            text-align: center;
+            font-size: 1.1rem;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .payment-btn {
+            background-color: #e74c3c;
+            color: white;
+            padding: 15px 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+        
+        .payment-btn:hover {
+            background-color: #c0392b;
+        }
+        
+        @media (max-width: 768px) {
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .action-card {
+                width: 100%;
+                max-width: 100%;
+            }
+            
+            .donation-amount {
+                flex: 1 0 40%;
+            }
+        }
+
         @media print {
             body {
                 background-color: white;
@@ -153,7 +373,7 @@
                 padding: 0;
             }
             
-            .login-container, .print-btn, header, footer {
+            .login-container, .print-btn, header, footer, .action-options {
                 display: none !important;
             }
             
@@ -242,6 +462,53 @@
                 <div class="info-block">
                     <h2>Communication</h2>
                     <div class="assessment" id="report-communication"></div>
+                </div>
+                
+                <div class="action-options">
+                    <h2>Next Steps</h2>
+                    <p>Thank you for reviewing your assessment report. We offer the following options to help you further your career journey:</p>
+                    
+                    <div class="action-buttons">
+                        <div class="action-card">
+                            <h3>Coaching Session</h3>
+                            <p>Schedule a personalized coaching session with one of our experts to discuss your assessment in detail and receive tailored guidance.</p>
+                            <a href="https://calendly.com/3hire/coaching" target="_blank" class="action-btn schedule-btn">Schedule Session</a>
+                        </div>
+                        
+                        <div class="action-card">
+                            <h3>Support Our Work</h3>
+                            <p>If you found this assessment valuable, consider making a donation to support our ongoing research and development.</p>
+                            <button id="donateBtn" class="action-btn donate-btn">Make a Donation</button>
+                        </div>
+                        
+                        <div class="action-card">
+                            <h3>Premium Services</h3>
+                            <p>Explore our comprehensive career development packages designed to maximize your professional potential.</p>
+                            <a href="https://www.3hire.ai/services" target="_blank" class="action-btn premium-btn">View Services</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Donation Modal -->
+                    <div id="donationModal" class="modal">
+                        <div class="modal-content">
+                            <span class="close-modal">&times;</span>
+                            <h2>Support Our Work</h2>
+                            <p>Your contribution helps us continue providing valuable assessment services.</p>
+                            
+                            <div class="donation-options">
+                                <button class="donation-amount" data-amount="10">$10</button>
+                                <button class="donation-amount" data-amount="25">$25</button>
+                                <button class="donation-amount" data-amount="50">$50</button>
+                                <button class="donation-amount" data-amount="100">$100</button>
+                                <div class="custom-amount">
+                                    <label for="customAmount">Custom Amount ($):</label>
+                                    <input type="number" id="customAmount" min="1" placeholder="Enter amount">
+                                </div>
+                            </div>
+                            
+                            <button id="processPayment" class="payment-btn">Proceed to Payment</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>
@@ -374,6 +641,91 @@
                     accessBtn.click();
                 }
             });
+            
+            // Donation modal functionality
+            const donateBtn = document.getElementById('donateBtn');
+            const donationModal = document.getElementById('donationModal');
+            const closeModal = document.querySelector('.close-modal');
+            const donationAmounts = document.querySelectorAll('.donation-amount');
+            const processPaymentBtn = document.getElementById('processPayment');
+            const customAmountInput = document.getElementById('customAmount');
+            
+            let selectedAmount = 0;
+            
+            // Open donation modal when clicking donate button
+            if (donateBtn) {
+                donateBtn.addEventListener('click', function() {
+                    donationModal.style.display = 'flex';
+                });
+            }
+            
+            // Close modal when clicking X
+            if (closeModal) {
+                closeModal.addEventListener('click', function() {
+                    donationModal.style.display = 'none';
+                });
+            }
+            
+            // Close modal when clicking outside of it
+            window.addEventListener('click', function(event) {
+                if (event.target === donationModal) {
+                    donationModal.style.display = 'none';
+                }
+            });
+            
+            // Handle donation amount selection
+            if (donationAmounts) {
+                donationAmounts.forEach(button => {
+                    button.addEventListener('click', function() {
+                        // Remove selected class from all buttons
+                        donationAmounts.forEach(btn => btn.classList.remove('selected'));
+                        // Add selected class to clicked button
+                        this.classList.add('selected');
+                        // Get the amount from data attribute
+                        selectedAmount = parseFloat(this.getAttribute('data-amount'));
+                        // Clear custom amount input
+                        customAmountInput.value = '';
+                    });
+                });
+            }
+            
+            // Handle custom amount input
+            if (customAmountInput) {
+                customAmountInput.addEventListener('input', function() {
+                    // Remove selected class from preset amounts
+                    donationAmounts.forEach(btn => btn.classList.remove('selected'));
+                    // Set selected amount to custom input value
+                    selectedAmount = parseFloat(this.value) || 0;
+                });
+            }
+            
+            // Handle payment processing
+            if (processPaymentBtn) {
+                processPaymentBtn.addEventListener('click', function() {
+                    if (selectedAmount <= 0) {
+                        alert('Please select or enter a valid donation amount.');
+                        return;
+                    }
+                    
+                    // Here you would normally integrate with a payment processor like Stripe or PayPal
+                    // For now, we'll just redirect to a mock payment page with the amount in the URL
+                    // In production, replace this with your actual payment processor integration
+                    
+                    const candidateName = document.getElementById('candidate-name').textContent;
+                    const candidateId = document.getElementById('report-id').textContent.replace('Candidate ID: ', '');
+                    
+                    // Create URL parameters with donation information
+                    const params = new URLSearchParams({
+                        amount: selectedAmount.toFixed(2),
+                        name: candidateName,
+                        id: candidateId,
+                        purpose: 'Assessment Report Donation'
+                    });
+                    
+                    // Redirect to a payment page (you should replace this with your actual payment page)
+                    window.location.href = `https://www.3hire.ai/donate?${params.toString()}`;
+                });
+            }
         });
     </script>
 </body>

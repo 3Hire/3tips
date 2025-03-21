@@ -454,7 +454,7 @@ If you have any questions or need further assistance, please don't hesitate to r
 
 Best regards,
 Team 3Hire
-www.threehire.com
+www.3hire.ai
 `);
                 
                 // Open default email client with pre-composed email
