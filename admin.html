@@ -37,21 +37,13 @@
                         <button @click="searchCandidate" class="search-btn">Search</button>
                         <button @click="newCandidate" class="new-btn">New Candidate</button>
                     </div>
-                    <h2>Candidate Profile Information</h2>
+                    <h2>Candidate Profile</h2>
                     
                     <div class="candidate-id" v-if="profile.id">
                         <label>Candidate ID:</label>
                         <span>{{ profile.id }}</span>
                     </div>
                     
-                    <div class="shareable-link" v-if="profile.accessUrl">
-                        <label>Shareable Profile URL:</label>
-                        <div class="url-container">
-                            <input type="text" readonly :value="getFullProfileUrl()" class="url-input" ref="urlInput">
-                            <button type="button" @click="copyUrlToClipboard" class="copy-btn">Copy</button>
-                        </div>
-                        <button type="button" @click="regenerateProfileUrl" class="regenerate-btn">Generate New URL</button>
-                    </div>
                     
                     <div class="shareable-link" v-if="profile.accessKey">
                         <label>Assessment Report Access:</label>
@@ -159,7 +151,6 @@
                             </div>
                             <div class="candidate-actions">
                                 <button @click="loadCandidate(candidate.id)" class="load-btn">Load</button>
-                                <button @click="deleteCandidate(candidate.id)" class="delete-btn">Delete</button>
                             </div>
                         </div>
                     </div>
