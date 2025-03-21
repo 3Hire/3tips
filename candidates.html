@@ -341,12 +341,241 @@
             background-color: #c0392b;
         }
         
+        /* Blurred recommendations */
+        .blurred {
+            filter: blur(8px);
+            user-select: none;
+            pointer-events: none;
+            position: relative;
+            max-height: 80px;
+            overflow: hidden;
+        }
+        
+        .purchase-container {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-radius: 6px;
+            text-align: center;
+            border: 1px dashed #ddd;
+        }
+        
+        .purchase-info {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: #555;
+        }
+        
+        .purchase-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .purchase-btn:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        /* Professional action buttons layout */
+        .action-buttons-clean {
+            display: flex;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 20px 0 10px;
+        }
+        
+        .action-btn-clean {
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            font-size: 0.95rem;
+            text-align: center;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            border: none;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            min-width: 120px; /* Ensure consistent width */
+        }
+        
+        .action-btn-clean i {
+            margin-right: 8px;
+            font-size: 1rem;
+        }
+        
+        .purchase-btn-clean {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .purchase-btn-clean:hover {
+            background-color: #45a049;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+        }
+        
+        .donate-btn-clean {
+            background-color: #f8f9fa;
+            color: #555;
+            border: 1px solid #ddd;
+            box-shadow: none;
+        }
+        
+        .donate-btn-clean:hover {
+            background-color: #f1f3f5;
+            color: #333;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .purchased-btn-clean {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            cursor: default;
+            border: 1px solid #c8e6c9;
+        }
+        
+        .purchased-btn-clean:hover {
+            box-shadow: none;
+        }
+        
+        .schedule-btn-clean {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .schedule-btn-clean:hover {
+            background-color: #2980b9;
+        }
+        
+        .unlock-icon {
+            display: inline-flex;
+            margin-left: 8px;
+            color: #2e7d32;
+            font-size: 1.2rem;
+        }
+        
+        /* Payment Modal Styles */
+        .payment-form {
+            margin-top: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        .payment-note {
+            margin-top: 15px;
+            font-size: 0.85rem;
+            color: #888;
+            text-align: center;
+        }
+        
+        .close-payment-modal {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #aaa;
+        }
+        
+        .close-payment-modal:hover {
+            color: #333;
+        }
+        
+        .unlock-success {
+            color: #2e7d32;
+            background-color: #e8f5e9;
+            padding: 8px 12px;
+            border-radius: 4px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            border: 1px solid #c8e6c9;
+        }
+        
+        .unlock-success i {
+            margin-right: 6px;
+        }
+        
+        .login-intro {
+            font-size: 1.1rem;
+            font-weight: normal;
+            color: #555;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .recommendations-container {
+            position: relative;
+        }
+        
+        .recommendations-intro {
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 1rem;
+            font-weight: normal;
+        }
+        
         /* Media Queries */
         @media (max-width: 768px) {
             header {
                 flex-direction: column;
                 text-align: center;
                 padding: 10px 0;
+            }
+            
+            .info-block > div:first-child {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .info-block h2 {
+                margin-bottom: 10px;
+            }
+            
+            .action-buttons-clean {
+                width: 100%;
+                justify-content: flex-start;
+                margin-bottom: 15px;
             }
             
             .logo-container {
@@ -445,8 +674,7 @@
 
         <main>
             <div class="login-container" id="login-section">
-                <h1>Candidate Report Access</h1>
-                <p>Please enter your candidate ID and the provided access code to view your assessment report.</p>
+                <p class="login-intro">Access feedback to improve your career</p>
                 
                 <div>
                     <input type="text" id="candidate-id" placeholder="Enter Candidate ID (e.g., CAN-123456)">
@@ -454,41 +682,43 @@
                 <div>
                     <input type="password" id="access-code" placeholder="Enter Access Code">
                 </div>
-                <button id="access-btn">Access Report</button>
+                <button id="access-btn">Access Feedback</button>
                 <p class="error-message" id="error-msg"></p>
             </div>
             
             <div class="profile-container" id="report-section">
-                <button class="print-btn" id="print-btn">Print Report</button>
-                
                 <div class="report-header">
                     <h1 id="candidate-name">Candidate Name</h1>
                     <p class="candidate-id" id="report-id">Candidate ID: </p>
                 </div>
                 
-                <div class="contact-info">
-                    <div>
-                        <h3>Email</h3>
-                        <p id="report-email"></p>
-                    </div>
-                    <div>
-                        <h3>Phone</h3>
-                        <p id="report-phone"></p>
-                    </div>
-                    <div>
-                        <h3>LinkedIn</h3>
-                        <p id="report-linkedin"></p>
-                    </div>
-                </div>
+                <!-- Contact info removed as candidate already knows their own details -->
                 
                 <div class="info-block">
-                    <h2>Summary</h2>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h2>Summary</h2>
+                        <div class="action-buttons-clean">
+                            <button id="donateBtn" class="action-btn-clean donate-btn-clean">
+                                <i class="fa fa-heart"></i> Donate
+                            </button>
+                        </div>
+                    </div>
                     <div class="assessment" id="report-summary"></div>
                 </div>
                 
                 <div class="info-block">
-                    <h2>Recommendations</h2>
-                    <div class="assessment" id="report-recommendations"></div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h2>Recommendations</h2>
+                        <div class="action-buttons-clean">
+                            <button id="purchase-recommendations-btn" class="action-btn-clean purchase-btn-clean">
+                                <i class="fa fa-unlock-alt"></i> Unlock ($29)
+                            </button>
+                        </div>
+                    </div>
+                    <div class="recommendations-container">
+                        <p class="recommendations-intro">Access feedback to improve my interview skills and advance my career:</p>
+                        <div class="assessment blurred" id="report-recommendations"></div>
+                    </div>
                 </div>
                 
                 <!-- Hidden sections - not displayed but data is still retrieved -->
@@ -499,31 +729,10 @@
                     <div id="report-communication"></div>
                 </div>
                 
-                <div class="action-options">
-                    <h2>Next Steps</h2>
-                    <p>Thank you for reviewing your assessment report. We offer the following options to help you further your career journey:</p>
+                <!-- Donation modal container and settings -->
+                
                     
-                    <div class="action-buttons">
-                        <div class="action-card">
-                            <h3>Coaching Session</h3>
-                            <p>Schedule a personalized coaching session with one of our experts to discuss your assessment in detail and receive tailored guidance.</p>
-                            <a href="https://calendly.com/3hire/coaching" target="_blank" class="action-btn schedule-btn">Schedule Session</a>
-                        </div>
-                        
-                        <div class="action-card">
-                            <h3>Support Our Work</h3>
-                            <p>If you found this assessment valuable, consider making a donation to support our ongoing research and development.</p>
-                            <button id="donateBtn" class="action-btn donate-btn">Make a Donation</button>
-                        </div>
-                        
-                        <div class="action-card">
-                            <h3>Premium Services</h3>
-                            <p>Explore our comprehensive career development packages designed to maximize your professional potential.</p>
-                            <a href="https://www.3hire.ai/services" target="_blank" class="action-btn premium-btn">View Services</a>
-                        </div>
-                    </div>
-                    
-                    <!-- Donation Modal -->
+                    <!-- Donation Modal - kept but hidden by default -->
                     <div id="donationModal" class="modal">
                         <div class="modal-content">
                             <span class="close-modal">&times;</span>
@@ -542,6 +751,39 @@
                             </div>
                             
                             <button id="processPayment" class="payment-btn">Proceed to Payment</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Payment Modal -->
+                    <div id="paymentModal" class="modal">
+                        <div class="modal-content">
+                            <span class="close-payment-modal">&times;</span>
+                            <h2>Unlock Your Recommendations</h2>
+                            <p>Access detailed feedback and recommendations for $29.</p>
+                            
+                            <div class="payment-form">
+                                <div class="form-group">
+                                    <label for="cardNumber">Card Number</label>
+                                    <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456">
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="expiryDate">Expiry Date</label>
+                                        <input type="text" id="expiryDate" placeholder="MM/YY">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cvv">CVV</label>
+                                        <input type="text" id="cvv" placeholder="123">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cardName">Name on Card</label>
+                                    <input type="text" id="cardName" placeholder="John Smith">
+                                </div>
+                                
+                                <button id="completePayment" class="payment-btn">Unlock for $29</button>
+                                <div class="payment-note">This is a test payment page. No actual charges will be processed.</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -663,23 +905,24 @@
                     
                     const candidateData = await response.json();
                     
+                    // Check if recommendations were previously unlocked
+                    const unlockedProfiles = JSON.parse(localStorage.getItem('unlockedProfiles') || '{}');
+                    const isUnlocked = unlockedProfiles[candidateId];
+                    
                     // Populate report with data
                     document.getElementById('candidate-name').textContent = candidateData.name || 'Not Available';
                     document.getElementById('report-id').textContent = 'Candidate ID: ' + candidateData.id;
-                    document.getElementById('report-email').textContent = candidateData.email || 'Not Available';
-                    document.getElementById('report-phone').textContent = candidateData.phone || 'Not Available';
-                    
-                    if (candidateData.linkedin) {
-                        document.getElementById('report-linkedin').innerHTML = `<a href="${candidateData.linkedin}" target="_blank">${candidateData.linkedin}</a>`;
-                    } else {
-                        document.getElementById('report-linkedin').textContent = 'Not Available';
-                    }
+                    // Email, phone and LinkedIn information removed since candidate already knows it
                     
                     document.getElementById('report-summary').textContent = candidateData.summary || 'No summary available';
+                    
+                    // Store hidden assessment elements
                     document.getElementById('report-timing').textContent = candidateData.timing || 'No timing assessment available';
                     document.getElementById('report-facial').textContent = candidateData.facial || 'No facial expression assessment available';
                     document.getElementById('report-video').textContent = candidateData.video || 'No video presence assessment available';
                     document.getElementById('report-communication').textContent = candidateData.communication || 'No communication assessment available';
+                    
+                    // Set recommendations text but keep it blurred until purchased
                     document.getElementById('report-recommendations').textContent = candidateData.recommendations || 'No specific recommendations available';
                     
                     // Show report section, hide login section
@@ -689,16 +932,32 @@
                     // Update page title with candidate name
                     document.title = `Assessment Report - ${candidateData.name} - 3Hire`;
                     
+                    // If profile was previously unlocked, show recommendations immediately
+                    if (isUnlocked) {
+                        // Unlock the recommendations
+                        document.getElementById('report-recommendations').classList.remove('blurred');
+                        
+                        // Convert purchase button to schedule button
+                        const purchaseBtn = document.getElementById('purchase-recommendations-btn');
+                        if (purchaseBtn) {
+                            purchaseBtn.innerHTML = '<i class="fa fa-calendar"></i> Schedule a session';
+                            purchaseBtn.className = 'action-btn-clean schedule-btn-clean';
+                            
+                            // Update click handler
+                            purchaseBtn.removeEventListener('click', handlePurchaseClick);
+                            purchaseBtn.addEventListener('click', function() {
+                                window.location.href = 'contact.html';
+                            });
+                        }
+                    }
+                    
                 } catch (error) {
                     console.error('Error fetching candidate data:', error);
                     errorMsg.textContent = 'An error occurred while loading the report. Please try again later.';
                 }
             });
             
-            // Print report functionality
-            printBtn.addEventListener('click', function() {
-                window.print();
-            });
+            // Removed print functionality
             
             // Also allow form submission with Enter key
             document.getElementById('access-code').addEventListener('keyup', function(event) {
@@ -790,6 +1049,85 @@
                     // Redirect to a payment page (you should replace this with your actual payment page)
                     window.location.href = `https://www.3hire.ai/donate?${params.toString()}`;
                 });
+            }
+            
+            // Purchase recommendations functionality
+            const purchaseBtn = document.getElementById('purchase-recommendations-btn');
+            
+            // Get reference to payment modal elements
+            const paymentModal = document.getElementById('paymentModal');
+            const closePaymentModal = document.querySelector('.close-payment-modal');
+            const completePaymentBtn = document.getElementById('completePayment');
+            
+            function handlePurchaseClick() {
+                // Show payment modal
+                paymentModal.style.display = 'flex';
+            }
+            
+            // Close payment modal when clicking X
+            if (closePaymentModal) {
+                closePaymentModal.addEventListener('click', function() {
+                    paymentModal.style.display = 'none';
+                });
+            }
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', function(event) {
+                if (event.target === paymentModal) {
+                    paymentModal.style.display = 'none';
+                }
+            });
+            
+            // Process payment and unlock recommendations
+            if (completePaymentBtn) {
+                completePaymentBtn.addEventListener('click', function() {
+                    // Simulate payment processing with a loading state
+                    completePaymentBtn.disabled = true;
+                    completePaymentBtn.textContent = 'Processing...';
+                    
+                    // Simulate a brief delay for processing
+                    setTimeout(function() {
+                        // Close the payment modal
+                        paymentModal.style.display = 'none';
+                        
+                        // Unlock the recommendations
+                        document.getElementById('report-recommendations').classList.remove('blurred');
+                        
+                        // Save unlocked state to localStorage
+                        const candidateId = document.getElementById('report-id').textContent.replace('Candidate ID: ', '');
+                        const unlockedProfiles = JSON.parse(localStorage.getItem('unlockedProfiles') || '{}');
+                        unlockedProfiles[candidateId] = true;
+                        localStorage.setItem('unlockedProfiles', JSON.stringify(unlockedProfiles));
+                        
+                        // Replace the purchase button with schedule session button
+                        const purchaseBtn = document.getElementById('purchase-recommendations-btn');
+                        if (purchaseBtn) {
+                            // Replace purchase button with schedule button
+                            purchaseBtn.innerHTML = '<i class="fa fa-calendar"></i> Schedule a session';
+                            purchaseBtn.className = 'action-btn-clean schedule-btn-clean';
+                            
+                            // Update click handler to redirect to contact page
+                            purchaseBtn.removeEventListener('click', handlePurchaseClick);
+                            purchaseBtn.addEventListener('click', function() {
+                                window.location.href = 'contact.html';
+                            });
+                        }
+                        
+                        // Reset the payment button (in case they open the modal again)
+                        completePaymentBtn.disabled = false;
+                        completePaymentBtn.textContent = 'Unlock for $29';
+                        
+                        // Clear any entered values
+                        document.getElementById('cardNumber').value = '';
+                        document.getElementById('expiryDate').value = '';
+                        document.getElementById('cvv').value = '';
+                        document.getElementById('cardName').value = '';
+                    }, 1500);
+                });
+            }
+            
+            if (purchaseBtn) {
+                purchaseBtn.addEventListener('click', handlePurchaseClick);
             }
         });
     </script>
