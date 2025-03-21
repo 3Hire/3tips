@@ -4,6 +4,7 @@ const Candidate = require('../models/Candidate');
 const crypto = require('crypto');
 const path = require('path');
 const fs = require('fs').promises;
+const nodemailer = require('nodemailer');
 
 // Generate random access key - 16 characters
 function generateAccessKey() {
@@ -277,6 +278,83 @@ router.post('/:id/regenerateAccess', async (req, res) => {
       fullUrl: `${req.protocol}://${req.get('host')}/${updatedCandidate.accessUrl}`
     });
   } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Email configuration
+const transporter = nodemailer.createTransport({
+  service: 'gmail',  // Change to your email service
+  auth: {
+    user: process.env.EMAIL_USER || '3@threehire.com',  // Use environment variable or default
+    pass: process.env.EMAIL_PASSWORD || 'app-password-here'  // Use environment variable (secure)
+  }
+});
+
+// Send email with report access details
+router.post('/:id/emailAccess', async (req, res) => {
+  try {
+    const { name, email, candidateId, accessKey } = req.body;
+    
+    if (!email || !candidateId || !accessKey) {
+      return res.status(400).json({ message: 'Missing required fields' });
+    }
+    
+    const candidate = await Candidate.findOne({ id: req.params.id });
+    if (!candidate) {
+      return res.status(404).json({ message: 'Candidate not found' });
+    }
+    
+    // Verify the candidate details
+    if (candidate.id !== candidateId || candidate.email !== email) {
+      return res.status(400).json({ message: 'Candidate information mismatch' });
+    }
+    
+    // Create email content
+    const siteUrl = `${req.protocol}://${req.get('host')}`;
+    const reportUrl = `${siteUrl}/candidate-report.html`;
+    
+    const mailOptions = {
+      from: process.env.EMAIL_USER || '3@threehire.com',
+      to: email,
+      subject: '3Hire: Your Assessment Report is Ready',
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <div style="background-color: #2c3e50; color: white; padding: 20px; text-align: center;">
+            <h1 style="margin: 0;">3Hire Assessment Report</h1>
+          </div>
+          
+          <div style="padding: 20px; background-color: #f5f5f5;">
+            <p>Hello ${name},</p>
+            
+            <p>Your assessment report is now available. Please use the following information to access your report:</p>
+            
+            <div style="background-color: white; padding: 15px; border-radius: 5px; margin: 20px 0;">
+              <p><strong>Report URL:</strong> <a href="${reportUrl}" target="_blank">${reportUrl}</a></p>
+              <p><strong>Candidate ID:</strong> ${candidateId}</p>
+              <p><strong>Access Key:</strong> ${accessKey}</p>
+            </div>
+            
+            <p>To view your report, visit the URL above and enter your Candidate ID and Access Key when prompted.</p>
+            
+            <p>If you have any questions about your assessment or need assistance accessing your report, please contact our team.</p>
+            
+            <p>Best regards,<br>The 3Hire Team</p>
+          </div>
+          
+          <div style="padding: 10px; text-align: center; font-size: 12px; color: #666;">
+            <p>&copy; 2025 3Hire. All rights reserved.</p>
+          </div>
+        </div>
+      `
+    };
+    
+    // Send the email
+    await transporter.sendMail(mailOptions);
+    
+    res.json({ success: true, message: 'Email sent successfully' });
+  } catch (err) {
+    console.error('Error sending email:', err);
     res.status(500).json({ message: err.message });
   }
 });

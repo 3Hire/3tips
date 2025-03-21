@@ -90,6 +90,20 @@ body {
     background-color: #4caf50;
 }
 
+.email-btn {
+    background-color: #2196F3;
+    padding: 8px 12px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-left: 5px;
+}
+
+.email-btn:hover {
+    background-color: #0b7dda;
+}
+
 .regenerate-btn {
     background-color: #ff9800;
     color: white;

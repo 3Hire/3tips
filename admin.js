@@ -403,6 +403,56 @@ createApp({
             setTimeout(() => { saveStatus.value = null; }, 2000);
         }
         
+        // Email report access details to the candidate
+        async function emailReportAccess() {
+            if (!profile.email || !profile.id || !profile.accessKey) {
+                saveStatus.value = {
+                    type: 'error',
+                    message: 'Missing candidate information. Please ensure the candidate has a valid email.'
+                };
+                setTimeout(() => { saveStatus.value = null; }, 3000);
+                return;
+            }
+            
+            try {
+                isLoading.value = true;
+                const response = await fetch(`${apiBaseUrl}/${profile.id}/emailAccess`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: profile.name,
+                        email: profile.email,
+                        candidateId: profile.id,
+                        accessKey: profile.accessKey
+                    })
+                });
+                
+                if (!response.ok) {
+                    const data = await response.json();
+                    throw new Error(data.message || 'Failed to send email');
+                }
+                
+                const data = await response.json();
+                
+                saveStatus.value = {
+                    type: 'success',
+                    message: 'Email sent successfully to ' + profile.email
+                };
+                setTimeout(() => { saveStatus.value = null; }, 3000);
+            } catch (error) {
+                console.error('Error sending email:', error);
+                saveStatus.value = {
+                    type: 'error',
+                    message: 'Error sending email: ' + error.message
+                };
+                setTimeout(() => { saveStatus.value = null; }, 3000);
+            } finally {
+                isLoading.value = false;
+            }
+        }
+        
         // Regenerate profile URL
         async function regenerateProfileUrl() {
             if (!profile.id) return;
@@ -457,6 +507,7 @@ createApp({
             getFullProfileUrl,
             copyUrlToClipboard,
             copyAccessKey,
+            emailReportAccess,
             regenerateProfileUrl
         };
     }
