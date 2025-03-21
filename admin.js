@@ -386,11 +386,18 @@ createApp({
             setTimeout(() => { saveStatus.value = null; }, 2000);
         }
         
-        // Copy the access key to clipboard
-        function copyAccessKey() {
+        // Copy all access information to clipboard
+        function copyAllAccessInfo() {
+            // Create formatted text with all access information
+            const reportUrl = 'http://localhost:3000/candidate-report.html';
+            const allAccessInfo = 
+                `Report URL: ${reportUrl}\n` +
+                `Candidate ID: ${profile.id}\n` +
+                `Access Key: ${profile.accessKey}`;
+            
             // Create a temporary input element
-            const tempInput = document.createElement('input');
-            tempInput.value = profile.accessKey;
+            const tempInput = document.createElement('textarea');
+            tempInput.value = allAccessInfo;
             document.body.appendChild(tempInput);
             tempInput.select();
             document.execCommand('copy');
@@ -398,7 +405,7 @@ createApp({
             
             saveStatus.value = {
                 type: 'success',
-                message: 'Access key copied to clipboard!'
+                message: 'All access information copied to clipboard!'
             };
             setTimeout(() => { saveStatus.value = null; }, 2000);
         }
@@ -506,7 +513,7 @@ createApp({
             deleteCandidate,
             getFullProfileUrl,
             copyUrlToClipboard,
-            copyAccessKey,
+            copyAllAccessInfo,
             emailReportAccess,
             regenerateProfileUrl
         };
