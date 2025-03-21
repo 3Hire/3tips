@@ -68,6 +68,7 @@
                                 <span>{{ profile.accessKey }}</span>
                                 <button type="button" @click="copyAllAccessInfo" class="copy-btn">Copy All</button>
                                 <button type="button" @click="emailReportAccess" class="email-btn">Email to Candidate</button>
+                                <button type="button" @click="unlockRecommendations" class="unlock-btn" :disabled="profile.isUnlocked" :title="profile.isUnlocked ? 'Already unlocked' : 'Unlock recommendations for this candidate'">{{ profile.isUnlocked ? 'Unlocked' : 'Unlock' }}</button>
                             </div>
                             <p style="font-size: 0.85em; color: #666; margin-top: 5px;">
                                 Share these details with the candidate to allow them to access their assessment report.

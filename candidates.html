@@ -120,6 +120,16 @@
             border-left: 4px solid #4CAF50;
         }
         
+        .assessment p {
+            margin-bottom: 1em;
+        }
+        
+        .assessment br {
+            display: block;
+            content: "";
+            margin-top: 1em;
+        }
+        
         .info-block {
             margin-bottom: 30px;
         }
@@ -905,16 +915,20 @@
                     
                     const candidateData = await response.json();
                     
-                    // Check if recommendations were previously unlocked
-                    const unlockedProfiles = JSON.parse(localStorage.getItem('unlockedProfiles') || '{}');
-                    const isUnlocked = unlockedProfiles[candidateId];
+                    // Check if recommendations are unlocked in database
+                    const isUnlocked = candidateData.isUnlocked;
                     
                     // Populate report with data
                     document.getElementById('candidate-name').textContent = candidateData.name || 'Not Available';
                     document.getElementById('report-id').textContent = 'Candidate ID: ' + candidateData.id;
                     // Email, phone and LinkedIn information removed since candidate already knows it
                     
-                    document.getElementById('report-summary').textContent = candidateData.summary || 'No summary available';
+                    // Format summary with proper paragraphs
+                    const summaryText = candidateData.summary || 'No summary available';
+                    document.getElementById('report-summary').innerHTML = summaryText
+                        .split(/\n\s*\n/)
+                        .map(para => `<p>${para.replace(/\n/g, ' ')}</p>`)
+                        .join('');
                     
                     // Store hidden assessment elements
                     document.getElementById('report-timing').textContent = candidateData.timing || 'No timing assessment available';
@@ -922,8 +936,12 @@
                     document.getElementById('report-video').textContent = candidateData.video || 'No video presence assessment available';
                     document.getElementById('report-communication').textContent = candidateData.communication || 'No communication assessment available';
                     
-                    // Set recommendations text but keep it blurred until purchased
-                    document.getElementById('report-recommendations').textContent = candidateData.recommendations || 'No specific recommendations available';
+                    // Format recommendations with proper paragraphs but keep blurred until purchased
+                    const recommendationsText = candidateData.recommendations || 'No specific recommendations available';
+                    document.getElementById('report-recommendations').innerHTML = recommendationsText
+                        .split(/\n\s*\n/)
+                        .map(para => `<p>${para.replace(/\n/g, ' ')}</p>`)
+                        .join('');
                     
                     // Show report section, hide login section
                     loginSection.style.display = 'none';
@@ -1093,11 +1111,17 @@
                         // Unlock the recommendations
                         document.getElementById('report-recommendations').classList.remove('blurred');
                         
-                        // Save unlocked state to localStorage
+                        // Save unlocked state to database
                         const candidateId = document.getElementById('report-id').textContent.replace('Candidate ID: ', '');
-                        const unlockedProfiles = JSON.parse(localStorage.getItem('unlockedProfiles') || '{}');
-                        unlockedProfiles[candidateId] = true;
-                        localStorage.setItem('unlockedProfiles', JSON.stringify(unlockedProfiles));
+                        
+                        // Call API to update unlock status
+                        fetch(`http://localhost:3000/api/candidates/${candidateId}/unlock`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        })
+                        .catch(error => console.error('Error updating unlock status:', error));
                         
                         // Replace the purchase button with schedule session button
                         const purchaseBtn = document.getElementById('purchase-recommendations-btn');

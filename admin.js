@@ -45,7 +45,8 @@ createApp({
             facial: '',
             video: '',
             communication: '',
-            recommendations: ''
+            recommendations: '',
+            isUnlocked: false
         });
         
         // Get list of candidates
@@ -477,6 +478,38 @@ www.3hire.ai
             }
         }
         
+        // Unlock recommendations for a candidate
+        async function unlockRecommendations() {
+            if (!profile.id) return;
+            
+            try {
+                isLoading.value = true;
+                const response = await fetch(`${apiBaseUrl}/${profile.id}/unlock`, {
+                    method: 'POST'
+                });
+                
+                if (!response.ok) throw new Error('Failed to unlock recommendations');
+                
+                const data = await response.json();
+                profile.isUnlocked = true; // Update local state
+                
+                saveStatus.value = {
+                    type: 'success',
+                    message: 'Recommendations unlocked successfully!'
+                };
+                setTimeout(() => { saveStatus.value = null; }, 3000);
+            } catch (error) {
+                console.error('Error unlocking recommendations:', error);
+                saveStatus.value = {
+                    type: 'error',
+                    message: 'Error unlocking recommendations: ' + error.message
+                };
+                setTimeout(() => { saveStatus.value = null; }, 3000);
+            } finally {
+                isLoading.value = false;
+            }
+        }
+        
         // Regenerate profile URL
         async function regenerateProfileUrl() {
             if (!profile.id) return;
@@ -532,6 +565,7 @@ www.3hire.ai
             copyUrlToClipboard,
             copyAllAccessInfo,
             emailReportAccess,
+            unlockRecommendations,
             regenerateProfileUrl
         };
     }

@@ -52,7 +52,7 @@ async function generateProfileHtml(candidate) {
 // Get all candidates (simplified list for dropdown/selection)
 router.get('/', async (req, res) => {
   try {
-    const candidates = await Candidate.find().select('id name accessUrl');
+    const candidates = await Candidate.find().select('id name accessUrl isUnlocked');
     res.json(candidates);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -276,6 +276,31 @@ router.post('/:id/regenerateAccess', async (req, res) => {
     res.json({ 
       url: updatedCandidate.accessUrl,
       fullUrl: `${req.protocol}://${req.get('host')}/${updatedCandidate.accessUrl}`
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Update unlock status for a candidate
+router.post('/:id/unlock', async (req, res) => {
+  try {
+    const candidate = await Candidate.findOne({ id: req.params.id });
+    if (!candidate) {
+      return res.status(404).json({ message: 'Candidate not found' });
+    }
+    
+    // Update isUnlocked status
+    const updatedCandidate = await Candidate.findOneAndUpdate(
+      { id: req.params.id },
+      { isUnlocked: true },
+      { new: true }
+    );
+    
+    res.json({ 
+      success: true, 
+      message: 'Candidate recommendations unlocked successfully',
+      isUnlocked: updatedCandidate.isUnlocked
     });
   } catch (err) {
     res.status(500).json({ message: err.message });

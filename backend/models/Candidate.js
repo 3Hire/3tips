@@ -61,7 +61,12 @@ const candidateSchema = new mongoose.Schema({
   timing: String,
   facial: String,
   video: String,
-  communication: String
+  communication: String,
+  recommendations: String,
+  isUnlocked: {
+    type: Boolean,
+    default: false
+  }
 }, {
   timestamps: true
 });

@@ -1,16 +1,33 @@
 /* Candidate profile management styles */
 body {
     background-color: #f5f5f5;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#app {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    width: 100%;
+    padding: 0 5%;
 }
 
 .search-container {
     display: flex;
     gap: 10px;
     margin-bottom: 25px;
+    flex-wrap: wrap;
 }
 
 .search-container input {
     flex-grow: 1;
+    min-width: 200px;
 }
 
 .search-btn {
@@ -33,6 +50,7 @@ body {
     display: flex;
     gap: 10px;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .candidate-id label {
@@ -66,6 +84,7 @@ body {
 .url-container {
     display: flex;
     gap: 10px;
+    flex-wrap: wrap;
 }
 
 .url-input {
@@ -75,6 +94,7 @@ body {
     padding: 10px;
     font-family: monospace;
     cursor: default;
+    min-width: 200px;
 }
 
 .copy-btn {
@@ -97,11 +117,30 @@ body {
     border: none;
     cursor: pointer;
     border-radius: 4px;
+}
+
+.unlock-btn {
+    background-color: #f39c12;
+    padding: 8px 12px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
     margin-left: 5px;
 }
 
 .email-btn:hover {
     background-color: #0b7dda;
+}
+
+.unlock-btn:hover {
+    background-color: #e67e22;
+}
+
+.unlock-btn:disabled {
+    background-color: #7f8c8d;
+    cursor: not-allowed;
+    opacity: 0.7;
 }
 
 .regenerate-btn {
@@ -122,16 +161,28 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
-    padding-bottom: 10px;
+    padding: 20px 5%;
     border-bottom: 1px solid #ddd;
+    margin-bottom: 30px;
+    background-color: rgba(255, 255, 255, 0.95);
+    z-index: 1000;
+    width: 100%;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+nav li {
+    margin-left: 20px;
 }
 
 nav a {
-    margin-left: 15px;
     text-decoration: none;
     color: #666;
     padding: 5px 10px;
+    transition: all 0.3s;
 }
 
 nav a.active {
@@ -141,9 +192,8 @@ nav a.active {
 }
 
 .admin-panel {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 100%;
     padding: 25px;
 }
 
@@ -204,10 +254,12 @@ h3 {
     display: flex;
     margin-bottom: 10px;
     gap: 10px;
+    flex-wrap: wrap;
 }
 
 .list-item input {
     flex-grow: 1;
+    min-width: 200px;
 }
 
 .add-btn {
@@ -232,6 +284,8 @@ h3 {
     margin-top: 30px;
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .save-btn {
@@ -306,6 +360,8 @@ h3 {
     background-color: #f9f9f9;
     border-radius: 4px;
     border-left: 3px solid #2196F3;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .candidate-actions {
@@ -349,4 +405,87 @@ h3 {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+/* Mobile menu button */
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.mobile-menu-btn span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: var(--primary-color);
+    margin: 5px 0;
+    transition: all 0.3s;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .mobile-menu-btn {
+        display: block;
+    }
+    
+    header {
+        flex-direction: column;
+        text-align: center;
+        padding: 10px 0;
+    }
+    
+    .logo-container {
+        width: 100%;
+        justify-content: space-between;
+        padding: 0 20px;
+    }
+    
+    nav {
+        width: 100%;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+    
+    nav.active {
+        max-height: 300px;
+    }
+    
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 0;
+    }
+    
+    nav li {
+        margin: 10px 0;
+        width: 100%;
+        text-align: center;
+    }
+    
+    nav a {
+        display: block;
+        padding: 10px;
+    }
+    
+    .form-row {
+        flex-direction: column;
+    }
+    
+    .form-actions {
+        justify-content: center;
+    }
+    
+    .candidate-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .candidate-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
 }
