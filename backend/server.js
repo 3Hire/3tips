@@ -29,6 +29,25 @@ app.use('/api/contact', contactRoutes);
 // Serve static files from the parent directory
 app.use(express.static(path.join(__dirname, '..')));
 
+// Add a fallback route for SPA routing
+app.get('*', (req, res) => {
+  // Skip API routes
+  if (req.url.startsWith('/api/')) {
+    return res.status(404).json({ message: 'API endpoint not found' });
+  }
+  // Send the main index.html for all other routes
+  res.sendFile(path.join(__dirname, '..', 'index.html'));
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error('Server error:', err);
+  res.status(500).json({ 
+    message: 'Internal server error',
+    error: process.env.NODE_ENV === 'development' ? err.message : 'An unexpected error occurred'
+  });
+});
+
 // Start server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

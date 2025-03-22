@@ -6,6 +6,15 @@
     <title>Candidate Report - 3Hire</title>
     <meta name="description" content="Coaching. Hiring. Consulting">
     <link rel="stylesheet" href="styles.css">
+    <script>
+        // Helper function to get the API base URL dynamically based on current domain
+        function getApiBaseUrl() {
+            const protocol = window.location.protocol;
+            const hostname = window.location.hostname;
+            const port = (hostname === 'localhost' || hostname === '127.0.0.1') ? ':3000' : '';
+            return `${protocol}//${hostname}${port}/api/candidates`;
+        }
+    </script>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -873,7 +882,7 @@
                 } else {
                     try {
                         // Verify the access key against the database
-                        const verifyResponse = await fetch(`http://localhost:3000/api/candidates/${candidateId}/verify`, {
+                        const verifyResponse = await fetch(`${getApiBaseUrl()}/${candidateId}/verify`, {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'
@@ -902,7 +911,7 @@
                 
                 try {
                     // Fetch candidate data from the API
-                    const response = await fetch(`http://localhost:3000/api/candidates/${candidateId}`);
+                    const response = await fetch(`${getApiBaseUrl()}/${candidateId}`);
                     
                     if (response.status === 404) {
                         errorMsg.textContent = 'Candidate not found. Please check the ID and try again.';
@@ -1122,7 +1131,7 @@
                         console.log(`Stored unlock status for ${candidateId} in localStorage`);
                         
                         // Call API to update unlock status
-                        fetch(`http://localhost:3000/api/candidates/${candidateId}/unlock`, {
+                        fetch(`${getApiBaseUrl()}/${candidateId}/unlock`, {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'

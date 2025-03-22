@@ -7,6 +7,8 @@
     <meta name="description" content="Coaching. Hiring. Consulting">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="admin.css">
+    <!-- Include Vue 3 from CDN before the body -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 <body>
     <div id="app">
@@ -38,6 +40,92 @@
             <div id="admin-app">
                 <h1>{{ title }}</h1>
                 
+                <!-- Debug panel -->
+                <div class="debug-panel" style="margin-bottom: 20px; padding: 10px; background-color: #f8f9fa; border-radius: 5px; border: 1px solid #ddd;">
+                    <h4 style="margin-top: 0;">API Connection Tester</h4>
+                    <button onclick="testApiConnection()" style="background-color: #28a745; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer;">
+                        Test API Connection
+                    </button>
+                    <div id="apiConnectionResult" style="margin-top: 10px; font-family: monospace;"></div>
+                    
+                    <h4 style="margin-top: 10px;">Direct API Search Test</h4>
+                    <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                        <input type="text" id="directSearchInput" placeholder="Enter candidate ID to search" style="flex: 1; padding: 5px;">
+                        <button onclick="testDirectSearch()" style="background-color: #007bff; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer;">
+                            Search
+                        </button>
+                    </div>
+                    <div id="directSearchResult" style="margin-top: 10px; font-family: monospace;"></div>
+                    
+                    <script>
+                        function testApiConnection() {
+                            const protocol = window.location.protocol;
+                            const hostname = window.location.hostname;
+                            const port = (hostname === 'localhost' || hostname === '127.0.0.1') ? ':3000' : '';
+                            const apiUrl = `${protocol}//${hostname}${port}/api/candidates`;
+                            
+                            const resultElement = document.getElementById('apiConnectionResult');
+                            resultElement.innerHTML = 'Testing connection to: ' + apiUrl + '...';
+                            
+                            fetch(apiUrl)
+                                .then(response => {
+                                    resultElement.innerHTML += '<br>Status: ' + response.status;
+                                    return response.text();
+                                })
+                                .then(text => {
+                                    try {
+                                        const data = JSON.parse(text);
+                                        resultElement.innerHTML += '<br>Success! Found ' + data.length + ' candidates.';
+                                        resultElement.innerHTML += '<br>First candidate: ' + (data[0]?.id || 'None');
+                                    } catch(e) {
+                                        resultElement.innerHTML += '<br>Error parsing response: ' + e.message;
+                                        resultElement.innerHTML += '<br>Raw response: ' + text.substring(0, 100) + '...';
+                                    }
+                                })
+                                .catch(error => {
+                                    resultElement.innerHTML += '<br>Error: ' + error.message;
+                                });
+                        }
+                        
+                        function testDirectSearch() {
+                            const searchInput = document.getElementById('directSearchInput').value.trim();
+                            if (!searchInput) {
+                                alert('Please enter a search term');
+                                return;
+                            }
+                            
+                            const protocol = window.location.protocol;
+                            const hostname = window.location.hostname;
+                            const port = (hostname === 'localhost' || hostname === '127.0.0.1') ? ':3000' : '';
+                            const apiUrl = `${protocol}//${hostname}${port}/api/candidates/${encodeURIComponent(searchInput)}`;
+                            
+                            const resultElement = document.getElementById('directSearchResult');
+                            resultElement.innerHTML = 'Searching API: ' + apiUrl + '...';
+                            
+                            fetch(apiUrl)
+                                .then(response => {
+                                    resultElement.innerHTML += '<br>Status: ' + response.status;
+                                    return response.text();
+                                })
+                                .then(text => {
+                                    resultElement.innerHTML += '<br>Raw response (' + text.length + ' chars): ' + text.substring(0, 300) + (text.length > 300 ? '...' : '');
+                                    
+                                    try {
+                                        const data = JSON.parse(text);
+                                        resultElement.innerHTML += '<br><br>Parsed JSON fields: ' + Object.keys(data).join(', ');
+                                        resultElement.innerHTML += '<br>Candidate ID: ' + (data.id || 'Not found');
+                                        resultElement.innerHTML += '<br>Candidate Name: ' + (data.name || 'Not found');
+                                    } catch(e) {
+                                        resultElement.innerHTML += '<br>Error parsing JSON: ' + e.message;
+                                    }
+                                })
+                                .catch(error => {
+                                    resultElement.innerHTML += '<br>Error: ' + error.message;
+                                });
+                        }
+                    </script>
+                </div>
+                
                 <div class="admin-panel">
                     <div class="search-container">
                         <input type="text" v-model="searchId" placeholder="Search by ID, name, email, phone, or LinkedIn..." @keyup.enter="searchCandidate">
@@ -68,7 +156,9 @@
                             </div>
                             <div style="display: flex; align-items: center; gap: 5px; flex-wrap: wrap;">
                                 <span style="font-weight: bold; min-width: 100px;">Report URL:</span>
-                                <span>http://localhost:3000/candidates.html</span>
+                                <span>{{ window.location.protocol + '//' + window.location.hostname + 
+                                    ((window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? ':3000' : '') + 
+                                    '/candidates.html' }}</span>
                             </div>
                             <div style="display: flex; align-items: center; gap: 5px; flex-wrap: wrap;">
                                 <span style="font-weight: bold; min-width: 100px;">Candidate ID:</span>
@@ -183,7 +273,7 @@
             </div>
         </footer>
     </div>
-    <script src="https://unpkg.com/vue@3"></script>
+    
     <script src="admin.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {

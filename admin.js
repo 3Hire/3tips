@@ -1,12 +1,32 @@
+// Make sure Vue is defined
+if (typeof Vue === 'undefined') {
+    console.error('Vue is not loaded! Check your script includes.');
+}
+
+// Extract Vue methods
 const { createApp, ref, reactive, onMounted, computed } = Vue;
 
-createApp({
+// Create the Vue app and store it in a global variable for debugging
+window.app = createApp({
     setup() {
         const title = ref('Admin Panel');
         const saveStatus = ref(null);
         const searchId = ref('');
         const isLoading = ref(false);
-        const apiBaseUrl = 'http://localhost:3000/api/candidates';
+        // Dynamically determine API base URL based on current domain
+        function getApiBaseUrl() {
+            const protocol = window.location.protocol;
+            const hostname = window.location.hostname;
+            // Only add port for localhost development
+            const port = (hostname === 'localhost' || hostname === '127.0.0.1') ? ':3000' : '';
+            return `${protocol}//${hostname}${port}/api/candidates`;
+        }
+        
+        // Get the API base URL
+        const apiBaseUrl = getApiBaseUrl();
+        
+        // Log the API base URL for debugging
+        console.log('Admin panel initialized with API URL:', apiBaseUrl);
         
         // Computed properties for validation
         const isValidEmail = computed(() => {
@@ -107,29 +127,108 @@ createApp({
                 return;
             }
             
+            const searchTerm = searchId.value.trim();
+            isLoading.value = true;
+            
             try {
-                isLoading.value = true;
-                const response = await fetch(`${apiBaseUrl}/${encodeURIComponent(searchId.value.trim())}`);
+                // Try API search first
+                try {
+                    const searchUrl = `${apiBaseUrl}/${encodeURIComponent(searchTerm)}`;
+                    console.log('Searching API at:', searchUrl);
+                    
+                    // Use more reliable fetch options
+                    const response = await fetch(searchUrl, {
+                        method: 'GET',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        mode: 'cors',
+                        cache: 'no-cache',
+                        credentials: 'same-origin'
+                    });
+                    
+                    console.log('API Response status:', response.status);
+                    const responseText = await response.text();
+                    console.log('API Response text:', responseText);
+                    
+                    if (response.ok) {
+                        try {
+                            const data = JSON.parse(responseText);
+                            console.log('Parsed data:', data);
+                            
+                            // Debug what fields are available
+                            console.log('Data fields available:', Object.keys(data));
+                            
+                            // Load the data into the form
+                            loadCandidateData(data);
+                            
+                            // Update the candidatesList if this candidate isn't already in it
+                            const existsInList = candidatesList.value.some(c => c.id === data.id);
+                            if (!existsInList) {
+                                candidatesList.value.push({
+                                    id: data.id,
+                                    name: data.name
+                                });
+                            }
+                            
+                            saveStatus.value = {
+                                type: 'success',
+                                message: 'Candidate profile loaded!'
+                            };
+                            setTimeout(() => { saveStatus.value = null; }, 3000);
+                            return;
+                        } catch (parseError) {
+                            console.error('Error parsing JSON response:', parseError);
+                            throw new Error('Error parsing server response: ' + parseError.message);
+                        }
+                    } else {
+                        console.warn('API returned non-OK status:', response.status);
+                        if (response.status === 404) {
+                            throw new Error('No candidate found matching: ' + searchTerm);
+                        } else {
+                            throw new Error('API error: ' + response.status);
+                        }
+                    }
+                } catch (apiError) {
+                    console.warn('API search failed, trying fallback:', apiError);
+                    throw apiError; // Re-throw to handle in the outer catch
+                }
                 
-                if (response.status === 404) {
+                // Check if this candidate was unlocked locally (localStorage)
+                const isIdMatch = searchTerm.match(/^CAN-\d+$/i);
+                if (isIdMatch) {
+                    const isUnlocked = localStorage.getItem(`candidate_${searchTerm}_unlocked`) === 'true';
+                    
+                    // Create a mock candidate with ID and unlock status
+                    const mockCandidate = {
+                        id: searchTerm,
+                        name: searchTerm.replace('CAN-', 'Candidate '),
+                        email: '',
+                        phone: '',
+                        linkedin: '',
+                        summary: '',
+                        recommendations: '',
+                        isUnlocked: isUnlocked
+                    };
+                    
+                    loadCandidateData(mockCandidate);
+                    
                     saveStatus.value = {
-                        type: 'error',
-                        message: 'No candidate found matching: ' + searchId.value
+                        type: 'warning',
+                        message: 'Database unavailable. Loaded local data.'
                     };
                     setTimeout(() => { saveStatus.value = null; }, 3000);
                     return;
                 }
                 
-                if (!response.ok) throw new Error('Failed to fetch candidate');
-                
-                const data = await response.json();
-                loadCandidateData(data);
-                
+                // No data found
                 saveStatus.value = {
-                    type: 'success',
-                    message: 'Candidate profile loaded!'
+                    type: 'error',
+                    message: 'No candidate found matching: ' + searchTerm
                 };
                 setTimeout(() => { saveStatus.value = null; }, 3000);
+                
             } catch (error) {
                 console.error('Error searching candidate:', error);
                 saveStatus.value = {
@@ -146,18 +245,54 @@ createApp({
         async function loadCandidate(candidateId) {
             try {
                 isLoading.value = true;
-                const response = await fetch(`${apiBaseUrl}/${candidateId}`);
-                if (!response.ok) throw new Error('Failed to fetch candidate');
+                const loadUrl = `${apiBaseUrl}/${encodeURIComponent(candidateId)}`;
+                console.log('Loading candidate from API:', loadUrl);
                 
-                const data = await response.json();
-                loadCandidateData(data);
-                searchId.value = candidateId;
+                const response = await fetch(loadUrl, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    mode: 'cors',
+                    cache: 'no-cache',
+                    credentials: 'same-origin'
+                });
+                console.log('Load response status:', response.status);
                 
-                saveStatus.value = {
-                    type: 'success',
-                    message: 'Candidate profile loaded!'
-                };
-                setTimeout(() => { saveStatus.value = null; }, 3000);
+                if (!response.ok) {
+                    if (response.status === 404) {
+                        throw new Error('Candidate not found: ' + candidateId);
+                    } else {
+                        throw new Error('Failed to fetch candidate: Server returned ' + response.status);
+                    }
+                }
+                
+                try {
+                    // Get the response as text first for debugging
+                    const responseText = await response.text();
+                    console.log('Raw response:', responseText);
+                    
+                    // Parse the text into JSON
+                    const data = JSON.parse(responseText);
+                    console.log('Loaded candidate data:', data);
+                    
+                    // Debug what fields are available
+                    console.log('Data fields available:', Object.keys(data));
+                    
+                    // Load the data into the form
+                    loadCandidateData(data);
+                    searchId.value = candidateId;
+                    
+                    saveStatus.value = {
+                        type: 'success',
+                        message: 'Candidate profile loaded!'
+                    };
+                    setTimeout(() => { saveStatus.value = null; }, 3000);
+                } catch (parseError) {
+                    console.error('Error parsing server response:', parseError);
+                    throw new Error('Invalid response format from server: ' + parseError.message);
+                }
             } catch (error) {
                 console.error('Error loading candidate:', error);
                 saveStatus.value = {
@@ -172,18 +307,43 @@ createApp({
         
         // Helper function to load candidate data into the form
         function loadCandidateData(data) {
+            console.log('Loading candidate data into form:', data);
+            
+            // Map all fields from data to profile
             Object.keys(profile).forEach(key => {
                 if (key in data) {
+                    console.log(`Setting profile.${key} = ${data[key]}`);
                     profile[key] = data[key];
+                } else {
+                    console.log(`Field ${key} not found in data`);
                 }
             });
             
-            // Ensure all fields exist
-            ['timing', 'facial', 'video', 'communication'].forEach(field => {
+            // Set default values for missing fields
+            const requiredFields = ['id', 'name', 'email', 'accessKey', 'isUnlocked'];
+            requiredFields.forEach(field => {
+                if (!profile[field] && field in data) {
+                    console.log(`Setting required field ${field} from data`);
+                    profile[field] = data[field];
+                }
+            });
+            
+            // Ensure all optional fields exist with at least empty strings
+            ['timing', 'facial', 'video', 'communication', 'summary', 'recommendations', 
+             'linkedin', 'phone', 'accessUrl'].forEach(field => {
                 if (!profile[field]) {
+                    console.log(`Initializing empty field: ${field}`);
                     profile[field] = '';
                 }
             });
+            
+            // Double check isUnlocked is properly set
+            if (typeof profile.isUnlocked !== 'boolean') {
+                profile.isUnlocked = Boolean(data.isUnlocked);
+                console.log(`Fixed isUnlocked type: ${profile.isUnlocked}`);
+            }
+            
+            console.log('Updated profile:', {...profile});
         }
         
         // Start a new candidate profile
@@ -427,7 +587,8 @@ createApp({
             try {
                 // Construct the email content
                 const subject = encodeURIComponent("Interview Report from 3Hire");
-                const baseUrl = window.location.origin;
+                // Use the getApiBaseUrl function but adjust for candidates.html
+                const baseUrl = getApiBaseUrl().replace('/api/candidates', '');
                 const reportUrl = `${baseUrl}/candidates.html`;
                 
                 // Format the candidate's name properly
@@ -484,14 +645,35 @@ www.3hire.ai
             
             try {
                 isLoading.value = true;
-                const response = await fetch(`${apiBaseUrl}/${profile.id}/unlock`, {
-                    method: 'POST'
-                });
                 
-                if (!response.ok) throw new Error('Failed to unlock recommendations');
+                // Always update the local state immediately for better UX
+                profile.isUnlocked = true;
                 
-                const data = await response.json();
-                profile.isUnlocked = true; // Update local state
+                // Try to update the database
+                try {
+                    const response = await fetch(`${apiBaseUrl}/${profile.id}/unlock`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log('Database updated successfully:', data);
+                    } else {
+                        console.warn('API call to unlock candidate failed, but UI was updated');
+                    }
+                } catch (apiError) {
+                    console.warn('API call to unlock candidate failed, but UI was updated:', apiError);
+                }
+                
+                // Store in localStorage as a backup/fallback
+                try {
+                    localStorage.setItem(`candidate_${profile.id}_unlocked`, 'true');
+                } catch (storageError) {
+                    console.warn('Failed to store unlock status in localStorage:', storageError);
+                }
                 
                 saveStatus.value = {
                     type: 'success',
@@ -569,4 +751,15 @@ www.3hire.ai
             regenerateProfileUrl
         };
     }
-}).mount('#admin-app');
+});
+
+// Delay mounting until DOM is fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, mounting Vue app to #admin-app');
+    try {
+        window.app.mount('#admin-app');
+        console.log('Vue app mounted successfully');
+    } catch (e) {
+        console.error('Failed to mount Vue app:', e);
+    }
+});

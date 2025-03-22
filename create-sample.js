@@ -1,13 +1,16 @@
 const axios = require('axios');
 const crypto = require('crypto');
 
+// Generate a random suffix for unique fields
+const randomSuffix = Math.floor(100000 + Math.random() * 900000);
+
 // Sample candidate data
 const sampleCandidate = {
-  id: "CAN-SAMPLE-" + Math.floor(100000 + Math.random() * 900000), // Random ID
-  name: "Jane Smith",
-  email: "jane.smith@example.com",
-  phone: "555-123-4567",
-  linkedin: "https://linkedin.com/in/jane-smith-sample",
+  id: "CAN-SAMPLE-" + randomSuffix, // Random ID
+  name: "Jane Smith " + randomSuffix,
+  email: `jane.smith.${randomSuffix}@example.com`,
+  phone: `555-123-${randomSuffix.toString().substring(0, 4)}`,
+  linkedin: `https://linkedin.com/in/jane-smith-sample-${randomSuffix}`,
   summary: "Experienced software developer with expertise in full-stack development and cloud technologies.\n\nDemonstrates excellent problem-solving skills and communicates technical concepts clearly.\n\nWorks well with cross-functional teams and has a strong foundation in modern web technologies.",
   recommendations: "Focus on improving public speaking skills through regular practice with technical presentations.\n\nConsider obtaining cloud certification to formalize existing knowledge in AWS or similar platforms.\n\nContinue developing leadership capabilities by mentoring junior developers.",
   timing: "Responds to questions promptly with well-structured answers.",
@@ -20,8 +23,27 @@ const sampleCandidate = {
 // Create a sample candidate in the database
 async function createSampleCandidate(candidate) {
   try {
-    // API endpoint
-    const apiUrl = 'http://localhost:3000/api/candidates';
+    // Dynamically determine API base URL based on current domain
+    const getApiBaseUrl = () => {
+      if (typeof window !== 'undefined') {
+        // Browser environment
+        const protocol = window.location.protocol;
+        const hostname = window.location.hostname;
+        const port = (hostname === 'localhost' || hostname === '127.0.0.1') ? ':3000' : '';
+        return `${protocol}//${hostname}${port}/api/candidates`;
+      } else {
+        // Node.js environment
+        // Default is localhost, but could be overridden by environment variables
+        // In production this could be 3hire.ai or www.3hire.ai
+        const hostname = process.env.API_HOST || 'localhost';
+        const port = (hostname === 'localhost' || hostname === '127.0.0.1') ? ':3000' : '';
+        const protocol = port ? 'http' : 'https';
+        return `${protocol}://${hostname}${port}/api/candidates`;
+      }
+    };
+    
+    const apiUrl = getApiBaseUrl();
+    console.log('Using API URL:', apiUrl);
     
     // Post to API
     const response = await axios.post(apiUrl, candidate);
@@ -43,7 +65,7 @@ function displayCandidateInfo(candidate) {
   console.log(`Access Key: ${candidate.accessKey}`);
   console.log('-----------------------------------------');
   console.log('Access Information:');
-  console.log(`Candidate URL: http://localhost:3000/candidates.html`);
+  console.log(`Candidate URL: ${process.env.PUBLIC_URL || 'http://localhost:3000'}/candidates.html`);
   console.log(`Candidate ID: ${candidate.id}`);
   console.log(`Access Code: ${candidate.accessKey}`);
   console.log('-----------------------------------------');
