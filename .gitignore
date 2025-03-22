@@ -31,6 +31,9 @@ coverage
 # Compiled binary addons
 build/Release
 
+# Static profile files
+profile-CAN-*.html
+
 # Editors
 .idea
 .vscode
