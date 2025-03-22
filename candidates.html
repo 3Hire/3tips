@@ -891,100 +891,29 @@
                         }
                     } catch (error) {
                         console.error('Error verifying access code:', error);
-                        // Fallback verification if API endpoint isn't available
-                        // This will be used when database is not running
-                        console.log('Using fallback verification as API is unavailable');
-                        
-                        // Define hardcoded mappings for testing (simulate database)
-                        const fallbackCandidates = {
-                            'CAN-201937': { 
-                                accessKey: '78d5e2b916e95d45',
-                                isUnlocked: localStorage.getItem('candidate_CAN-201937_unlocked') === 'true'
-                            },
-                            'CAN-332988': {
-                                accessKey: '0aa2e05236957548',
-                                isUnlocked: localStorage.getItem('candidate_CAN-332988_unlocked') === 'true'
-                            },
-                            'CAN-996947': {
-                                accessKey: 'bfbfbeb1c16b9604',
-                                isUnlocked: localStorage.getItem('candidate_CAN-996947_unlocked') === 'true'
-                            }
-                        };
-                        
-                        // Check if we have this candidate in our fallback data
-                        const fallbackCandidate = fallbackCandidates[candidateId];
-                        
-                        if (!fallbackCandidate || fallbackCandidate.accessKey !== accessCode) {
+                        // Fallback verification if API endpoint isn't available yet
+                        // This should be removed in production
+                        if (accessCode !== "8b17879f434b7adc") { // Hardcoded for testing
                             errorMsg.textContent = 'Invalid access code';
                             return;
                         }
                     }
                 }
                 
-                // Define fallback candidate data for when the API is not available
-                const candidateDataMap = {
-                    'CAN-201937': {
-                        id: 'CAN-201937',
-                        name: 'Daniel Johnson',
-                        summary: 'Experienced software engineer with focus on backend development.\n\nStrong in Java, Python, and microservices architecture.\n\nExcellent problem-solving skills and team collaboration.',
-                        recommendations: 'Consider deepening knowledge of cloud infrastructure and containerization technologies.\n\nContinue to work on public speaking skills for presentations.\n\nExplore more leadership opportunities in technical projects.',
-                        timing: 'Responds promptly to questions with well-structured answers.',
-                        facial: 'Maintains good eye contact throughout the interview.',
-                        video: 'Professional appearance and environment.',
-                        communication: 'Articulates technical concepts clearly and concisely.',
-                        isUnlocked: localStorage.getItem('candidate_CAN-201937_unlocked') === 'true'
-                    },
-                    'CAN-332988': {
-                        id: 'CAN-332988',
-                        name: 'Sarah Miller',
-                        summary: 'A good drinker.\n\nSmart, think deep.\n\nWith very good self control.',
-                        recommendations: 'Focus on improving technical documentation skills.\n\nConsider taking advanced courses in system design.\n\nDevelop more expertise in performance optimization techniques.',
-                        timing: 'Good pacing during interview responses.',
-                        facial: 'Animated and engaging facial expressions.',
-                        video: 'Could improve lighting for video interviews.',
-                        communication: 'Clear communication style with good examples.',
-                        isUnlocked: localStorage.getItem('candidate_CAN-332988_unlocked') === 'true'
-                    },
-                    'CAN-996947': {
-                        id: 'CAN-996947',
-                        name: 'Michael Chen',
-                        summary: 'A good drinker.\n\nSmart, think deep.\n\nWith very good self control.',
-                        recommendations: 'Consider obtaining cloud certification to formalize existing knowledge.\n\nContinue developing presentation skills for technical audiences.\n\nExpand network within the industry through meetups and conferences.',
-                        timing: 'Well-structured responses that respect time constraints.',
-                        facial: 'Maintains professional demeanor throughout interviews.',
-                        video: 'Good video setup and professional appearance.',
-                        communication: 'Excellent at explaining complex concepts simply.',
-                        isUnlocked: localStorage.getItem('candidate_CAN-996947_unlocked') === 'true'
-                    }
-                };
-                
-                let candidateData;
                 try {
                     // Fetch candidate data from the API
                     const response = await fetch(`http://localhost:3000/api/candidates/${candidateId}`);
                     
                     if (response.status === 404) {
-                        console.log('Candidate not found in database, using fallback data');
-                        candidateData = candidateDataMap[candidateId];
-                        
-                        if (!candidateData) {
-                            errorMsg.textContent = 'Candidate not found. Please check the ID and try again.';
-                            return;
-                        }
-                    } else if (!response.ok) {
-                        throw new Error('Failed to fetch candidate data');
-                    } else {
-                        candidateData = await response.json();
-                    }
-                } catch (error) {
-                    console.error('Error accessing database, using fallback data:', error);
-                    candidateData = candidateDataMap[candidateId];
-                    
-                    if (!candidateData) {
                         errorMsg.textContent = 'Candidate not found. Please check the ID and try again.';
                         return;
                     }
-                }
+                    
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch candidate data');
+                    }
+                    
+                    const candidateData = await response.json();
                     
                     // Check if recommendations are unlocked in database
                     const isUnlocked = candidateData.isUnlocked;
@@ -994,11 +923,11 @@
                     document.getElementById('report-id').textContent = 'Candidate ID: ' + candidateData.id;
                     // Email, phone and LinkedIn information removed since candidate already knows it
                     
-                    // Format summary with proper paragraphs and preserve line breaks
+                    // Format summary with proper paragraphs
                     const summaryText = candidateData.summary || 'No summary available';
                     document.getElementById('report-summary').innerHTML = summaryText
                         .split(/\n\s*\n/)
-                        .map(para => `<p>${para.replace(/\n/g, '<br>')}</p>`)
+                        .map(para => `<p>${para.replace(/\n/g, ' ')}</p>`)
                         .join('');
                     
                     // Store hidden assessment elements
@@ -1007,11 +936,11 @@
                     document.getElementById('report-video').textContent = candidateData.video || 'No video presence assessment available';
                     document.getElementById('report-communication').textContent = candidateData.communication || 'No communication assessment available';
                     
-                    // Format recommendations with proper paragraphs and preserve line breaks
+                    // Format recommendations with proper paragraphs but keep blurred until purchased
                     const recommendationsText = candidateData.recommendations || 'No specific recommendations available';
                     document.getElementById('report-recommendations').innerHTML = recommendationsText
                         .split(/\n\s*\n/)
-                        .map(para => `<p>${para.replace(/\n/g, '<br>')}</p>`)
+                        .map(para => `<p>${para.replace(/\n/g, ' ')}</p>`)
                         .join('');
                     
                     // Show report section, hide login section
@@ -1021,26 +950,8 @@
                     // Update page title with candidate name
                     document.title = `Assessment Report - ${candidateData.name} - 3Hire`;
                     
-                    // Check if profile was previously unlocked, either from database or localStorage
-                    const localStorageUnlocked = localStorage.getItem(`candidate_${candidateId}_unlocked`) === 'true';
-                    
-                    if (isUnlocked || localStorageUnlocked) {
-                        console.log('Recommendations already unlocked:', { 
-                            'database-unlocked': isUnlocked, 
-                            'localStorage-unlocked': localStorageUnlocked 
-                        });
-                        
-                        // If it's unlocked in localStorage but not in the database, update the database
-                        if (localStorageUnlocked && !isUnlocked) {
-                            console.log('Syncing unlock status to database...');
-                            fetch(`http://localhost:3000/api/candidates/${candidateId}/unlock`, {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                }
-                            }).catch(error => console.error('Error syncing unlock status:', error));
-                        }
-                        
+                    // If profile was previously unlocked, show recommendations immediately
+                    if (isUnlocked) {
                         // Unlock the recommendations
                         document.getElementById('report-recommendations').classList.remove('blurred');
                         
@@ -1203,29 +1114,14 @@
                         // Save unlocked state to database
                         const candidateId = document.getElementById('report-id').textContent.replace('Candidate ID: ', '');
                         
-                        // Always store in localStorage for our fallback data
-                        localStorage.setItem(`candidate_${candidateId}_unlocked`, 'true');
-                        console.log(`Unlocked candidate ${candidateId} (stored in localStorage)`);
-                        
-                        // Try to update the database if it's available
-                        try {
-                            // Call API to update unlock status
-                            fetch(`http://localhost:3000/api/candidates/${candidateId}/unlock`, {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                }
-                            })
-                            .then(response => response.json())
-                            .then(data => {
-                                console.log('Unlock status updated in database:', data);
-                            })
-                            .catch(error => {
-                                console.log('Could not update database, but localStorage is updated:', error);
-                            });
-                        } catch (error) {
-                            console.log('Error calling API, but localStorage is updated:', error);
-                        }
+                        // Call API to update unlock status
+                        fetch(`http://localhost:3000/api/candidates/${candidateId}/unlock`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        })
+                        .catch(error => console.error('Error updating unlock status:', error));
                         
                         // Replace the purchase button with schedule session button
                         const purchaseBtn = document.getElementById('purchase-recommendations-btn');
