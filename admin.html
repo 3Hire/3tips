@@ -53,8 +53,19 @@
                     
                     
                     <div class="shareable-link" v-if="profile.accessKey">
-                        <label>Assessment Report Access:</label>
                         <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;">
+                            <div style="display: flex; align-items: center; gap: 5px; flex-wrap: wrap;">
+                                <span style="font-weight: bold; min-width: 100px;">Status:</span>
+                                <span :style="profile.isUnlocked ? 'color: green; font-weight: bold;' : 'color: orange;'">
+                                    {{ profile.isUnlocked ? 'Unlocked' : 'Locked' }}
+                                </span>
+                                <button type="button" @click="unlockRecommendations" 
+                                        class="unlock-btn" 
+                                        :disabled="profile.isUnlocked" 
+                                        :title="profile.isUnlocked ? 'Already unlocked' : 'Unlock recommendations for this candidate'">
+                                    {{ profile.isUnlocked ? 'Unlocked' : 'Unlock' }}
+                                </button>
+                            </div>
                             <div style="display: flex; align-items: center; gap: 5px; flex-wrap: wrap;">
                                 <span style="font-weight: bold; min-width: 100px;">Report URL:</span>
                                 <span>http://localhost:3000/candidates.html</span>
@@ -66,9 +77,7 @@
                             <div style="display: flex; align-items: center; gap: 5px; flex-wrap: wrap;">
                                 <span style="font-weight: bold; min-width: 100px;">Access Key:</span>
                                 <span>{{ profile.accessKey }}</span>
-                                <button type="button" @click="copyAllAccessInfo" class="copy-btn">Copy All</button>
                                 <button type="button" @click="emailReportAccess" class="email-btn">Email to Candidate</button>
-                                <button type="button" @click="unlockRecommendations" class="unlock-btn" :disabled="profile.isUnlocked" :title="profile.isUnlocked ? 'Already unlocked' : 'Unlock recommendations for this candidate'">{{ profile.isUnlocked ? 'Unlocked' : 'Unlock' }}</button>
                             </div>
                             <p style="font-size: 0.85em; color: #666; margin-top: 5px;">
                                 Share these details with the candidate to allow them to access their assessment report.
