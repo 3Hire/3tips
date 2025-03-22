@@ -923,11 +923,11 @@
                     document.getElementById('report-id').textContent = 'Candidate ID: ' + candidateData.id;
                     // Email, phone and LinkedIn information removed since candidate already knows it
                     
-                    // Format summary with proper paragraphs
+                    // Format summary with proper paragraphs and preserve line breaks
                     const summaryText = candidateData.summary || 'No summary available';
                     document.getElementById('report-summary').innerHTML = summaryText
                         .split(/\n\s*\n/)
-                        .map(para => `<p>${para.replace(/\n/g, ' ')}</p>`)
+                        .map(para => `<p>${para.replace(/\n/g, '<br>')}</p>`)
                         .join('');
                     
                     // Store hidden assessment elements
@@ -936,11 +936,11 @@
                     document.getElementById('report-video').textContent = candidateData.video || 'No video presence assessment available';
                     document.getElementById('report-communication').textContent = candidateData.communication || 'No communication assessment available';
                     
-                    // Format recommendations with proper paragraphs but keep blurred until purchased
+                    // Format recommendations with proper paragraphs and preserve line breaks
                     const recommendationsText = candidateData.recommendations || 'No specific recommendations available';
                     document.getElementById('report-recommendations').innerHTML = recommendationsText
                         .split(/\n\s*\n/)
-                        .map(para => `<p>${para.replace(/\n/g, ' ')}</p>`)
+                        .map(para => `<p>${para.replace(/\n/g, '<br>')}</p>`)
                         .join('');
                     
                     // Show report section, hide login section
@@ -950,8 +950,11 @@
                     // Update page title with candidate name
                     document.title = `Assessment Report - ${candidateData.name} - 3Hire`;
                     
-                    // If profile was previously unlocked, show recommendations immediately
-                    if (isUnlocked) {
+                    // Check if profile was previously unlocked, either from DB or localStorage
+                    const storedUnlocked = localStorage.getItem(`candidate_${candidateId}_unlocked`) === 'true';
+                    if (isUnlocked || storedUnlocked) {
+                        console.log(`Recommendations already unlocked for ${candidateId} (DB: ${isUnlocked}, localStorage: ${storedUnlocked})`);
+                        
                         // Unlock the recommendations
                         document.getElementById('report-recommendations').classList.remove('blurred');
                         
@@ -1114,6 +1117,10 @@
                         // Save unlocked state to database
                         const candidateId = document.getElementById('report-id').textContent.replace('Candidate ID: ', '');
                         
+                        // Store unlock status in localStorage for persistence
+                        localStorage.setItem(`candidate_${candidateId}_unlocked`, 'true');
+                        console.log(`Stored unlock status for ${candidateId} in localStorage`);
+                        
                         // Call API to update unlock status
                         fetch(`http://localhost:3000/api/candidates/${candidateId}/unlock`, {
                             method: 'POST',
@@ -1121,7 +1128,7 @@
                                 'Content-Type': 'application/json'
                             }
                         })
-                        .catch(error => console.error('Error updating unlock status:', error));
+                        .catch(error => console.error('Error updating unlock status in database:', error));
                         
                         // Replace the purchase button with schedule session button
                         const purchaseBtn = document.getElementById('purchase-recommendations-btn');
