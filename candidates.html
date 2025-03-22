@@ -923,11 +923,11 @@
                     document.getElementById('report-id').textContent = 'Candidate ID: ' + candidateData.id;
                     // Email, phone and LinkedIn information removed since candidate already knows it
                     
-                    // Format summary with proper paragraphs
+                    // Format summary with proper paragraphs and preserve line breaks
                     const summaryText = candidateData.summary || 'No summary available';
                     document.getElementById('report-summary').innerHTML = summaryText
                         .split(/\n\s*\n/)
-                        .map(para => `<p>${para.replace(/\n/g, ' ')}</p>`)
+                        .map(para => `<p>${para.replace(/\n/g, '<br>')}</p>`)
                         .join('');
                     
                     // Store hidden assessment elements
@@ -936,11 +936,11 @@
                     document.getElementById('report-video').textContent = candidateData.video || 'No video presence assessment available';
                     document.getElementById('report-communication').textContent = candidateData.communication || 'No communication assessment available';
                     
-                    // Format recommendations with proper paragraphs but keep blurred until purchased
+                    // Format recommendations with proper paragraphs and preserve line breaks
                     const recommendationsText = candidateData.recommendations || 'No specific recommendations available';
                     document.getElementById('report-recommendations').innerHTML = recommendationsText
                         .split(/\n\s*\n/)
-                        .map(para => `<p>${para.replace(/\n/g, ' ')}</p>`)
+                        .map(para => `<p>${para.replace(/\n/g, '<br>')}</p>`)
                         .join('');
                     
                     // Show report section, hide login section

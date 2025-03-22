@@ -30,7 +30,20 @@ async function generateProfileHtml(candidate) {
     template = template.replace(/{{linkedin}}/g, candidate.linkedin 
       ? `<a href="${candidate.linkedin}" target="_blank">${candidate.linkedin}</a>` 
       : 'Not provided');
-    template = template.replace(/{{summary}}/g, candidate.summary || 'Not provided');
+    
+    // Process paragraphs for summary
+    const summaryHtml = (candidate.summary || 'Not provided')
+      .split(/\n\s*\n/)
+      .map(para => para.replace(/\n/g, '<br>'))
+      .join('</p><p>');
+    template = template.replace(/{{summary}}/g, summaryHtml);
+    
+    // Process paragraphs for recommendations
+    const recommendationsHtml = (candidate.recommendations || 'Not provided')
+      .split(/\n\s*\n/)
+      .map(para => para.replace(/\n/g, '<br>'))
+      .join('</p><p>');
+    template = template.replace(/{{recommendations}}/g, recommendationsHtml);
     
     // Replace new assessment fields
     template = template.replace(/{{timing}}/g, candidate.timing || 'Not provided');
