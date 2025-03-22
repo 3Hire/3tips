@@ -298,10 +298,15 @@ router.post('/:id/regenerateAccess', async (req, res) => {
 // Update unlock status for a candidate
 router.post('/:id/unlock', async (req, res) => {
   try {
+    console.log(`Attempting to unlock candidate: ${req.params.id}`);
+    
     const candidate = await Candidate.findOne({ id: req.params.id });
     if (!candidate) {
+      console.log(`Candidate not found: ${req.params.id}`);
       return res.status(404).json({ message: 'Candidate not found' });
     }
+    
+    console.log(`Found candidate: ${candidate.id}, current unlock status: ${candidate.isUnlocked}`);
     
     // Update isUnlocked status
     const updatedCandidate = await Candidate.findOneAndUpdate(
@@ -310,12 +315,25 @@ router.post('/:id/unlock', async (req, res) => {
       { new: true }
     );
     
+    console.log(`Updated candidate: ${updatedCandidate.id}, new unlock status: ${updatedCandidate.isUnlocked}`);
+    
+    // Also update the profile HTML file to reflect the unlocked status
+    try {
+      await generateProfileHtml(updatedCandidate);
+      console.log(`Updated profile HTML for candidate: ${updatedCandidate.id}`);
+    } catch (htmlErr) {
+      console.error('Error updating profile HTML:', htmlErr);
+      // Continue even if HTML update fails
+    }
+    
     res.json({ 
       success: true, 
       message: 'Candidate recommendations unlocked successfully',
-      isUnlocked: updatedCandidate.isUnlocked
+      isUnlocked: updatedCandidate.isUnlocked,
+      candidateId: updatedCandidate.id
     });
   } catch (err) {
+    console.error('Error unlocking candidate:', err);
     res.status(500).json({ message: err.message });
   }
 });

@@ -950,8 +950,26 @@
                     // Update page title with candidate name
                     document.title = `Assessment Report - ${candidateData.name} - 3Hire`;
                     
-                    // If profile was previously unlocked, show recommendations immediately
-                    if (isUnlocked) {
+                    // Check if profile was previously unlocked, either from database or localStorage
+                    const localStorageUnlocked = localStorage.getItem(`candidate_${candidateId}_unlocked`) === 'true';
+                    
+                    if (isUnlocked || localStorageUnlocked) {
+                        console.log('Recommendations already unlocked:', { 
+                            'database-unlocked': isUnlocked, 
+                            'localStorage-unlocked': localStorageUnlocked 
+                        });
+                        
+                        // If it's unlocked in localStorage but not in the database, update the database
+                        if (localStorageUnlocked && !isUnlocked) {
+                            console.log('Syncing unlock status to database...');
+                            fetch(`http://localhost:3000/api/candidates/${candidateId}/unlock`, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                }
+                            }).catch(error => console.error('Error syncing unlock status:', error));
+                        }
+                        
                         // Unlock the recommendations
                         document.getElementById('report-recommendations').classList.remove('blurred');
                         
@@ -1120,6 +1138,12 @@
                             headers: {
                                 'Content-Type': 'application/json'
                             }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log('Unlock status updated:', data);
+                            // Store unlocked status in localStorage as a backup
+                            localStorage.setItem(`candidate_${candidateId}_unlocked`, 'true');
                         })
                         .catch(error => console.error('Error updating unlock status:', error));
                         
