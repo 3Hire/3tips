@@ -22,8 +22,16 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Get the API base URL
             const getApiBaseUrl = () => {
-                // Use the production Elastic Beanstalk URL in production
-                return 'https://3hire-backend.elasticbeanstalk.com/api';
+                // Check if we're running in a file:// protocol (local file)
+                if (window.location.protocol === 'file:') {
+                    return 'http://localhost:3001/api';
+                }
+                
+                // Otherwise, use the same origin with port 3001 for local development
+                const protocol = window.location.protocol;
+                const hostname = window.location.hostname;
+                const port = (hostname === 'localhost' || hostname === '127.0.0.1') ? ':3001' : '';
+                return `${protocol}//${hostname}${port}/api`;
             };
             
             // Search for a candidate
