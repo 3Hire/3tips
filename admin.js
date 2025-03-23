@@ -22,10 +22,16 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Get the API base URL
             const getApiBaseUrl = () => {
-                // Use the demo mode for now with fallback mechanism
-                console.log('Using demo mode with fallback');
-                // This will trigger the fallback to local mode
-                return 'https://non-existent-api.example.com/api';
+                // Check if we're using a local environment
+                if (window.location.hostname === 'localhost' || 
+                    window.location.hostname === '127.0.0.1' ||
+                    window.location.protocol === 'file:') {
+                    // Local development
+                    return 'http://localhost:3001/api';
+                } else {
+                    // Production - using AWS Amplify
+                    return `${window.location.protocol}//${window.location.host}/api`;
+                }
             };
             
             // Search for a candidate

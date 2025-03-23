@@ -1,15 +1,16 @@
 // Simplified app.js for basic interactivity
 
 document.addEventListener('DOMContentLoaded', function() {
-    // API base URL for development
-    // Check if we're running in a file:// protocol (local file)
-    if (window.location.protocol === 'file:') {
+    // API base URL configuration
+    // Check if we're in a local environment
+    if (window.location.hostname === 'localhost' || 
+        window.location.hostname === '127.0.0.1' ||
+        window.location.protocol === 'file:') {
+        // Local development
         window.API_BASE_URL = 'http://localhost:3001/api';
     } else {
-        const protocol = window.location.protocol;
-        const hostname = window.location.hostname;
-        const port = (hostname === 'localhost' || hostname === '127.0.0.1') ? ':3001' : '';
-        window.API_BASE_URL = `${protocol}//${hostname}${port}/api`;
+        // Production - using AWS Amplify
+        window.API_BASE_URL = `${window.location.protocol}//${window.location.host}/api`;
     }
     
     // Mobile menu toggle

@@ -21,22 +21,3 @@ applications:
             - key: 'Cache-Control'
               value: 'max-age=86400'
     appRoot: /
-  - backend:
-      phases:
-        preBuild:
-          commands:
-            - cd backend
-            - npm ci
-        build:
-          commands:
-            - cd backend
-            - node scripts/create-dynamo-tables.js || echo "Tables already exist"
-      artifacts:
-        baseDirectory: backend
-        files:
-          - '**/*'
-        discard-paths: no
-      cache:
-        paths:
-          - backend/node_modules/**/*
-    appRoot: backend
