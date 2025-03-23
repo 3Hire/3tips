@@ -22,8 +22,8 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Get the API base URL
             const getApiBaseUrl = () => {
-                // Force fallback mode
-                return 'intentionally-invalid-url';
+                // Use the production API endpoint
+                return 'https://3hire-api.herokuapp.com/api';
             };
             
             // Search for a candidate

@@ -2,16 +2,8 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     // API base URL configuration
-    // Check if we're in a local environment
-    if (window.location.hostname === 'localhost' || 
-        window.location.hostname === '127.0.0.1' ||
-        window.location.protocol === 'file:') {
-        // Local development
-        window.API_BASE_URL = 'http://localhost:3001/api';
-    } else {
-        // Production - using AWS Amplify
-        window.API_BASE_URL = `${window.location.protocol}//${window.location.host}/api`;
-    }
+    // Use the production API endpoint
+    window.API_BASE_URL = 'https://3hire-api.herokuapp.com/api';
     
     // Mobile menu toggle
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
