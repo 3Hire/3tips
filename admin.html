@@ -7,7 +7,7 @@
     <meta name="description" content="Coaching. Hiring. Consulting">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="admin.css">
-    <!-- Include Vue 3 from CDN before the body -->
+    <!-- Include Vue 3 from CDN -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 <body>
@@ -38,227 +38,130 @@
         
         <main>
             <div id="admin-app">
-                <h1>{{ title }}</h1>
-                
-                <!-- Debug panel -->
-                <div class="debug-panel" style="margin-bottom: 20px; padding: 10px; background-color: #f8f9fa; border-radius: 5px; border: 1px solid #ddd;">
-                    <h4 style="margin-top: 0;">API Connection Tester</h4>
-                    <button onclick="testApiConnection()" style="background-color: #28a745; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer;">
-                        Test API Connection
-                    </button>
-                    <div id="apiConnectionResult" style="margin-top: 10px; font-family: monospace;"></div>
+                <div class="container">
+                    <h1>Candidate Management</h1>
                     
-                    <h4 style="margin-top: 10px;">Direct API Search Test</h4>
-                    <div style="display: flex; gap: 10px; margin-bottom: 10px;">
-                        <input type="text" id="directSearchInput" placeholder="Enter candidate ID to search" style="flex: 1; padding: 5px;">
-                        <button onclick="testDirectSearch()" style="background-color: #007bff; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer;">
-                            Search
-                        </button>
-                    </div>
-                    <div id="directSearchResult" style="margin-top: 10px; font-family: monospace;"></div>
-                    
-                    <script>
-                        function testApiConnection() {
-                            const protocol = window.location.protocol;
-                            const hostname = window.location.hostname;
-                            const port = (hostname === 'localhost' || hostname === '127.0.0.1') ? ':3000' : '';
-                            const apiUrl = `${protocol}//${hostname}${port}/api/candidates`;
-                            
-                            const resultElement = document.getElementById('apiConnectionResult');
-                            resultElement.innerHTML = 'Testing connection to: ' + apiUrl + '...';
-                            
-                            fetch(apiUrl)
-                                .then(response => {
-                                    resultElement.innerHTML += '<br>Status: ' + response.status;
-                                    return response.text();
-                                })
-                                .then(text => {
-                                    try {
-                                        const data = JSON.parse(text);
-                                        resultElement.innerHTML += '<br>Success! Found ' + data.length + ' candidates.';
-                                        resultElement.innerHTML += '<br>First candidate: ' + (data[0]?.id || 'None');
-                                    } catch(e) {
-                                        resultElement.innerHTML += '<br>Error parsing response: ' + e.message;
-                                        resultElement.innerHTML += '<br>Raw response: ' + text.substring(0, 100) + '...';
-                                    }
-                                })
-                                .catch(error => {
-                                    resultElement.innerHTML += '<br>Error: ' + error.message;
-                                });
-                        }
+                    <!-- Search Section -->
+                    <div class="admin-panel">
+                        <div class="search-container">
+                            <input 
+                                type="text" 
+                                v-model="searchQuery" 
+                                placeholder="Search by ID, name, or email..." 
+                                @keyup.enter="searchCandidate"
+                            >
+                            <button class="btn search-btn" @click="searchCandidate">Search</button>
+                            <button class="btn new-btn" @click="resetForm">Add New</button>
+                        </div>
                         
-                        function testDirectSearch() {
-                            const searchInput = document.getElementById('directSearchInput').value.trim();
-                            if (!searchInput) {
-                                alert('Please enter a search term');
-                                return;
-                            }
-                            
-                            const protocol = window.location.protocol;
-                            const hostname = window.location.hostname;
-                            const port = (hostname === 'localhost' || hostname === '127.0.0.1') ? ':3000' : '';
-                            const apiUrl = `${protocol}//${hostname}${port}/api/candidates/${encodeURIComponent(searchInput)}`;
-                            
-                            const resultElement = document.getElementById('directSearchResult');
-                            resultElement.innerHTML = 'Searching API: ' + apiUrl + '...';
-                            
-                            fetch(apiUrl)
-                                .then(response => {
-                                    resultElement.innerHTML += '<br>Status: ' + response.status;
-                                    return response.text();
-                                })
-                                .then(text => {
-                                    resultElement.innerHTML += '<br>Raw response (' + text.length + ' chars): ' + text.substring(0, 300) + (text.length > 300 ? '...' : '');
-                                    
-                                    try {
-                                        const data = JSON.parse(text);
-                                        resultElement.innerHTML += '<br><br>Parsed JSON fields: ' + Object.keys(data).join(', ');
-                                        resultElement.innerHTML += '<br>Candidate ID: ' + (data.id || 'Not found');
-                                        resultElement.innerHTML += '<br>Candidate Name: ' + (data.name || 'Not found');
-                                    } catch(e) {
-                                        resultElement.innerHTML += '<br>Error parsing JSON: ' + e.message;
-                                    }
-                                })
-                                .catch(error => {
-                                    resultElement.innerHTML += '<br>Error: ' + error.message;
-                                });
-                        }
-                    </script>
-                </div>
-                
-                <div class="admin-panel">
-                    <div class="search-container">
-                        <input type="text" v-model="searchId" placeholder="Search by ID, name, email, phone, or LinkedIn..." @keyup.enter="searchCandidate">
-                        <button @click="searchCandidate" class="search-btn">Search</button>
-                        <button @click="newCandidate" class="new-btn">New Candidate</button>
-                    </div>
-                    <h2>Candidate Profile</h2>
-                    
-                    <div class="candidate-id" v-if="profile.id">
-                        <label>Candidate ID:</label>
-                        <span>{{ profile.id }}</span>
-                    </div>
-                    
-                    
-                    <div class="shareable-link" v-if="profile.accessKey">
-                        <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;">
-                            <div style="display: flex; align-items: center; gap: 5px; flex-wrap: wrap;">
-                                <span style="font-weight: bold; min-width: 100px;">Status:</span>
-                                <span :style="profile.isUnlocked ? 'color: green; font-weight: bold;' : 'color: orange;'">
-                                    {{ profile.isUnlocked ? 'Unlocked' : 'Locked' }}
-                                </span>
-                                <button type="button" @click="unlockRecommendations" 
-                                        class="unlock-btn" 
-                                        :disabled="profile.isUnlocked" 
-                                        :title="profile.isUnlocked ? 'Already unlocked' : 'Unlock recommendations for this candidate'">
-                                    {{ profile.isUnlocked ? 'Unlocked' : 'Unlock' }}
-                                </button>
-                            </div>
-                            <div style="display: flex; align-items: center; gap: 5px; flex-wrap: wrap;">
-                                <span style="font-weight: bold; min-width: 100px;">Report URL:</span>
-                                <span>{{ window.location.protocol + '//' + window.location.hostname + 
-                                    ((window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? ':3000' : '') + 
-                                    '/candidates.html' }}</span>
-                            </div>
-                            <div style="display: flex; align-items: center; gap: 5px; flex-wrap: wrap;">
-                                <span style="font-weight: bold; min-width: 100px;">Candidate ID:</span>
-                                <span>{{ profile.id }}</span>
-                            </div>
-                            <div style="display: flex; align-items: center; gap: 5px; flex-wrap: wrap;">
-                                <span style="font-weight: bold; min-width: 100px;">Access Key:</span>
-                                <span>{{ profile.accessKey }}</span>
-                                <button type="button" @click="emailReportAccess" class="email-btn">Email to Candidate</button>
-                            </div>
-                            <p style="font-size: 0.85em; color: #666; margin-top: 5px;">
-                                Share these details with the candidate to allow them to access their assessment report.
-                            </p>
+                        <!-- Candidate Details (after search) -->
+                        <div v-if="searchResult" class="candidate-id">
+                            <div><strong>ID:</strong> {{ searchResult.id }}</div>
+                            <div><strong>Name:</strong> {{ searchResult.name }}</div>
+                            <div><strong>Access Code:</strong> {{ searchResult.accessCode }}</div>
                         </div>
                     </div>
                     
-                    <form @submit.prevent="saveProfile">
-                        <div class="form-row" style="display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap;">
-                            <div style="flex: 1; min-width: 250px;">
-                                <label for="name">Full Name</label>
-                                <input type="text" id="name" v-model="profile.name" required>
-                            </div>
-                            <div style="flex: 1; min-width: 250px;">
-                                <label for="email">Email Address</label>
-                                <input type="email" id="email" v-model="profile.email" required
-                                       :class="{ 'input-error': !isValidEmail && profile.email }">
-                                <div class="validation-message" v-if="!isValidEmail && profile.email">
-                                    Please enter a valid email address
+                    <!-- Candidate Form -->
+                    <div class="admin-panel">
+                        <h2>{{ isEditing ? 'Update Candidate' : 'Add New Candidate' }}</h2>
+                        
+                        <!-- Basic Information -->
+                        <div class="form-section">
+                            <h3>Basic Information</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="name">Name</label>
+                                    <input 
+                                        type="text" 
+                                        id="name" 
+                                        v-model="candidate.name" 
+                                        :class="{ 'input-error': validationErrors.name }"
+                                    >
+                                    <div v-if="validationErrors.name" class="validation-message">
+                                        {{ validationErrors.name }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input 
+                                        type="email" 
+                                        id="email" 
+                                        v-model="candidate.email"
+                                        :class="{ 'input-error': validationErrors.email }"
+                                    >
+                                    <div v-if="validationErrors.email" class="validation-message">
+                                        {{ validationErrors.email }}
+                                    </div>
                                 </div>
                             </div>
-                            <div style="flex: 1; min-width: 250px;">
-                                <label for="phone">Phone Number</label>
-                                <input type="tel" id="phone" v-model="profile.phone" placeholder="123-456-7890"
-                                       :class="{ 'input-error': !isValidPhone && profile.phone }">
-                                <div class="validation-message" v-if="!isValidPhone && profile.phone">
-                                    Please enter a valid phone number (e.g., 123-456-7890)
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="phone">Phone Number</label>
+                                    <input 
+                                        type="text" 
+                                        id="phone" 
+                                        v-model="candidate.phone"
+                                    >
+                                </div>
+                                <div class="form-group">
+                                    <label for="linkedin">LinkedIn URL</label>
+                                    <input 
+                                        type="url" 
+                                        id="linkedin" 
+                                        v-model="candidate.linkedin"
+                                    >
                                 </div>
                             </div>
                         </div>
-                        <small class="field-note" style="margin-top: -15px; margin-bottom: 15px; display: block;">Email and phone must be unique across all candidates</small>
                         
-                        <div class="form-group">
-                            <label for="linkedin">LinkedIn URL</label>
-                            <input type="url" id="linkedin" v-model="profile.linkedin" placeholder="https://www.linkedin.com/in/username" 
-                                   :class="{ 'input-error': !isValidLinkedIn && profile.linkedin }">
-                            <div class="validation-message" v-if="!isValidLinkedIn && profile.linkedin">
-                                Please enter a valid LinkedIn URL (should contain linkedin.com/)
-                            </div>
-                            <small class="field-note">Must be unique across all candidates</small>
-                        </div>
-                        
+                        <!-- Interview Assessment -->
                         <div class="form-section">
-                            <h3>Summary</h3>
+                            <h3>Interview Assessment</h3>
                             <div class="form-group">
-                                <textarea id="summary" v-model="profile.summary" rows="6" placeholder="Write a summary and list 3 things that the candidate did well..."></textarea>
-                                <small class="field-note">Provide a comprehensive overview of the candidate's interview performance</small>
+                                <label for="summary">Interview Summary</label>
+                                <textarea 
+                                    id="summary" 
+                                    v-model="candidate.summary"
+                                    :class="{ 'input-error': validationErrors.summary }"
+                                    placeholder="Provide a general summary of the candidate's interview performance"
+                                ></textarea>
+                                <div v-if="validationErrors.summary" class="validation-message">
+                                    {{ validationErrors.summary }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="recommendations">Interview Feedback & Recommendations</label>
+                                <textarea 
+                                    id="recommendations" 
+                                    v-model="candidate.recommendations"
+                                    placeholder="Provide specific feedback and recommendations for the candidate"
+                                ></textarea>
                             </div>
                         </div>
                         
-                        <div class="form-section">
-                            <h3>Recommendations</h3>
-                            <div class="form-group">
-                                <textarea id="recommendations" v-model="profile.recommendations" rows="6" placeholder="Enter up to three specific recommendations for the candidate's improvement..."></textarea>
-                                <small class="field-note">Provide actionable advice for the candidate to improve their interviewing skills</small>
-                            </div>
-                        </div>
-                        
-                        <!-- Hidden fields to maintain database compatibility -->
-                        <input type="hidden" id="timing" v-model="profile.timing">
-                        <input type="hidden" id="facial" v-model="profile.facial">
-                        <input type="hidden" id="video" v-model="profile.video">
-                        <input type="hidden" id="communication" v-model="profile.communication">
-                        
+                        <!-- Form Actions -->
                         <div class="form-actions">
-                            <button type="submit" class="save-btn" :disabled="!isFormValid || isLoading">
-                                {{ profile.id ? 'Update Profile' : 'Save New Profile' }}
+                            <button class="btn save-btn" @click="saveCandidate">
+                                {{ isEditing ? 'Update Candidate' : 'Create Candidate' }}
                             </button>
-                            <button type="button" @click="resetForm" class="reset-btn" :disabled="isLoading">Reset</button>
+                            <button class="btn reset-btn" @click="resetForm">Reset</button>
                         </div>
-                    </form>
-                    
-                    <div class="candidates-list" v-if="candidatesList.length > 0">
-                        <h3>Saved Candidates</h3>
-                        <div class="candidate-item" v-for="candidate in candidatesList" :key="candidate.id">
-                            <div>
-                                <strong>{{ candidate.name }}</strong> (ID: {{ candidate.id }})
-                            </div>
-                            <div class="candidate-actions">
-                                <button @click="loadCandidate(candidate.id)" class="load-btn">Load</button>
-                            </div>
+                        
+                        <!-- Status Message -->
+                        <div v-if="saveStatus.message" class="save-status" :class="saveStatus.type">
+                            {{ saveStatus.message }}
                         </div>
-                    </div>
-                    
-                    <div class="loading-indicator" v-if="isLoading">
-                        <div class="spinner"></div>
-                        <p>Loading...</p>
-                    </div>
-                    
-                    <div v-if="saveStatus" class="save-status" :class="saveStatus.type">
-                        {{ saveStatus.message }}
+                        
+                        <!-- Candidate created info -->
+                        <div v-if="lastCreatedCandidate.id" class="shareable-link">
+                            <h3>Candidate Created Successfully</h3>
+                            <p>Save this information for the candidate to access their report:</p>
+                            <ul>
+                                <li><strong>Candidate ID:</strong> {{ lastCreatedCandidate.id }}</li>
+                                <li><strong>Access Code:</strong> {{ lastCreatedCandidate.accessCode }}</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -274,38 +177,7 @@
         </footer>
     </div>
     
+    <script src="app.js"></script>
     <script src="admin.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Mobile menu functionality
-            const mobileMenuBtn = document.createElement('button');
-            mobileMenuBtn.className = 'mobile-menu-btn';
-            mobileMenuBtn.innerHTML = '<span></span><span></span><span></span>';
-            
-            const logoContainer = document.querySelector('.logo-container');
-            const nav = document.querySelector('nav');
-            
-            if (window.innerWidth <= 768) {
-                logoContainer.appendChild(mobileMenuBtn);
-                
-                mobileMenuBtn.addEventListener('click', function() {
-                    nav.classList.toggle('active');
-                });
-            }
-            
-            window.addEventListener('resize', function() {
-                if (window.innerWidth <= 768) {
-                    if (!logoContainer.contains(mobileMenuBtn)) {
-                        logoContainer.appendChild(mobileMenuBtn);
-                    }
-                } else {
-                    if (logoContainer.contains(mobileMenuBtn)) {
-                        logoContainer.removeChild(mobileMenuBtn);
-                    }
-                    nav.classList.remove('active');
-                }
-            });
-        });
-    </script>
 </body>
 </html>

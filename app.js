@@ -1,32 +1,13 @@
-const { createApp, ref } = Vue;
+// Simplified app.js for basic interactivity
 
-createApp({
-    setup() {
-        const title = ref('3Hire Candidate Management');
-        const items = ref([
-            'Review new candidate applications',
-            'Schedule technical interview for John Doe',
-            'Follow up with HR about offer letter'
-        ]);
-        const newItem = ref('');
-
-        function addItem() {
-            if (newItem.value.trim()) {
-                items.value.push(newItem.value);
-                newItem.value = '';
-            }
-        }
-
-        function removeItem(index) {
-            items.value.splice(index, 1);
-        }
-
-        return {
-            title,
-            items,
-            newItem,
-            addItem,
-            removeItem
-        };
+document.addEventListener('DOMContentLoaded', function() {
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mainNav = document.getElementById('mainNav');
+    
+    if (mobileMenuBtn && mainNav) {
+        mobileMenuBtn.addEventListener('click', function() {
+            mainNav.classList.toggle('active');
+        });
     }
-}).mount('#app');
+});

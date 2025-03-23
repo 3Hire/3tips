@@ -1,79 +1,75 @@
 const mongoose = require('mongoose');
+const crypto = require('crypto');
 
-const candidateSchema = new mongoose.Schema({
-  id: { 
-    type: String, 
-    required: true, 
-    unique: true 
+const CandidateSchema = new mongoose.Schema({
+  id: {
+    type: String,
+    required: true,
+    unique: true,
+    trim: true
   },
+  name: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    trim: true,
+    lowercase: true
+  },
+  phone: {
+    type: String,
+    trim: true,
+  },
+  linkedin: {
+    type: String,
+    trim: true
+  },
+  summary: {
+    type: String
+  },
+  recommendations: {
+    type: String
+  },
+  // Additional assessment fields
+  timing: {
+    type: String
+  },
+  facial: {
+    type: String
+  },
+  video: {
+    type: String
+  },
+  communication: {
+    type: String
+  },
+  // Access control
   accessKey: {
     type: String,
-    required: true,
-    unique: true
+    default: () => crypto.randomBytes(8).toString('hex')
   },
-  accessUrl: {
-    type: String,
-    required: true,
-    unique: true
-  },
-  name: { 
-    type: String, 
-    required: true 
-  },
-  linkedin: { 
-    type: String,
-    sparse: true,
-    unique: true,
-    trim: true,
-    validate: {
-      validator: function(v) {
-        return v === '' || v === null || v.includes('linkedin.com/');
-      },
-      message: props => `${props.value} is not a valid LinkedIn URL!`
-    }
-  },
-  email: { 
-    type: String, 
-    required: true,
-    unique: true,
-    trim: true,
-    lowercase: true,
-    validate: {
-      validator: function(v) {
-        return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v);
-      },
-      message: props => `${props.value} is not a valid email address!`
-    }
-  },
-  phone: { 
-    type: String,
-    sparse: true,
-    unique: true,
-    trim: true,
-    validate: {
-      validator: function(v) {
-        return v === '' || v === null || /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/.test(v);
-      },
-      message: props => `${props.value} is not a valid phone number!`
-    }
-  },
-  summary: String,
-  timing: String,
-  facial: String,
-  video: String,
-  communication: String,
-  recommendations: String,
   isUnlocked: {
     type: Boolean,
     default: false
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now
   }
-}, {
-  timestamps: true
 });
 
-// Create indexes for unique fields
-candidateSchema.index({ linkedin: 1 }, { unique: true, sparse: true });
-candidateSchema.index({ phone: 1 }, { unique: true, sparse: true });
-candidateSchema.index({ email: 1 }, { unique: true });
+// Update the updatedAt field on save
+CandidateSchema.pre('save', function(next) {
+  this.updatedAt = Date.now();
+  next();
+});
 
-module.exports = mongoose.model('Candidate', candidateSchema);
+module.exports = mongoose.model('Candidate', CandidateSchema);

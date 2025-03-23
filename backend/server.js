@@ -1,54 +1,46 @@
 const express = require('express');
 const cors = require('cors');
-const mongoose = require('mongoose');
 const path = require('path');
+const mongoose = require('mongoose');
 require('dotenv').config();
 
-// Import routes
-const candidateRoutes = require('./routes/candidates');
-const contactRoutes = require('./routes/contact');
-
-// Initialize Express app
+// Create Express app
 const app = express();
-const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// Connect to MongoDB
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/candidates_db';
-mongoose.connect(MONGODB_URI)
-  .then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.error('Failed to connect to MongoDB:', err));
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, '../')));
 
-// Routes
-app.use('/api/candidates', candidateRoutes);
-app.use('/api/contact', contactRoutes);
+// API routes
+app.use('/api/candidates', require('./routes/candidates'));
+app.use('/api/contact', require('./routes/contact'));
 
-// Serve static files from the parent directory
-app.use(express.static(path.join(__dirname, '..')));
-
-// Add a fallback route for SPA routing
+// Catch-all handler for client-side routing
 app.get('*', (req, res) => {
-  // Skip API routes
-  if (req.url.startsWith('/api/')) {
-    return res.status(404).json({ message: 'API endpoint not found' });
-  }
-  // Send the main index.html for all other routes
-  res.sendFile(path.join(__dirname, '..', 'index.html'));
+  res.sendFile(path.join(__dirname, '../index.html'));
 });
 
-// Error handling middleware
-app.use((err, req, res, next) => {
-  console.error('Server error:', err);
-  res.status(500).json({ 
-    message: 'Internal server error',
-    error: process.env.NODE_ENV === 'development' ? err.message : 'An unexpected error occurred'
-  });
-});
+// Database connection
+const connectDB = async () => {
+  try {
+    // Use local MongoDB in development
+    const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/3hire';
+    await mongoose.connect(mongoURI);
+    console.log('MongoDB connected...');
+  } catch (err) {
+    console.error('Database connection error:', err.message);
+    // Exit process with failure
+    process.exit(1);
+  }
+};
+
+// Connect to database
+connectDB();
 
 // Start server
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
