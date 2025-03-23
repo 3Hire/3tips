@@ -22,16 +22,10 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Get the API base URL
             const getApiBaseUrl = () => {
-                // Check if we're running in a file:// protocol (local file)
-                if (window.location.protocol === 'file:') {
-                    return 'http://localhost:3001/api';
-                }
-                
-                // Otherwise, use the same origin with port 3001 for local development
-                const protocol = window.location.protocol;
-                const hostname = window.location.hostname;
-                const port = (hostname === 'localhost' || hostname === '127.0.0.1') ? ':3001' : '';
-                return `${protocol}//${hostname}${port}/api`;
+                // Use the demo mode for now with fallback mechanism
+                console.log('Using demo mode with fallback');
+                // This will trigger the fallback to local mode
+                return 'https://non-existent-api.example.com/api';
             };
             
             // Search for a candidate
