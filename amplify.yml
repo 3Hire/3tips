@@ -1,0 +1,42 @@
+version: 1
+applications:
+  - frontend:
+      phases:
+        preBuild:
+          commands:
+            - echo "Frontend pre-build phase"
+        build:
+          commands:
+            - echo "No build step needed for static HTML/CSS/JS files"
+      artifacts:
+        baseDirectory: /
+        files:
+          - '**/*'
+        discard-paths: no
+      cache:
+        paths: []
+      customHeaders:
+        - pattern: '**/*'
+          headers:
+            - key: 'Cache-Control'
+              value: 'max-age=86400'
+    appRoot: /
+  - backend:
+      phases:
+        preBuild:
+          commands:
+            - cd backend
+            - npm ci
+        build:
+          commands:
+            - cd backend
+            - node scripts/create-dynamo-tables.js || echo "Tables already exist"
+      artifacts:
+        baseDirectory: backend
+        files:
+          - '**/*'
+        discard-paths: no
+      cache:
+        paths:
+          - backend/node_modules/**/*
+    appRoot: backend

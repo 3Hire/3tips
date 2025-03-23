@@ -22,10 +22,8 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Get the API base URL
             const getApiBaseUrl = () => {
-                const protocol = window.location.protocol;
-                const hostname = window.location.hostname;
-                const port = (hostname === 'localhost' || hostname === '127.0.0.1') ? ':3000' : '';
-                return `${protocol}//${hostname}${port}/api`;
+                // Use the production Elastic Beanstalk URL in production
+                return 'https://3hire-backend.elasticbeanstalk.com/api';
             };
             
             // Search for a candidate
