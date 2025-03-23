@@ -2,8 +2,8 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     // API base URL configuration
-    // Use the production API endpoint
-    window.API_BASE_URL = 'https://3hire-api.herokuapp.com/api';
+    // Use the production AWS Elastic Beanstalk API endpoint
+    window.API_BASE_URL = 'https://3hire-api-prod.eba-jtck92mb.us-east-2.elasticbeanstalk.com/api';
     
     // Mobile menu toggle
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');

@@ -22,8 +22,8 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Get the API base URL
             const getApiBaseUrl = () => {
-                // Use the production API endpoint
-                return 'https://3hire-api.herokuapp.com/api';
+                // Use the production AWS Elastic Beanstalk API endpoint
+                return 'https://3hire-api-prod.eba-jtck92mb.us-east-2.elasticbeanstalk.com/api';
             };
             
             // Search for a candidate
