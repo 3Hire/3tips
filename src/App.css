@@ -1,0 +1,71 @@
+/* src/App.css */
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* Navigation Bar Styles */
+.navbar {
+  background-color: #333;
+  color: #fff;
+  padding: 1rem 0;
+}
+
+.navbar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+  text-decoration: none;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li a {
+  color: #fff;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  transition: background 0.3s ease;
+}
+
+.nav-links li a:hover {
+  background-color: #555;
+  border-radius: 4px;
+}
+
+/* Main Content Area */
+main {
+  padding: 2rem 0;
+}
+
+/* Footer Styles */
+footer {
+  background-color: #f1f1f1;
+  text-align: center;
+  padding: 1rem 0;
+  margin-top: 2rem;
+}
+
+/* Additional styling for the logo */
+.logo {
+  display: inline-block;
+  vertical-align: middle;
+}

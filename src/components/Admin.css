@@ -1,0 +1,19 @@
+.table-container {
+    overflow-y: auto;
+    max-height: 400px;
+}
+
+.entries-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.entries-table th,
+.entries-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.entries-table th {
+    background-color: #f2f2f2;
+}
