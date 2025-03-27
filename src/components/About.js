@@ -6,7 +6,7 @@ function About() {
     <div className="about-container">
       <section className="about-section">
         <div className="about-image">
-          <img src="/mission.jpeg" alt="Our Mission" />
+          <img src="/mission.jpg" alt="Our Mission" />
         </div>
         <div className="about-text">
           <h2>Our Mission</h2>
@@ -17,7 +17,7 @@ function About() {
       </section>
       <section className="about-section">
         <div className="about-image">
-          <img src="/vision.jpeg" alt="Our Vision" />
+          <img src="/vision.jpg" alt="Our Vision" />
         </div>
         <div className="about-text">
           <h2>Our Vision</h2>
@@ -28,7 +28,7 @@ function About() {
       </section>
       <section className="about-section">
         <div className="about-image">
-          <img src="/belief.jpeg" alt="Our Value" />
+          <img src="/belief.jpg" alt="Our Value" />
         </div>
         <div className="about-text">
           <h2>Our Value</h2>
