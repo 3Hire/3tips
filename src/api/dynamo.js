@@ -14,7 +14,7 @@ const dynamoDb = new DynamoDB({
 
 const docClient = DynamoDBDocument.from(dynamoDb);
 
-export async function addUserEntry({ name, email }) {
+export async function addUserEntry({ name, email, strengths, weaknesses }) {
   const userId = uuidv4();
   const code = uuidv4().split("-")[0]; // Simple unique code generation
   const params = {
@@ -24,11 +24,21 @@ export async function addUserEntry({ name, email }) {
       code,
       name,
       email,
+      strengths: strengths || "",
+      weaknesses: weaknesses || "",
       timestamp: new Date().toISOString(),
     },
   };
-  await docClient.put(params);
-  return { userId, code };
+  
+  console.log("Adding entry to DynamoDB:", params.Item);
+  try {
+    await docClient.put(params);
+    console.log("Successfully added entry to DynamoDB");
+    return { userId, code };
+  } catch (error) {
+    console.error("DynamoDB put error:", error);
+    throw new Error(`Database error: ${error.message}`);
+  }
 }
 
 export async function getUserEntry(userId, code) {
