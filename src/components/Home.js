@@ -1,9 +1,19 @@
 // src/components/Home.js
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Home.css";
 
 function Home() {
+  useEffect(() => {
+    // Add 'home-page' class to body when this component mounts
+    document.body.classList.add('home-page');
+    
+    // Remove the class when the component unmounts
+    return () => {
+      document.body.classList.remove('home-page');
+    };
+  }, []);
+
   return (
     <div className="home-hero">
       <div className="hero-content">

@@ -1,8 +1,32 @@
 /* src/App.css */
-body {
-  font-family: sans-serif;
+/* Body styles are now in index.css with the background image */
+html, body, #root {
+  height: 100%;
   margin: 0;
   padding: 0;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Styles for home page */
+body.home-page {
+  background-image: url('/images/ocean-waves.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+body.home-page .navbar {
+  background-color: rgba(51, 51, 51, 0.8);
+}
+
+body.home-page footer {
+  background-color: rgba(241, 241, 241, 0.8);
 }
 
 .container {
@@ -54,6 +78,7 @@ body {
 /* Main Content Area */
 main {
   padding: 2rem 0;
+  flex: 1;
 }
 
 /* Footer Styles */
