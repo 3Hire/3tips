@@ -12,11 +12,10 @@ function Contact() {
         </div>
         <div className="contact-item">
           <h2>Email</h2>
-          <p>3@threehire.com</p>
+          <p><a href="mailto:3@threehire.ai">3@threehire.ai</a></p>
         </div>
       </div>
       <div className="contact-social">
-        <h2>Connect With Us</h2>
         <div className="social-links">
           <a href="https://www.linkedin.com/company/threehire/posts/?feedView=all" target="_blank" rel="noopener noreferrer">
             LinkedIn
