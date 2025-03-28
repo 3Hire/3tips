@@ -84,15 +84,18 @@ function Admin() {
 
   if (!authenticated) {
     return (
-      <div>
+      <div className="admin-login-container">
         <h2>Admin Login</h2>
-        <input
-          type="password"
-          placeholder="Enter admin password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button onClick={handleLogin}>Login</button>
+        <div className="login-form">
+          <input
+            type="password"
+            placeholder="Enter admin password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="password-input"
+          />
+          <button onClick={handleLogin} className="login-button">Login</button>
+        </div>
       </div>
     );
   }
