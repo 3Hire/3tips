@@ -3,7 +3,7 @@ import React from "react";
 
 const Logo = () => (
   <img 
-    src="/images/3Hire - Logo.jpg" 
+    src={process.env.PUBLIC_URL + "/images/3Hire - Logo.jpg"} 
     alt="3Hire Logo" 
     style={{ 
       height: "40px", 

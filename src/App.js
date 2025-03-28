@@ -42,7 +42,7 @@ function App() {
       </main>
       <footer>
         <div className="container">
-          <p>&copy; {new Date().getFullYear()} Your Company. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} 3Hire. All rights reserved.</p>
         </div>
       </footer>
     </Router>
