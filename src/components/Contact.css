@@ -1,60 +1,54 @@
 .contact-container {
-  max-width: 800px;
-  margin: 0 auto;
+  max-width: 1000px;
+  margin: 2rem auto;
   padding: 2rem;
   font-family: Arial, sans-serif;
   color: #333;
 }
 
-.contact-container h1 {
-  text-align: center;
-  font-size: 2.5rem;
-  margin-bottom: 1.5rem;
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
 }
 
-.contact-info {
+.contact-section {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
+  flex-direction: column;
 }
 
-.contact-item {
-  flex: 1 1 250px;
-  background-color: #f9f9f9;
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.contact-item h2 {
+.contact-section h2 {
   margin-top: 0;
+  margin-bottom: 1rem;
   font-size: 1.5rem;
   color: #007bff;
+  position: relative;
+  padding-bottom: 0.5rem;
 }
 
-.contact-item p {
-  margin: 0.5rem 0;
+.contact-section h2:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background-color: #007bff;
+}
+
+.contact-section p {
+  margin: 0.25rem 0;
   font-size: 1.1rem;
-}
-
-.contact-social {
-  text-align: center;
-}
-
-.contact-social h2 {
-  font-size: 1.75rem;
-  margin-bottom: 1rem;
+  line-height: 1.5;
 }
 
 .social-links {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
+  margin-top: 0.5rem;
 }
 
 .social-links a {
+  display: inline-block;
   text-decoration: none;
   font-size: 1.1rem;
   color: #007bff;
