@@ -48,7 +48,7 @@ function App() {
             <div className="footer-section">
               <h3>Contact</h3>
               <p>Phone: 480-331-4161</p>
-              <p>Email: <a href="mailto:3@threehire.ai">3@threehire.ai</a></p>
+              <p>Email: <a href="mailto:3@threehire.com">3@threehire.com</a></p>
             </div>
             <div className="footer-section">
               <h3>Connect</h3>
