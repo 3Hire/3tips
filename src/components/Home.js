@@ -22,7 +22,10 @@ function Home() {
           AI with heart: our deep matching blends psychology and empathy to speed up your next big step.
         </p>
         <div className="hero-buttons">
-          <Link to="/contact" className="btn btn-hiring">Hiring</Link>
+          <Link to="/#" className="btn btn-hiring" onClick={(e) => {
+            e.preventDefault();
+            document.querySelector('footer').scrollIntoView({ behavior: 'smooth' });
+          }}>Contact Us</Link>
           <Link to="/candidates" className="btn btn-coaching">Coaching</Link>
         </div>
       </div>
