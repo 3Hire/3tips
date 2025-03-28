@@ -66,20 +66,20 @@ function AddEntry() {
                 </div>
                 <div className="form-group">
                     <label>Strengths</label>
-                    <input
-                        type="text"
+                    <textarea
                         placeholder="Strengths"
                         value={formData.strengths}
                         onChange={(e) => setFormData({ ...formData, strengths: e.target.value })}
+                        rows="5"
                     />
                 </div>
                 <div className="form-group">
                     <label>Weaknesses</label>
-                    <input
-                        type="text"
+                    <textarea
                         placeholder="Weaknesses"
                         value={formData.weaknesses}
                         onChange={(e) => setFormData({ ...formData, weaknesses: e.target.value })}
+                        rows="5"
                     />
                 </div>
                 <button type="submit" disabled={isSubmitting}>
