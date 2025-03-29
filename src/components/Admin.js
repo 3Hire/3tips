@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { listAllEntries, updateUserEntry } from "../api/dynamo";
 import "./Admin.css";
+import adminBg from "../images/admin.jpg";
 
 function Admin() {
   const [authenticated, setAuthenticated] = useState(() => {
@@ -18,6 +19,22 @@ function Admin() {
   const navigate = useNavigate();
 
   const adminPassword = process.env.REACT_APP_ADMIN_PASSWORD || "admin";
+  
+  useEffect(() => {
+    // Add body background when component mounts
+    document.body.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.7)), url(${adminBg})`;
+    document.body.style.backgroundSize = 'cover';
+    document.body.style.backgroundPosition = 'center';
+    document.body.style.backgroundAttachment = 'fixed';
+    
+    // Reset background when component unmounts
+    return () => {
+      document.body.style.backgroundImage = '';
+      document.body.style.backgroundSize = '';
+      document.body.style.backgroundPosition = '';
+      document.body.style.backgroundAttachment = '';
+    };
+  }, []);
 
   // Load entries if authenticated
   useEffect(() => {
@@ -85,8 +102,8 @@ function Admin() {
   if (!authenticated) {
     return (
       <div className="admin-login-container">
-        <h2>Admin Login</h2>
         <div className="login-form">
+          <p className="admin-quote">Admin - you can work anywhere<br></br>but don't forget password😊</p>
           <input
             type="password"
             placeholder="Enter admin password"
