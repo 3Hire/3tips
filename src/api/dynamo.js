@@ -43,17 +43,36 @@ export async function addUserEntry({ name, email, strengths, weaknesses, userId 
 }
 
 export async function updateUserEntry(userId, { name, email, strengths, weaknesses }) {
-  // Get the existing entry first to preserve the code
+  // Get the existing entry first to preserve all fields
   const existingEntry = await getUserEntry(userId);
   
-  return await addUserEntry({
-    userId,
-    name,
-    email,
-    strengths,
-    weaknesses,
-    code: existingEntry.code
-  });
+  const params = {
+    TableName: dynamoTableName,
+    Key: { userId },
+    UpdateExpression: "SET #name = :name, #email = :email, #strengths = :strengths, #weaknesses = :weaknesses",
+    ExpressionAttributeNames: {
+      "#name": "name",
+      "#email": "email",
+      "#strengths": "strengths",
+      "#weaknesses": "weaknesses"
+    },
+    ExpressionAttributeValues: {
+      ":name": name,
+      ":email": email,
+      ":strengths": strengths || "",
+      ":weaknesses": weaknesses || ""
+    },
+    ReturnValues: "ALL_NEW"
+  };
+  
+  try {
+    const result = await docClient.update(params);
+    console.log("Successfully updated entry in DynamoDB");
+    return result.Attributes;
+  } catch (error) {
+    console.error("DynamoDB update error:", error);
+    throw new Error(`Database error: ${error.message}`);
+  }
 }
 
 export async function getUserEntry(userId, code = null) {
@@ -63,12 +82,12 @@ export async function getUserEntry(userId, code = null) {
   };
   const result = await docClient.get(params);
   if (!result.Item) {
-    throw new Error("Entry not found");
+    throw new Error("Candidate not found");
   }
   
   // If code is provided, verify it matches
   if (code && result.Item.code !== code) {
-    throw new Error("Code mismatch");
+    throw new Error("Access Code mismatch");
   }
   
   return result.Item;
