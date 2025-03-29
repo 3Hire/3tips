@@ -3,11 +3,12 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Home from "./components/Home";
 import About from "./components/About";
-import Candidates from "./components/Candidates";
+import DeepView from "./components/DeepView";
 import Admin from "./components/Admin";
 import Logo from "./components/Logo";
 import AddEntry from "./components/AddEntry";
 import SuccessStories from "./components/SuccessStories";
+import DeepMatch from "./components/DeepMatch";
 import "./App.css";
 
 function App() {
@@ -21,7 +22,8 @@ function App() {
             </Link>
             <ul className="nav-links">
               <li><Link to="/success-stories">Success Stories</Link></li>
-              <li><Link to="/candidates">Candidates</Link></li>
+              <li><Link to="/deep-view">DeepView</Link></li>
+              <li><Link to="/deep-match">DeepMatch</Link></li>
               <li><Link to="/about">About</Link></li>
             </ul>
           </div>
@@ -35,9 +37,10 @@ function App() {
               <Routes>
                 <Route path="/about" element={<About />} />
                 <Route path="/success-stories" element={<SuccessStories />} />
-                <Route path="/candidates" element={<Candidates />} />
+                <Route path="/deep-view" element={<DeepView />} />
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/add-entry" element={<AddEntry />} />
+                <Route path="/deep-match" element={<DeepMatch />} />
                 {/* Fallback route */}
                 <Route path="*" element={<Home />} />
               </Routes>

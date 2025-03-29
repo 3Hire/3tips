@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./SuccessStories.css";
 
 function SuccessStories() {
   const [activeTab, setActiveTab] = useState('hiring');
+  const [activeSlide, setActiveSlide] = useState(0);
   
   const caseStudies = [
     {
@@ -14,7 +15,8 @@ function SuccessStories() {
         time: "15 days",
         position: "Product Manager",
         industry: "Tech Startup"
-      }
+      },
+      color: "#0066cc" // Blue
     },
     {
       title: "Tough Hiring: Building a High-Caliber Team in a Niche Field",
@@ -25,7 +27,8 @@ function SuccessStories() {
         time: "1 year",
         position: "Specialized Tech Team (4 roles)",
         industry: "Advanced Technology"
-      }
+      },
+      color: "#218838" // Green
     },
     {
       title: "Efficiency: Transforming Hiring Processes for Scalable Growth",
@@ -38,9 +41,26 @@ function SuccessStories() {
         time: "1 year",
         position: "40 roles filled",
         industry: "Enterprise"
-      }
+      },
+      color: "#d92550" // Red
     }
   ];
+  
+  // Auto-advance slides when in hiring tab
+  useEffect(() => {
+    let timer;
+    if (activeTab === 'hiring') {
+      timer = setTimeout(() => {
+        setActiveSlide((prev) => (prev + 1) % caseStudies.length);
+      }, 8000); // Change slide every 8 seconds
+    }
+    return () => clearTimeout(timer);
+  }, [activeSlide, activeTab, caseStudies.length]);
+  
+  // Go to specific slide
+  const goToSlide = (index) => {
+    setActiveSlide(index);
+  };
 
   return (
     <div className="success-stories-container">
@@ -71,10 +91,15 @@ function SuccessStories() {
             has made a significant impact on businesses.
           </p>
           
-          <div className="case-studies">
+          <div className="success-slider-container">
+            {/* Slides */}
             {caseStudies.map((caseStudy, index) => (
-              <div className="case-study" key={index}>
-                <h2 className="case-title">{caseStudy.title}</h2>
+              <div 
+                key={index} 
+                className={`success-slide ${index === activeSlide ? 'active' : ''}`}
+                style={{ borderColor: caseStudy.color }}
+              >
+                <h2 className="case-title" style={{ color: caseStudy.color }}>{caseStudy.title}</h2>
                 
                 <div className="case-metrics">
                   <div className="metric">
@@ -98,6 +123,35 @@ function SuccessStories() {
                 </div>
               </div>
             ))}
+            
+            {/* Slider Controls */}
+            <div className="slider-controls">
+              {caseStudies.map((_, index) => (
+                <button 
+                  key={index} 
+                  className={`slider-dot ${index === activeSlide ? 'active' : ''}`}
+                  onClick={() => goToSlide(index)}
+                  aria-label={`Go to case study ${index + 1}`}
+                  style={{ backgroundColor: index === activeSlide ? caseStudies[index].color : 'rgba(0, 0, 0, 0.2)' }}
+                />
+              ))}
+            </div>
+            
+            {/* Arrow Controls */}
+            <button 
+              className="slider-arrow prev" 
+              onClick={() => setActiveSlide((prev) => (prev - 1 + caseStudies.length) % caseStudies.length)}
+              aria-label="Previous case study"
+            >
+              &#10094;
+            </button>
+            <button 
+              className="slider-arrow next" 
+              onClick={() => setActiveSlide((prev) => (prev + 1) % caseStudies.length)}
+              aria-label="Next case study"
+            >
+              &#10095;
+            </button>
           </div>
         </>
       ) : (

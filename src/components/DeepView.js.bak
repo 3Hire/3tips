@@ -1,0 +1,63 @@
+import React, { useState } from 'react';
+import './DeepView.css';
+
+const DeepView = () => {
+  const [id, setId] = useState('');
+  const [passcode, setPasscode] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Here you would handle authentication logic
+    console.log('Login attempted with:', id, passcode);
+    // Future implementation would verify credentials and redirect to DeepView session
+  };
+
+  return (
+    <div className="deepview-container">
+      <h1>DeepView</h1>
+      <div className="deepview-description">
+        <p>
+          DeepView provides a unique space for candidates and hiring managers 
+          to engage in deeper conversations beyond formal interviews. 
+          This platform allows both parties to understand if the opportunity 
+          is truly a great fit through authentic dialogue and meaningful exchanges.
+        </p>
+        <p>
+          Rather than focusing on standard interview questions, DeepView 
+          facilitates discussions about values, working styles, and long-term 
+          goals to ensure alignment between candidates and organizations.
+        </p>
+      </div>
+      <div className="deepview-login">
+        <h2>Login to DeepView</h2>
+        <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="id">User ID</label>
+              <input
+                type="text"
+                id="id"
+                value={id}
+                onChange={(e) => setId(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="passcode">Passcode</label>
+              <input
+                type="password"
+                id="passcode"
+                value={passcode}
+                onChange={(e) => setPasscode(e.target.value)}
+                required
+              />
+            </div>
+            <button type="submit" className="deepview-button">
+              Start DeepView
+            </button>
+          </form>
+        </div>
+    </div>
+  );
+};
+
+export default DeepView;

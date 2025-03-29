@@ -1,0 +1,96 @@
+.deepview-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80px 20px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/images/ocean-waves.jpg');
+  background-size: cover;
+  background-position: center;
+  color: white;
+}
+
+.deepview-container h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2.5rem;
+  color: #1e88e5;
+}
+
+.deepview-description {
+  max-width: 800px;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.deepview-description p {
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+}
+
+.deepview-login {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 30px;
+  border-radius: 8px;
+  border-left: 4px solid #1e88e5;
+  max-width: 500px;
+  width: 100%;
+}
+
+.deepview-login h2 {
+  color: #1e88e5;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  color: white;
+  font-size: 1rem;
+}
+
+.deepview-button {
+  width: 100%;
+  padding: 14px;
+  background-color: #1e88e5;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 10px;
+}
+
+.deepview-button:hover {
+  background-color: #1565c0;
+}
+
+@media (max-width: 768px) {
+  .deepview-content {
+    padding: 30px 20px;
+  }
+  
+  .deepview-content h1 {
+    font-size: 2rem;
+  }
+  
+  .deepview-description p {
+    font-size: 1rem;
+  }
+}

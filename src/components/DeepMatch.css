@@ -1,0 +1,122 @@
+.deepmatch-container {
+  width: 100%;
+  min-height: calc(100vh - 72px); /* Account for header height */
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  position: relative;
+  animation: fadeIn 1s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+h1 {
+  color: white;
+  font-size: 3rem;
+  margin-bottom: 20px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+.deepmatch-tagline {
+  color: white;
+  font-size: 1.2rem;
+  max-width: 600px;
+  text-align: center;
+  margin: 0 auto 30px;
+  line-height: 1.6;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.deepmatch-form {
+  max-width: 400px;
+  margin: 20px auto 0;
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0;
+  font-size: 16px;
+  background-color: rgba(255, 255, 255, 0.15);
+  color: white;
+  transition: border-color 0.3s, background-color 0.3s;
+  backdrop-filter: blur(5px);
+}
+
+.form-group input:focus {
+  border-color: #1e88e5;
+  background-color: rgba(255, 255, 255, 0.2);
+  outline: none;
+}
+
+.deepmatch-button {
+  background-color: rgba(30, 136, 229, 0.9);
+  color: white;
+  padding: 16px 15px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  width: 100%;
+  margin-top: 30px;
+  transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+  backdrop-filter: blur(5px);
+}
+
+.deepmatch-button:hover {
+  background-color: #1565c0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(30, 136, 229, 0.4);
+}
+
+@media (max-width: 768px) {
+  .deepmatch-container {
+    padding: 20px;
+  }
+  
+  h1 {
+    font-size: 2.2rem;
+  }
+  
+  .deepmatch-tagline {
+    font-size: 1rem;
+  }
+}
+
+@media (max-height: 700px) {
+  .deepmatch-container {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    justify-content: flex-start;
+  }
+  
+  h1 {
+    margin-bottom: 10px;
+  }
+  
+  .deepmatch-tagline {
+    margin-bottom: 15px;
+  }
+}

@@ -80,29 +80,58 @@
   line-height: 1.6;
 }
 
-.case-studies {
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-}
-
-.case-study {
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+/* Success Stories Slider */
+.success-slider-container {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 10px;
+  height: 550px;
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border-left: 5px solid #0066cc;
-  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  background-color: #fff;
 }
 
-.case-study:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
+.success-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  border-top: 5px solid;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  opacity: 0;
+  z-index: 1;
+  transition: opacity 0.8s ease-in-out;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #ccc #f5f5f5;
+}
+
+.success-slide::-webkit-scrollbar {
+  width: 8px;
+}
+
+.success-slide::-webkit-scrollbar-track {
+  background: #f5f5f5;
+  border-radius: 4px;
+}
+
+.success-slide::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+.success-slide.active {
+  opacity: 1;
+  z-index: 2;
 }
 
 .case-title {
-  color: #0066cc;
   font-size: 1.8rem;
   margin-bottom: 1.5rem;
   position: relative;
@@ -144,33 +173,88 @@
   margin-bottom: 1rem;
 }
 
+/* Slider Controls */
+.slider-controls {
+  position: absolute;
+  bottom: 15px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  z-index: 5;
+}
+
+.slider-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s, background-color 0.3s;
+}
+
+.slider-dot.active {
+  transform: scale(1.3);
+}
+
+.slider-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #333;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 5;
+  transition: all 0.3s;
+}
+
+.slider-arrow:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.slider-arrow.prev {
+  left: 15px;
+}
+
+.slider-arrow.next {
+  right: 15px;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
+  .success-slider-container {
+    height: 650px;
+    padding: 15px 10px;
+  }
+  
   .case-metrics {
     flex-direction: column;
     gap: 1rem;
   }
   
-  .case-study {
+  .success-slide {
     padding: 1.5rem;
   }
   
   .case-title {
     font-size: 1.5rem;
   }
-}
-
-/* Different border colors for each case study */
-.case-study:nth-child(1) {
-  border-left-color: #0066cc; /* Blue */
-}
-
-.case-study:nth-child(2) {
-  border-left-color: #218838; /* Green */
-}
-
-.case-study:nth-child(3) {
-  border-left-color: #d92550; /* Red */
+  
+  .slider-arrow {
+    width: 30px;
+    height: 30px;
+    font-size: 1rem;
+  }
 }
 
 /* Candidate Testimonials Section */
