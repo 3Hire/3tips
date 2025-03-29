@@ -5,17 +5,17 @@ function About() {
   const [activeSlide, setActiveSlide] = useState(0);
   const slides = [
     {
-      image: "/images/mission.jpg",
+      image: "/mission.jpg",
       title: "Our Mission",
       text: "We build trusted teams by fostering radical transparency throughout the hiring process, ensuring equitable access and informed decision-making for all candidates, hiring managers, and HR people."
     },
     {
-      image: "/images/vision.jpg",
+      image: "/vision.jpg",
       title: "Our Vision",
       text: "Our vision is to transform interviews into joyful, open spaces for authentic expression, mutual exploration, and continuous evolution."
     },
     {
-      image: "/images/belief.jpg",
+      image: "/belief.jpg",
       title: "Our Value",
       text: "We value simplicity in life, seriousness in work, and sincerity in relationship in all our endeavors."
     },
