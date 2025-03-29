@@ -19,13 +19,13 @@ function Home() {
       <div className="hero-content">
         <h1>Accelerate Hiring & Careers</h1>
         <p>
-          AI with heart: our deep matching blends psychology and empathy to speed up your next big step.
+        The first recruiting agency of the AI age, powered by deep matching and deep coaching.
         </p>
         <div className="hero-buttons">
           <Link to="/#" className="btn btn-hiring" onClick={(e) => {
             e.preventDefault();
             document.querySelector('footer').scrollIntoView({ behavior: 'smooth' });
-          }}>Contact Us</Link>
+          }}>Hiring</Link>
           <Link to="/candidates" className="btn btn-coaching">Coaching</Link>
         </div>
       </div>
