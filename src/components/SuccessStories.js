@@ -64,8 +64,6 @@ function SuccessStories() {
 
   return (
     <div className="success-stories-container">
-      <h1 className="page-title">Success Stories</h1>
-      
       <div className="tabs-container">
         <div className="tabs">
           <button 

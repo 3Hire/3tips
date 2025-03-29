@@ -2,12 +2,13 @@
 .success-stories-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem 2rem;
 }
 
 /* Tab Navigation */
 .tabs-container {
-  margin-bottom: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .tabs {
@@ -51,33 +52,14 @@
   border-radius: 3px;
 }
 
-.page-title {
-  font-size: 2.5rem;
-  color: #333;
-  text-align: center;
-  margin-bottom: 1rem;
-  position: relative;
-  padding-bottom: 0.5rem;
-}
-
-.page-title:after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 3px;
-  background-color: #0066cc;
-}
 
 .page-intro {
   text-align: center;
   font-size: 1.1rem;
   color: #555;
   max-width: 800px;
-  margin: 0 auto 3rem;
-  line-height: 1.6;
+  margin: 0 auto 2rem;
+  line-height: 1.5;
 }
 
 /* Success Stories Slider */
