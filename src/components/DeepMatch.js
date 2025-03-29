@@ -33,7 +33,7 @@ const DeepMatch = () => {
     <div className="deepmatch-container">
       <h1>DeepMatch</h1>
       <p className="deepmatch-tagline">
-        A platform for deeper conversations between candidates and hiring managers.
+        A platform connecting candidates and hiring managers through meaningful conversations.
       </p>
       <form className="deepmatch-form" onSubmit={handleSubmit}>
           <div className="form-group">

@@ -35,7 +35,7 @@ h1 {
 }
 
 .deepmatch-form {
-  max-width: 400px;
+  max-width: 350px;
   margin: 20px auto 0;
   width: 100%;
 }
@@ -52,7 +52,8 @@ h1 {
 
 .form-group input {
   width: 100%;
-  padding: 15px;
+  max-width: 350px;
+  padding: 12px;
   border: none;
   border-bottom: 2px solid rgba(255, 255, 255, 0.3);
   border-radius: 0;
@@ -72,7 +73,7 @@ h1 {
 .deepmatch-button {
   background-color: rgba(30, 136, 229, 0.9);
   color: white;
-  padding: 16px 15px;
+  padding: 14px 15px;
   border: none;
   border-radius: 30px;
   cursor: pointer;
@@ -80,7 +81,8 @@ h1 {
   font-weight: 600;
   letter-spacing: 0.5px;
   width: 100%;
-  margin-top: 30px;
+  max-width: 350px;
+  margin-top: 25px;
   transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
   backdrop-filter: blur(5px);
 }
@@ -93,7 +95,7 @@ h1 {
 
 @media (max-width: 768px) {
   .deepmatch-container {
-    padding: 20px;
+    padding: 20px 15px;
   }
   
   h1 {
@@ -102,6 +104,16 @@ h1 {
   
   .deepmatch-tagline {
     font-size: 1rem;
+    width: 90%;
+  }
+  
+  .deepmatch-form {
+    max-width: 90%;
+  }
+  
+  .form-group input, 
+  .deepmatch-button {
+    max-width: none; /* Allow full width on small screens */
   }
 }
 
