@@ -2,6 +2,12 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Todo Items
+
+- Replace the placeholder image for "Who We Are" slide in the About page (currently using a copied vision.jpg)
+- Recommended: Use a high-quality image showing a diverse, professional team in a collaborative environment
+- Image path should be `/team.jpg` in the public folder
+
 ## Available Scripts
 
 In the project directory, you can run:

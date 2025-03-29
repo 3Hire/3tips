@@ -7,6 +7,7 @@ import Candidates from "./components/Candidates";
 import Admin from "./components/Admin";
 import Logo from "./components/Logo";
 import AddEntry from "./components/AddEntry";
+import SuccessStories from "./components/SuccessStories";
 import "./App.css";
 
 function App() {
@@ -19,22 +20,29 @@ function App() {
               <Logo />
             </Link>
             <ul className="nav-links">
-              <li><Link to="/">Home</Link></li>
-              <li><Link to="/about">About</Link></li>
+              <li><Link to="/success-stories">Success Stories</Link></li>
               <li><Link to="/candidates">Candidates</Link></li>
+              <li><Link to="/about">About</Link></li>
             </ul>
           </div>
         </nav>
       </header>
-      <main className="container">
+      <main>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/candidates" element={<Candidates />} />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/add-entry" element={<AddEntry />} />
-          {/* Fallback route */}
-          <Route path="*" element={<Home />} />
+          <Route path="*" element={
+            <div className="container">
+              <Routes>
+                <Route path="/about" element={<About />} />
+                <Route path="/success-stories" element={<SuccessStories />} />
+                <Route path="/candidates" element={<Candidates />} />
+                <Route path="/admin" element={<Admin />} />
+                <Route path="/add-entry" element={<AddEntry />} />
+                {/* Fallback route */}
+                <Route path="*" element={<Home />} />
+              </Routes>
+            </div>
+          } />
         </Routes>
       </main>
       <footer>
