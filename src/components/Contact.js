@@ -1,7 +1,6 @@
 // src/components/Contact.js
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import emailjs from 'emailjs-com';
 import "./Contact.css";
 
 function Contact() {
@@ -13,11 +12,6 @@ function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(null);
   const location = useLocation();
-  
-  // Initialize EmailJS when component mounts
-  useEffect(() => {
-    emailjs.init("YOUR_USER_ID"); // Replace with your actual EmailJS User ID / Public Key
-  }, []);
 
   useEffect(() => {
     // Parse query parameters from the URL
@@ -44,33 +38,29 @@ function Contact() {
     setIsSubmitting(true);
     setError(null);
     
-    // Prepare template parameters for EmailJS
-    const templateParams = {
-      from_name: name,
-      from_email: email,
-      message: message,
-      subject: planTitle,
-      reply_to: email
-    };
-    
-    // Replace these with your actual EmailJS service ID, template ID, and user ID
-    // You'll need to sign up at emailjs.com and configure these
-    emailjs.send(
-      'service_3hire',  // Service ID
-      'template_contact',  // Template ID
-      templateParams,
-      'YOUR_USER_ID'  // User ID / Public Key
-    )
-    .then((response) => {
-      console.log('Email sent successfully!', response);
-      setSubmitted(true);
+    try {
+      // In this simplified version, we'll just log the data
+      // and pretend we've sent it
+      console.log("Form submitted:", { 
+        name, 
+        email, 
+        message, 
+        planTitle 
+      });
+      
+      // This would normally be where you'd send data to your server
+      // or a third-party email service
+      
+      // Simulate a successful submission after a brief delay
+      setTimeout(() => {
+        setSubmitted(true);
+        setIsSubmitting(false);
+      }, 1000);
+    } catch (err) {
+      console.error("Error:", err);
+      setError("There was an error sending your message. Please try again or contact us directly.");
       setIsSubmitting(false);
-    })
-    .catch((err) => {
-      console.error('Failed to send email:', err);
-      setError('There was an error sending your message. Please try again or contact us directly.');
-      setIsSubmitting(false);
-    });
+    }
   };
 
   return (
