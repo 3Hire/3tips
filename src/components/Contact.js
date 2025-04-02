@@ -1,6 +1,7 @@
 // src/components/Contact.js
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import emailjs from 'emailjs-com';
 import "./Contact.css";
 
 function Contact() {
@@ -9,7 +10,14 @@ function Contact() {
   const [message, setMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [planTitle, setPlanTitle] = useState("Contact Us");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState(null);
   const location = useLocation();
+  
+  // Initialize EmailJS when component mounts
+  useEffect(() => {
+    emailjs.init("YOUR_USER_ID"); // Replace with your actual EmailJS User ID / Public Key
+  }, []);
 
   useEffect(() => {
     // Parse query parameters from the URL
@@ -33,13 +41,36 @@ function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // In a real application, you would send this data to a server
-    // For now, we'll just simulate a successful submission
-    setTimeout(() => {
+    setIsSubmitting(true);
+    setError(null);
+    
+    // Prepare template parameters for EmailJS
+    const templateParams = {
+      from_name: name,
+      from_email: email,
+      message: message,
+      subject: planTitle,
+      reply_to: email
+    };
+    
+    // Replace these with your actual EmailJS service ID, template ID, and user ID
+    // You'll need to sign up at emailjs.com and configure these
+    emailjs.send(
+      'service_3hire',  // Service ID
+      'template_contact',  // Template ID
+      templateParams,
+      'YOUR_USER_ID'  // User ID / Public Key
+    )
+    .then((response) => {
+      console.log('Email sent successfully!', response);
       setSubmitted(true);
-      // In a real app, you would send this data to your backend or an email service
-      console.log("Form submitted:", { name, email, message, planTitle });
-    }, 1000);
+      setIsSubmitting(false);
+    })
+    .catch((err) => {
+      console.error('Failed to send email:', err);
+      setError('There was an error sending your message. Please try again or contact us directly.');
+      setIsSubmitting(false);
+    });
   };
 
   return (
@@ -52,6 +83,7 @@ function Contact() {
       ) : (
         <>
           <h1>{planTitle}</h1>
+          {error && <div className="error-message">{error}</div>}
           <form className="contact-form" onSubmit={handleSubmit}>
             <div className="form-group">
               <label>Name</label>
@@ -61,6 +93,7 @@ function Contact() {
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Enter your name"
                 required
+                disabled={isSubmitting}
               />
             </div>
             <div className="form-group">
@@ -71,6 +104,7 @@ function Contact() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email address"
                 required
+                disabled={isSubmitting}
               />
             </div>
             <div className="form-group">
@@ -80,10 +114,11 @@ function Contact() {
                 onChange={(e) => setMessage(e.target.value)}
                 rows="5"
                 required
+                disabled={isSubmitting}
               ></textarea>
             </div>
-            <button type="submit" className="submit-button">
-              Send Message
+            <button type="submit" className="submit-button" disabled={isSubmitting}>
+              {isSubmitting ? "Sending..." : "Send Message"}
             </button>
           </form>
         </>

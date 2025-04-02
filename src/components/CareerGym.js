@@ -112,7 +112,7 @@ function CareerGym() {
                   <li>✅ Email support (ask 1 career question per month)</li>
                   <li>✅ Book one free 30-min session, only Fridays PM, limited slots</li>
                 </ul>
-                <Link to="/contact?plan=free" className="plan-button">Get Started</Link>
+                <Link to="/contact?plan=free" className="plan-button">Contact Us</Link>
               </div>
               
               <div className="plan-card featured">

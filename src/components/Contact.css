@@ -116,6 +116,18 @@
   line-height: 1.6;
 }
 
+.error-message {
+  background-color: rgba(244, 67, 54, 0.15);
+  color: #f44336;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(244, 67, 54, 0.3);
+  text-align: center;
+  width: 100%;
+  max-width: 500px;
+}
+
 @media (max-width: 768px) {
   .contact-container {
     padding: 20px 15px;
