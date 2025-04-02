@@ -102,32 +102,73 @@ function CareerGym() {
           Where candidates train, strengthen, and level up their careers, just like a gym for professional growth.
           </p>
           
-          {error && <div className="error-message">{error}</div>}
-          <form className="careergym-form" onSubmit={handleFetch}>
-            <div className="form-group">
-              <label>User ID</label>
-              <input
-                type="text"
-                placeholder="Enter your user ID"
-                value={userId}
-                onChange={(e) => setUserId(e.target.value)}
-                required
-              />
+          <div className="membership-plans">
+            
+            <div className="plan-cards">
+              <div className="plan-card">
+                <h3>Free Plan</h3>
+                <ul>
+                  <li>✅ Email support (ask 1 career question per month)</li>
+                  <li>✅ Book one free 30-min session, only Fridays PM, limited slots</li>
+                </ul>
+                <button className="plan-button">Get Started</button>
+              </div>
+              
+              <div className="plan-card featured">
+                <div className="featured-badge">Popular</div>
+                <h3>CareerGym</h3>
+                <p className="plan-price">$19.99/month</p>
+                <ul>
+                  <li>✅ Resume feedback (2 per month)</li>
+                  <li>✅ Career Q&A via email (24-hour response time)</li>
+                  <li>✅ Priority booking for live coaching</li>
+                </ul>
+                <button className="plan-button">Join CareerGym</button>
+              </div>
+              
+              <div className="plan-card">
+                <h3>CareerGym Pro</h3>
+                <p className="plan-price">$99/month</p>
+                <ul>
+                  <li>✅ 1-on-1 live coaching (30 mins, up to 2 sessions/month)</li>
+                  <li>✅ Interview prep, salary negotiation, career strategy</li>
+                  <li>✅ Includes all CareerGym text-based services</li>
+                </ul>
+                <button className="plan-button">Join Pro</button>
+              </div>
             </div>
-            <div className="form-group">
-              <label>Access Code</label>
-              <input
-                type="text"
-                placeholder="Enter your access code"
-                value={code}
-                onChange={(e) => setCode(e.target.value)}
-                required
-              />
-            </div>
-            <button type="submit" disabled={loading}>
-              {loading ? "Loading..." : "Access My Report"}
-            </button>
-          </form>
+            
+          </div>
+          
+          <div className="member-login">
+            <h2>Already a Member?</h2>
+            {error && <div className="error-message">{error}</div>}
+            <form className="careergym-form" onSubmit={handleFetch}>
+              <div className="form-group">
+                <label>User ID</label>
+                <input
+                  type="text"
+                  placeholder="Enter your user ID"
+                  value={userId}
+                  onChange={(e) => setUserId(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Access Code</label>
+                <input
+                  type="text"
+                  placeholder="Enter your access code"
+                  value={code}
+                  onChange={(e) => setCode(e.target.value)}
+                  required
+                />
+              </div>
+              <button type="submit" disabled={loading}>
+                {loading ? "Loading..." : "Log In"}
+              </button>
+            </form>
+          </div>
         </>
       )}
     </div>

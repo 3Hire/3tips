@@ -190,6 +190,155 @@ h3 {
   font-size: 14px;
 }
 
+/* Membership Plans Styling */
+.membership-plans {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto 40px;
+  text-align: center;
+}
+
+.membership-plans h2 {
+  color: white;
+  font-size: 2.2rem;
+  margin-bottom: 30px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.plan-cards {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.plan-card {
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 30px;
+  width: 300px;
+  text-align: left;
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.plan-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.plan-card h3 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  color: white;
+}
+
+.plan-price {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #2196F3;
+  margin-bottom: 20px;
+}
+
+.plan-card ul {
+  margin: 0 0 25px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.plan-card li {
+  margin-bottom: 12px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.plan-button {
+  background-color: rgba(33, 150, 243, 0.9);
+  width: 100%;
+  margin: 0;
+  border-radius: 8px;
+}
+
+.featured {
+  border: 2px solid #2196F3;
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(33, 150, 243, 0.3);
+}
+
+.featured:hover {
+  transform: translateY(-10px) scale(1.05);
+}
+
+.featured-badge {
+  position: absolute;
+  top: -12px;
+  right: 20px;
+  background-color: #2196F3;
+  color: white;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.custom-plan {
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  padding: 25px;
+  border-radius: 12px;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.custom-plan h3 {
+  margin-bottom: 10px;
+}
+
+.custom-plan p {
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 15px;
+}
+
+.email-link {
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+.email-link:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.member-login {
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+  border-radius: 15px;
+  padding: 30px;
+  max-width: 450px;
+  width: 100%;
+  margin: 0 auto;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.member-login h2 {
+  color: white;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
 @media (max-width: 768px) {
   .careergym-container {
     padding: 20px 15px;
@@ -234,6 +383,42 @@ h3 {
   
   .assessment-content {
     padding: 15px;
+  }
+  
+  /* Responsive styles for membership plans */
+  .membership-plans h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+  
+  .plan-cards {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .plan-card {
+    width: 90%;
+    max-width: 300px;
+  }
+  
+  .featured {
+    transform: scale(1);
+    order: -1;
+  }
+  
+  .featured:hover {
+    transform: translateY(-10px);
+  }
+  
+  .custom-plan {
+    width: 90%;
+    padding: 20px;
+  }
+  
+  .member-login {
+    width: 90%;
+    padding: 20px;
   }
 }
 
