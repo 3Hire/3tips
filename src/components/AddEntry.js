@@ -42,6 +42,7 @@ function AddEntry() {
     return (
         <div className="add-entry-form">
             <h2>Add New Entry</h2>
+            <p className="form-description">Create a new user assessment entry with login credentials.</p>
             {error && <div className="error-message">{error}</div>}
             <form onSubmit={handleSubmit}>
                 <div className="form-group">

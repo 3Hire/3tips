@@ -9,6 +9,7 @@ import Logo from "./components/Logo";
 import AddEntry from "./components/AddEntry";
 import SuccessStories from "./components/SuccessStories";
 import HiringBar from "./components/HiringBar";
+import Contact from "./components/Contact";
 import "./App.css";
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/add-entry" element={<AddEntry />} />
                 <Route path="/deep-match" element={<HiringBar />} />
+                <Route path="/contact" element={<Contact />} />
                 {/* Fallback route */}
                 <Route path="*" element={<Home />} />
               </Routes>

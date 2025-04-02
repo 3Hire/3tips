@@ -261,6 +261,15 @@ h3 {
   width: 100%;
   margin: 0;
   border-radius: 8px;
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+  padding: 14px 15px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
 }
 
 .featured {

@@ -1,6 +1,7 @@
 // src/components/CareerGym.js
 import React, { useState, useEffect } from "react";
 import { getUserEntry } from "../api/dynamo";
+import { Link } from "react-router-dom";
 import "./CareerGym.css";
 import careergymBg from "../images/careergym.jpg";
 
@@ -111,7 +112,7 @@ function CareerGym() {
                   <li>✅ Email support (ask 1 career question per month)</li>
                   <li>✅ Book one free 30-min session, only Fridays PM, limited slots</li>
                 </ul>
-                <button className="plan-button">Get Started</button>
+                <Link to="/contact?plan=free" className="plan-button">Get Started</Link>
               </div>
               
               <div className="plan-card featured">
@@ -123,7 +124,7 @@ function CareerGym() {
                   <li>✅ Career Q&A via email (24-hour response time)</li>
                   <li>✅ Priority booking for live coaching</li>
                 </ul>
-                <button className="plan-button">Join CareerGym</button>
+                <Link to="/contact?plan=careergym" className="plan-button">Join CareerGym</Link>
               </div>
               
               <div className="plan-card">
@@ -134,7 +135,7 @@ function CareerGym() {
                   <li>✅ Interview prep, salary negotiation, career strategy</li>
                   <li>✅ Includes all CareerGym text-based services</li>
                 </ul>
-                <button className="plan-button">Join Pro</button>
+                <Link to="/contact?plan=pro" className="plan-button">Join Pro</Link>
               </div>
             </div>
             
