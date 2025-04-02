@@ -141,7 +141,13 @@ function CareerGym() {
                   <li>✅ Interview prep, salary negotiation, career strategy</li>
                   <li>✅ Includes all CareerGym text-based services</li>
                 </ul>
-                <Link to="/contact?plan=pro" className="plan-button">Join Pro</Link>
+                <div className="stripe-button-container">
+                  <stripe-buy-button
+                    buy-button-id="buy_btn_1R9ZNSEwQ0lOmZ274dY0kdAY"
+                    publishable-key="pk_live_51OQIovEwQ0lOmZ27UUwSbVd7yzah8nDIHXsKFIic642Bg5vWJif4vzsh5PegmNtvUhVFzSGrgADkZ7gZHrDVzqOz00VcNLBC0o"
+                  >
+                  </stripe-buy-button>
+                </div>
               </div>
             </div>
             
