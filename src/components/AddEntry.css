@@ -27,20 +27,30 @@
 
 .form-group label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
     font-weight: bold;
+    color: #333;
+    font-size: 17px;
 }
 
 .form-group input,
 .form-group textarea {
     width: 100%;
     padding: 12px;
-    border: 1px solid #888;
+    border: 2px solid #666;
     border-radius: 4px;
-    color: #333;
+    color: #000;
     background-color: #fff;
     font-size: 16px;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #2196F3;
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.25);
+    outline: none;
 }
 
 .form-group textarea {
