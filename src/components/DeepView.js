@@ -97,9 +97,9 @@ function DeepView() {
         </>
       ) : (
         <>
-          <h1>DeepView</h1>
+          <h1>CareerGym</h1>
           <p className="deepview-tagline">
-            A self-discovery portal that helps candidates understand their strengths and growth areas.
+          Where candidates train, strengthen, and level up their careers, just like a gym for professional growth.
           </p>
           
           {error && <div className="error-message">{error}</div>}
