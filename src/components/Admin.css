@@ -101,8 +101,9 @@
     overflow-y: auto;
     max-height: 600px;
     margin-top: 20px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 .entries-table {
@@ -112,14 +113,17 @@
 
 .entries-table th,
 .entries-table td {
-    border: 1px solid #ddd;
+    border: 1px solid rgba(255, 255, 255, 0.2);
     padding: 10px;
     text-align: left;
     vertical-align: top;
+    color: white;
 }
 
 .entries-table th {
-    background-color: #f2f2f2;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: white;
+    font-weight: 600;
     position: sticky;
     top: 0;
 }
@@ -130,20 +134,32 @@
 }
 
 .edit-button {
-    background-color: #2196F3;
+    background-color: rgba(33, 150, 243, 0.85);
     color: white;
     border: none;
-    padding: 5px 10px;
+    padding: 6px 12px;
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.edit-button:hover {
+    background-color: #2196F3;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
 }
 
 .cancel-button {
-    background-color: #f44336 !important;
+    background-color: rgba(244, 67, 54, 0.85) !important;
 }
 
 .cancel-button:hover {
     background-color: #e53935 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(244, 67, 54, 0.4) !important;
 }
 
 .edit-form {
@@ -206,26 +222,30 @@
     margin-top: 30px;
     display: flex;
     justify-content: space-between;
+    gap: 20px;
 }
 
 .form-actions button {
-    padding: 14px 28px;
+    padding: 12px 20px;
     border: none;
     border-radius: 30px;
     cursor: pointer;
-    font-weight: bold;
-    background-color: #2196F3;
+    font-weight: 600;
+    background-color: rgba(33, 150, 243, 0.9);
     color: white;
     font-size: 16px;
     flex: 1;
-    margin: 0 10px;
+    margin: 0 5px;
     transition: all 0.3s ease;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    min-width: 120px;
+    letter-spacing: 0.5px;
 }
 
 .form-actions button:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    background-color: #0c7cd5;
 }
 
 .form-actions button:disabled {
