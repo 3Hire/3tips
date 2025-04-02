@@ -1,8 +1,8 @@
-// src/components/DeepView.js
+// src/components/CareerGym.js
 import React, { useState, useEffect } from "react";
 import { getUserEntry } from "../api/dynamo";
 import "./CareerGym.css";
-import careergymBg from "../images/deepview.jpg";
+import careergymBg from "../images/careergym.jpg";
 
 function CareerGym() {
   const [userId, setUserId] = useState("");

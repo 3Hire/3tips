@@ -36,8 +36,8 @@ function Home() {
         
         </p>
         <div className="hero-buttons">
-          <Link to="/deep-match" className="btn btn-hiring">Start DeepMatch</Link>
-          <Link to="/deep-view" className="btn btn-coaching">Start DeepView</Link>
+          <Link to="/deep-match" className="btn btn-hiring">Start HiringBar</Link>
+          <Link to="/deep-view" className="btn btn-coaching">Start CareerGym</Link>
         </div>
       </div>
     </div>

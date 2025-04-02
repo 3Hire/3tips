@@ -1,8 +1,9 @@
+// src/components/HiringBar.js
 import React, { useState, useEffect } from 'react';
-import './DeepMatch.css';
-import deepmatchBg from '../images/deepmatch.jpg';
+import './HiringBar.css';
+import hiringbarBg from '../images/hiringbar.jpg';
 
-const DeepMatch = () => {
+const HiringBar = () => {
   const [id, setId] = useState('');
   const [passcode, setPasscode] = useState('');
 
@@ -10,12 +11,12 @@ const DeepMatch = () => {
     e.preventDefault();
     // Here you would handle authentication logic
     console.log('Login attempted with:', id, passcode);
-    // Future implementation would verify credentials and redirect to DeepMatch session
+    // Future implementation would verify credentials and redirect to HiringBar session
   };
 
   useEffect(() => {
     // Add body background when component mounts
-    document.body.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.7)), url(${deepmatchBg})`;
+    document.body.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.7)), url(${hiringbarBg})`;
     document.body.style.backgroundSize = 'cover';
     document.body.style.backgroundPosition = 'center';
     document.body.style.backgroundAttachment = 'fixed';
@@ -30,12 +31,12 @@ const DeepMatch = () => {
   }, []);
 
   return (
-    <div className="deepmatch-container">
+    <div className="hiringbar-container">
       <h1>HiringBar</h1>
-      <p className="deepmatch-tagline">
+      <p className="hiringbar-tagline">
       Where hiring managers, HR, and candidates have real, relaxed conversations to discover the perfect fit—no pressure, just great matches.
       </p>
-      <form className="deepmatch-form" onSubmit={handleSubmit}>
+      <form className="hiringbar-form" onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="id">User ID</label>
             <input
@@ -56,12 +57,12 @@ const DeepMatch = () => {
               required
             />
           </div>
-          <button type="submit" className="deepmatch-button">
-            Start DeepMatch
+          <button type="submit" className="hiringbar-button">
+            Start HiringBar
           </button>
         </form>
     </div>
   );
 };
 
-export default DeepMatch;
+export default HiringBar;
