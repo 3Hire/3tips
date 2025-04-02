@@ -124,7 +124,13 @@ function CareerGym() {
                   <li>✅ Career Q&A via email (24-hour response time)</li>
                   <li>✅ Priority booking for live coaching</li>
                 </ul>
-                <Link to="/contact?plan=careergym" className="plan-button">Join CareerGym</Link>
+                <div className="stripe-button-container">
+                  <stripe-buy-button
+                    buy-button-id="buy_btn_1R9ZGCEwQ0lOmZ27thwlyA00"
+                    publishable-key="pk_live_51OQIovEwQ0lOmZ27UUwSbVd7yzah8nDIHXsKFIic642Bg5vWJif4vzsh5PegmNtvUhVFzSGrgADkZ7gZHrDVzqOz00VcNLBC0o"
+                  >
+                  </stripe-buy-button>
+                </div>
               </div>
               
               <div className="plan-card">

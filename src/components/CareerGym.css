@@ -294,6 +294,24 @@ h3 {
   font-weight: 600;
 }
 
+.stripe-button-container {
+  width: 100%;
+  margin-top: 0;
+}
+
+/* Override Stripe button styling to match our design */
+stripe-buy-button {
+  --button-height: 44px !important;
+  --button-width: 100% !important;
+  --button-border-radius: 8px !important;
+  --button-font-size: 16px !important;
+  --button-font-weight: 600 !important;
+  --button-letter-spacing: 0.5px !important;
+  --button-transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s !important;
+  display: block !important;
+  width: 100% !important;
+}
+
 .custom-plan {
   background-color: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(5px);
