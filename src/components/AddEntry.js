@@ -53,6 +53,7 @@ function AddEntry() {
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         required
+                        style={{color: 'black', backgroundColor: 'white'}}
                     />
                 </div>
                 <div className="form-group">
@@ -63,6 +64,7 @@ function AddEntry() {
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         required
+                        style={{color: 'black', backgroundColor: 'white'}}
                     />
                 </div>
                 <div className="form-group">
@@ -72,6 +74,7 @@ function AddEntry() {
                         value={formData.strengths}
                         onChange={(e) => setFormData({ ...formData, strengths: e.target.value })}
                         rows="5"
+                        style={{color: 'black', backgroundColor: 'white'}}
                     />
                 </div>
                 <div className="form-group">
@@ -81,6 +84,7 @@ function AddEntry() {
                         value={formData.weaknesses}
                         onChange={(e) => setFormData({ ...formData, weaknesses: e.target.value })}
                         rows="5"
+                        style={{color: 'black', backgroundColor: 'white'}}
                     />
                 </div>
                 <button type="submit" disabled={isSubmitting}>

@@ -137,6 +137,7 @@ function Admin() {
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 required
+                style={{color: 'black', backgroundColor: 'white'}}
               />
             </div>
             <div className="form-group">
@@ -146,6 +147,7 @@ function Admin() {
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 required
+                style={{color: 'black', backgroundColor: 'white'}}
               />
             </div>
             <div className="form-group">
@@ -154,6 +156,7 @@ function Admin() {
                 value={formData.strengths}
                 onChange={(e) => setFormData({ ...formData, strengths: e.target.value })}
                 rows="5"
+                style={{color: 'black', backgroundColor: 'white'}}
               />
             </div>
             <div className="form-group">
@@ -162,6 +165,7 @@ function Admin() {
                 value={formData.weaknesses}
                 onChange={(e) => setFormData({ ...formData, weaknesses: e.target.value })}
                 rows="5"
+                style={{color: 'black', backgroundColor: 'white'}}
               />
             </div>
             <div className="form-actions">
