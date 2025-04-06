@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { addUserEntry } from "../api/dynamo";
 import { useNavigate } from "react-router-dom";
 import "./AddEntry.css";
+import adminBg from "../images/admin.jpg";
 
 function AddEntry() {
     const [formData, setFormData] = useState({
@@ -13,6 +14,22 @@ function AddEntry() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+    
+    useEffect(() => {
+        // Add body background when component mounts
+        document.body.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.7)), url(${adminBg})`;
+        document.body.style.backgroundSize = 'cover';
+        document.body.style.backgroundPosition = 'center';
+        document.body.style.backgroundAttachment = 'fixed';
+        
+        // Reset background when component unmounts
+        return () => {
+            document.body.style.backgroundImage = '';
+            document.body.style.backgroundSize = '';
+            document.body.style.backgroundPosition = '';
+            document.body.style.backgroundAttachment = '';
+        };
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -27,9 +44,7 @@ function AddEntry() {
         }
         
         try {
-            console.log("Submitting form data:", formData);
             await addUserEntry(formData);
-            console.log("Entry added successfully");
             navigate("/admin"); // Redirect back to Admin panel
         } catch (error) {
             console.error("Error adding entry:", error);
