@@ -68,6 +68,7 @@ function AddEntry() {
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         required
+                        className="text-input"
                     />
                 </div>
                 <div className="form-group">
@@ -78,6 +79,7 @@ function AddEntry() {
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         required
+                        className="email-input"
                     />
                 </div>
                 <div className="form-group">
