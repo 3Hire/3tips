@@ -54,13 +54,33 @@ const RequestFeedbackModal = ({ isOpen, onClose }) => {
 
   return (
     <div className="modal-overlay">
-      <div className="modal-content request-feedback-modal">
+      <div className={success ? 'white-modal' : 'modal-content request-feedback-modal'}>
         {success ? (
-          <div className="success-message">
-            <p>You are expected to receive email notification about your interview feedback in 1-2 business days. Keep alert on your email box from 3hire.</p>
+          <div>
+            <p style={{
+              color: '#000',
+              fontSize: '1.1rem',
+              lineHeight: 1.6,
+              margin: '50px auto 30px',
+              maxWidth: '480px',
+              textAlign: 'center'
+            }}>
+              Thank you for your submission. You will receive your interview feedback via email within 1-2 business days. Please monitor your inbox for a message from 3Hire.
+            </p>
             <button 
-              className="close-button"
               onClick={handleClose}
+              style={{
+                backgroundColor: '#333',
+                color: 'white',
+                border: 'none',
+                padding: '10px 25px',
+                borderRadius: '4px',
+                fontSize: '15px',
+                fontWeight: 500,
+                cursor: 'pointer',
+                margin: '0 auto',
+                display: 'block'
+              }}
             >
               Close
             </button>
