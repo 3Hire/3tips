@@ -125,6 +125,10 @@ const RequestFeedbackModal = ({ isOpen, onClose }) => {
                   className="cancel-button"
                   onClick={handleClose}
                   disabled={isSubmitting}
+                  style={{
+                    padding: '10px 25px',
+                    width: '140px'
+                  }}
                 >
                   Cancel
                 </button>
@@ -132,6 +136,10 @@ const RequestFeedbackModal = ({ isOpen, onClose }) => {
                   type="submit" 
                   className="submit-button"
                   disabled={isSubmitting}
+                  style={{
+                    padding: '10px 25px',
+                    width: '140px'
+                  }}
                 >
                   {isSubmitting ? 'Submitting...' : 'Request Feedback'}
                 </button>

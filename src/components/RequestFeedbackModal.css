@@ -98,9 +98,10 @@
 
 .modal-actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   gap: 12px;
   margin-top: 30px;
+  padding: 0 20px;
 }
 
 .cancel-button {
@@ -114,6 +115,7 @@
   cursor: pointer;
   transition: all 0.3s;
   margin: 0;
+  height: 42px;
 }
 
 .cancel-button:hover {
@@ -133,6 +135,7 @@
   transition: all 0.3s;
   margin: 0;
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  height: 42px;
 }
 
 .submit-button:hover {
