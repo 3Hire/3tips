@@ -119,7 +119,7 @@ const RequestFeedbackModal = ({ isOpen, onClose }) => {
               
               {error && <p className="error-message">{error}</p>}
               
-              <div className="modal-actions">
+              <div className="modal-actions" style={{ display: 'flex', alignItems: 'center' }}>
                 <button 
                   type="button" 
                   className="cancel-button"
@@ -127,7 +127,10 @@ const RequestFeedbackModal = ({ isOpen, onClose }) => {
                   disabled={isSubmitting}
                   style={{
                     padding: '10px 15px',
-                    width: '120px'
+                    width: '120px',
+                    display: 'inline-block',
+                    verticalAlign: 'middle',
+                    lineHeight: 'normal'
                   }}
                 >
                   Cancel
@@ -138,7 +141,11 @@ const RequestFeedbackModal = ({ isOpen, onClose }) => {
                   disabled={isSubmitting}
                   style={{
                     padding: '10px 15px',
-                    width: '180px'
+                    width: '200px',
+                    display: 'inline-block',
+                    verticalAlign: 'middle',
+                    lineHeight: 'normal',
+                    whiteSpace: 'nowrap'
                   }}
                 >
                   {isSubmitting ? 'Submitting...' : 'Request Feedback'}
