@@ -27,8 +27,8 @@ function CareerGym() {
       fetchEntry(urlId, urlCode);
     } else {
       // Otherwise check for saved credentials
-      const savedUserId = localStorage.getItem("careerGymUserId");
-      const savedCode = localStorage.getItem("careerGymCode");
+      const savedUserId = localStorage.getItem("feedbackUserId");
+      const savedCode = localStorage.getItem("feedbackCode");
       
       if (savedUserId && savedCode) {
         setUserId(savedUserId);
@@ -45,8 +45,8 @@ function CareerGym() {
       const result = await getUserEntry(id, accessCode);
       setEntry(result);
       // Save successful credentials to localStorage
-      localStorage.setItem("careerGymUserId", id);
-      localStorage.setItem("careerGymCode", accessCode);
+      localStorage.setItem("feedbackUserId", id);
+      localStorage.setItem("feedbackCode", accessCode);
     } catch (error) {
       console.error("Error fetching entry:", error);
       setError(error.message);
@@ -64,8 +64,8 @@ function CareerGym() {
     setEntry(null);
     setUserId("");
     setCode("");
-    localStorage.removeItem("careerGymUserId");
-    localStorage.removeItem("careerGymCode");
+    localStorage.removeItem("feedbackUserId");
+    localStorage.removeItem("feedbackCode");
   };
 
   useEffect(() => {
@@ -88,33 +88,33 @@ function CareerGym() {
     <div className="careergym-container">
       {entry ? (
         <>
-          <h1>Your Assessment Report</h1>
+          <h1>Your Interview Feedback</h1>
           <div className="report-content">
             <div className="report-header">
               <div>
                 <h3>{entry.name}</h3>
                 <p className="email">{entry.email}</p>
-                <p className="timestamp">Report Date: {new Date(entry.timestamp).toLocaleDateString()}</p>
+                <p className="timestamp">Feedback Date: {new Date(entry.timestamp).toLocaleDateString()}</p>
               </div>
               <button onClick={handleLogout} className="logout-button">Logout</button>
             </div>
             
             <div className="assessment-section">
-              <h4>Strengths</h4>
+              <h4>Interview Strengths</h4>
               <div className="assessment-content">{entry.strengths}</div>
             </div>
             
             <div className="assessment-section">
-              <h4>Areas for Improvement</h4>
+              <h4>Growth Opportunities</h4>
               <div className="assessment-content">{entry.weaknesses}</div>
             </div>
           </div>
         </>
       ) : (
         <>
-          <h1>CareerGym</h1>
+          <h1>Interview Feedback Access</h1>
           <p className="careergym-tagline">
-          Where candidates train, strengthen, and level up their careers, just like a gym for professional growth.
+          Enter your unique ID and passcode to view your personalized interview feedback.
           </p>
           
           {error && <div className="error-message">{error}</div>}
@@ -140,7 +140,7 @@ function CareerGym() {
               />
             </div>
             <button type="submit" disabled={loading}>
-              {loading ? "Loading..." : "Access My Report"}
+              {loading ? "Loading..." : "View My Feedback"}
             </button>
           </form>
         </>
