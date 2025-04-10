@@ -26,6 +26,29 @@
   width: 100%;
 }
 
+.feedback-request-container {
+  max-width: 350px;
+  margin: 15px auto 0;
+  width: 100%;
+  text-align: center;
+}
+
+.feedback-request-container .no-code {
+  color: white;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+  opacity: 0.9;
+}
+
+.request-feedback-button {
+  transition: transform 0.2s, box-shadow 0.3s;
+}
+
+.request-feedback-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3) !important;
+}
+
 h1 {
   color: white;
   font-size: 3rem;

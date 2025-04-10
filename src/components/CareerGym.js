@@ -5,6 +5,7 @@ import { getUserEntry, updateAgreementStatus } from "../api/dynamo";
 import AgreementModal from "./AgreementModal";
 import DonateModal from "./DonateModal";
 import CoachingModal from "./CoachingModal";
+import RequestFeedbackModal from "./RequestFeedbackModal";
 import "./CareerGym.css";
 import careergymBg from "../images/careergym.jpg";
 
@@ -18,6 +19,7 @@ function CareerGym() {
   const [agreementAccepted, setAgreementAccepted] = useState(false);
   const [showDonateModal, setShowDonateModal] = useState(false);
   const [showCoachingModal, setShowCoachingModal] = useState(false);
+  const [showRequestFeedbackModal, setShowRequestFeedbackModal] = useState(false);
   const location = useLocation();
 
   // No need to check localStorage anymore, we're using the database field
@@ -144,11 +146,20 @@ function CareerGym() {
     setShowCoachingModal(false);
   };
   
+  const handleOpenRequestFeedbackModal = () => {
+    setShowRequestFeedbackModal(true);
+  };
+  
+  const handleCloseRequestFeedbackModal = () => {
+    setShowRequestFeedbackModal(false);
+  };
+  
   return (
     <div className="careergym-container">
       {showAgreement && <AgreementModal onAccept={handleAcceptAgreement} />}
       {showDonateModal && <DonateModal onClose={handleCloseDonateModal} />}
       {showCoachingModal && <CoachingModal onClose={handleCloseCoachingModal} />}
+      {showRequestFeedbackModal && <RequestFeedbackModal isOpen={showRequestFeedbackModal} onClose={handleCloseRequestFeedbackModal} />}
       
       {entry ? (
         <>
@@ -282,6 +293,30 @@ function CareerGym() {
               {loading ? "Loading..." : "View My Feedback"}
             </button>
           </form>
+          
+          <div className="feedback-request-container">
+            <p className="no-code">Don't have an access code?</p>
+            <button 
+              onClick={handleOpenRequestFeedbackModal} 
+              className="request-feedback-button"
+              style={{
+                backgroundColor: '#e53935',
+                color: 'white',
+                border: 'none',
+                padding: '8px 12px',
+                borderRadius: '4px',
+                fontWeight: 600,
+                cursor: 'pointer',
+                fontSize: '0.85rem',
+                boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
+                margin: '10px auto',
+                display: 'block',
+                width: 'auto'
+              }}
+            >
+              Ask for Feedback
+            </button>
+          </div>
         </>
       )}
     </div>
