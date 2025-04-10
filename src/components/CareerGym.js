@@ -171,8 +171,8 @@ function CareerGym() {
                 color: 'white',
                 border: 'none',
                 borderRadius: '4px',
-                padding: '8px 15px',
-                fontSize: '12px',
+                padding: '6px 10px',
+                fontSize: '11px',
                 cursor: 'pointer',
                 margin: '0',
                 boxShadow: 'none'
@@ -199,11 +199,13 @@ function CareerGym() {
                   backgroundColor: '#0077B5',
                   color: 'white',
                   border: 'none',
-                  padding: '15px 10px',
-                  borderRadius: '8px',
+                  padding: '8px 12px',
+                  borderRadius: '4px',
                   fontWeight: 600,
                   cursor: 'pointer',
-                  flex: 1
+                  flex: 1,
+                  maxWidth: '100px',
+                  fontSize: '0.85rem'
                 }}
               >
                 Recommend
@@ -215,11 +217,13 @@ function CareerGym() {
                   backgroundColor: '#6772E5',
                   color: 'white',
                   border: 'none',
-                  padding: '15px 10px',
-                  borderRadius: '8px',
+                  padding: '8px 12px',
+                  borderRadius: '4px',
                   fontWeight: 600,
                   cursor: 'pointer',
-                  flex: 1
+                  flex: 1,
+                  maxWidth: '100px',
+                  fontSize: '0.85rem'
                 }}
               >
                 Donate
@@ -231,14 +235,16 @@ function CareerGym() {
                   backgroundColor: '#00A2FF',
                   color: 'white',
                   border: 'none',
-                  padding: '15px 10px',
-                  borderRadius: '8px',
+                  padding: '8px 12px',
+                  borderRadius: '4px',
                   fontWeight: 600,
                   cursor: 'pointer',
-                  flex: 1
+                  flex: 1,
+                  maxWidth: '100px',
+                  fontSize: '0.85rem'
                 }}
               >
-                Book a Session
+                Book
               </button>
             </div>
           </div>
