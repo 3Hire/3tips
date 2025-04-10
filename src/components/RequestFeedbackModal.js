@@ -31,6 +31,11 @@ const RequestFeedbackModal = ({ isOpen, onClose }) => {
       });
       
       setSuccess(true);
+      
+      // Set a timeout to automatically close the modal after 10 seconds
+      setTimeout(() => {
+        handleClose();
+      }, 10000);
     } catch (err) {
       console.error('Error requesting feedback:', err);
       setError('There was an error submitting your request. Please try again.');
@@ -59,7 +64,7 @@ const RequestFeedbackModal = ({ isOpen, onClose }) => {
               className="close-button"
               onClick={handleClose}
             >
-              Close
+              Close (auto-closes in 10s)
             </button>
           </div>
         ) : (
