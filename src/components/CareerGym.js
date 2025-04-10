@@ -160,8 +160,26 @@ function CareerGym() {
                 <p className="email">{entry.email}</p>
                 <p className="timestamp">Feedback Date: {new Date(entry.timestamp).toLocaleDateString()}</p>
               </div>
-              <button onClick={handleLogout} className="logout-button">Logout</button>
             </div>
+            <button 
+              onClick={handleLogout} 
+              style={{
+                position: 'absolute',
+                top: '20px',
+                right: '20px',
+                backgroundColor: 'rgba(150, 150, 150, 0.5)',
+                color: 'white',
+                border: 'none',
+                borderRadius: '4px',
+                padding: '8px 15px',
+                fontSize: '12px',
+                cursor: 'pointer',
+                margin: '0',
+                boxShadow: 'none'
+              }}
+            >
+              Logout
+            </button>
             
             <div className="assessment-section">
               <h4>Interview Strengths</h4>
