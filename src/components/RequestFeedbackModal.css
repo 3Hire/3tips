@@ -99,9 +99,9 @@
 .modal-actions {
   display: flex;
   justify-content: space-between;
-  gap: 12px;
+  gap: 20px;
   margin-top: 30px;
-  padding: 0 20px;
+  padding: 0;
 }
 
 .cancel-button {
