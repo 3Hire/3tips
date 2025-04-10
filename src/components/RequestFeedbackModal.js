@@ -50,8 +50,6 @@ const RequestFeedbackModal = ({ isOpen, onClose }) => {
   return (
     <div className="modal-overlay">
       <div className="modal-content request-feedback-modal">
-        <button className="modal-close" onClick={handleClose}>×</button>
-        
         {success ? (
           <div className="success-message">
             <h2>Request Submitted!</h2>
@@ -66,6 +64,7 @@ const RequestFeedbackModal = ({ isOpen, onClose }) => {
           </div>
         ) : (
           <>
+            <button className="modal-close" onClick={handleClose}>×</button>
             <h2>Request Interview Feedback</h2>
             <p>Enter your information below to request personalized interview feedback. If you've interviewed with us, we'll prepare your feedback within 24 hours.</p>
             
