@@ -170,12 +170,12 @@ function CareerGym() {
                 backgroundColor: 'rgba(150, 150, 150, 0.5)',
                 color: 'white',
                 border: 'none',
+                padding: '8px 12px',
                 borderRadius: '4px',
-                padding: '6px 10px',
-                fontSize: '11px',
+                fontWeight: 600,
                 cursor: 'pointer',
-                margin: '0',
-                boxShadow: 'none'
+                maxWidth: '100px',
+                fontSize: '0.85rem'
               }}
             >
               Logout
