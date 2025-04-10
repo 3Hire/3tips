@@ -16,6 +16,7 @@ function Admin() {
   const [formData, setFormData] = useState({name: "", email: "", strengths: "", weaknesses: ""});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(null);
+  const [copySuccess, setCopySuccess] = useState(null);
   const navigate = useNavigate();
 
   const adminPassword = process.env.REACT_APP_ADMIN_PASSWORD || "admin";
@@ -98,6 +99,63 @@ function Admin() {
   const handleCancel = () => {
     setEditingEntry(null);
   };
+  
+  const openEmailClient = (entry) => {
+    const subject = "Your Interview Feedback from 3Hire";
+    const body = `Hi ${entry.name},
+
+Thank you for working with 3Hire — it's been a pleasure getting to know you and supporting your career journey.
+
+We've prepared detailed feedback to help you reflect, grow, and strengthen your future interviews. You can access it here:
+
+🔗 Feedback Link: https://www.3hire.ai/deep-view
+🆔 ID: ${entry.userId}
+🔐 Passcode: ${entry.code}
+
+We believe feedback is one of the most powerful tools for growth — and we hope this helps you keep evolving and moving forward with clarity and confidence.
+
+Wishing you all the best,
+The 3Hire Team`;
+
+    // Create mailto: URL
+    const mailtoUrl = `mailto:${entry.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    
+    // Open default email client
+    window.open(mailtoUrl);
+  };
+  
+  const copyEmailToClipboard = (entry) => {
+    const subject = "Your Interview Feedback from 3Hire";
+    const body = `Hi ${entry.name},
+
+Thank you for working with 3Hire — it's been a pleasure getting to know you and supporting your career journey.
+
+We've prepared detailed feedback to help you reflect, grow, and strengthen your future interviews. You can access it here:
+
+🔗 Feedback Link: https://www.3hire.ai/deep-view
+🆔 ID: ${entry.userId}
+🔐 Passcode: ${entry.code}
+
+We believe feedback is one of the most powerful tools for growth — and we hope this helps you keep evolving and moving forward with clarity and confidence.
+
+Wishing you all the best,
+The 3Hire Team`;
+
+    const emailContent = `To: ${entry.email}
+Subject: ${subject}
+
+${body}`;
+
+    // Copy to clipboard
+    navigator.clipboard.writeText(emailContent)
+      .then(() => {
+        setCopySuccess(`Email content copied to clipboard for ${entry.name}`);
+        setTimeout(() => setCopySuccess(null), 3000);
+      })
+      .catch(err => {
+        console.error('Failed to copy: ', err);
+      });
+  };
 
   if (!authenticated) {
     return (
@@ -179,6 +237,7 @@ function Admin() {
       ) : (
         <>
           <h3>All Entries</h3>
+          {copySuccess && <div className="success-message">{copySuccess}</div>}
           <div className="table-container">
             <table className="entries-table">
               <thead>
@@ -201,10 +260,17 @@ function Admin() {
                     <td>{entry.code}</td>
                     <td className="multiline-cell">{entry.strengths}</td>
                     <td className="multiline-cell">{entry.weaknesses}</td>
-                    <td>
+                    <td className="action-buttons">
                       <button onClick={() => handleEdit(entry)} className="edit-button">
                         Edit
                       </button>
+                      <div className="email-dropdown">
+                        <button className="email-button">Email</button>
+                        <div className="email-dropdown-content">
+                          <button onClick={() => openEmailClient(entry)}>Open Email App</button>
+                          <button onClick={() => copyEmailToClipboard(entry)}>Copy to Clipboard</button>
+                        </div>
+                      </div>
                     </td>
                   </tr>
                 ))}
