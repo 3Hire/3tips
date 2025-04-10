@@ -174,14 +174,53 @@ function CareerGym() {
             </div>
             
             <div className="feedback-actions">
-              <a href="https://www.linkedin.com/in/zhoujianhong/" target="_blank" rel="noopener noreferrer" className="action-button recommend-button">
+              <button 
+                onClick={() => window.open('https://www.linkedin.com/in/zhoujianhong/', '_blank', 'noopener,noreferrer')} 
+                className="action-button recommend-button"
+                style={{
+                  backgroundColor: '#0077B5',
+                  color: 'white',
+                  border: 'none',
+                  padding: '15px 10px',
+                  borderRadius: '8px',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  flex: 1
+                }}
+              >
                 Recommend
-              </a>
-              <button onClick={handleOpenDonateModal} className="action-button donate-button">
+              </button>
+              <button 
+                onClick={handleOpenDonateModal} 
+                className="action-button donate-button"
+                style={{
+                  backgroundColor: '#6772E5',
+                  color: 'white',
+                  border: 'none',
+                  padding: '15px 10px',
+                  borderRadius: '8px',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  flex: 1
+                }}
+              >
                 Donate
               </button>
-              <button onClick={handleOpenCoachingModal} className="action-button book-button">
-                Book
+              <button 
+                onClick={handleOpenCoachingModal} 
+                className="action-button book-button"
+                style={{
+                  backgroundColor: '#00A2FF',
+                  color: 'white',
+                  border: 'none',
+                  padding: '15px 10px',
+                  borderRadius: '8px',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  flex: 1
+                }}
+              >
+                Book a Session
               </button>
             </div>
           </div>
