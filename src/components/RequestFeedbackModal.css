@@ -97,24 +97,7 @@
 }
 
 .cancel-button {
-  background-color: #f0f0f0;
-  color: #333;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  margin: 0;
-}
-
-.cancel-button:hover {
-  background-color: #e0e0e0;
-}
-
-.submit-button {
-  background-color: #2196F3;
+  background-color: #666666;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -122,12 +105,35 @@
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.3s;
   margin: 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.cancel-button:hover {
+  background-color: #555555;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+}
+
+.submit-button {
+  background-color: #e53935;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin: 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
 .submit-button:hover {
-  background-color: #0d8aee;
+  background-color: #d32f2f;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.3);
 }
 
 .submit-button:disabled, .cancel-button:disabled {
@@ -147,6 +153,7 @@
 .success-message {
   text-align: center;
   animation: successFadeIn 0.5s ease-out;
+  padding: 10px;
 }
 
 @keyframes successFadeIn {
@@ -156,23 +163,34 @@
 
 .success-message h2 {
   color: #43a047;
+  margin-bottom: 20px;
+  font-size: 1.6rem;
+}
+
+.success-message p {
   margin-bottom: 15px;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
 }
 
 .close-button {
-  background-color: #43a047;
+  background-color: #e53935;
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 10px 25px;
   border-radius: 4px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s;
-  margin: 20px auto 0;
+  transition: all 0.3s;
+  margin: 25px auto 10px;
   display: block;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
 .close-button:hover {
-  background-color: #388e3c;
+  background-color: #d32f2f;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.3);
 }
