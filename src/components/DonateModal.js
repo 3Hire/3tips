@@ -20,7 +20,7 @@ function DonateModal({ onClose }) {
               <p className="payment-id">Jianhong-Zhou-3</p>
               <div className="qr-container">
                 <img 
-                  src="/images/Venmo-J.jpg" 
+                  src="images/Venmo-J.jpg" 
                   alt="Venmo QR code" 
                   className="qr-code"
                 />
@@ -33,7 +33,7 @@ function DonateModal({ onClose }) {
               <p className="payment-id">626-362-9441</p>
               <div className="qr-container">
                 <img 
-                  src="/images/zelle-J.jpg" 
+                  src="images/zelle-J.jpg" 
                   alt="Zelle QR code" 
                   className="qr-code"
                 />
