@@ -254,23 +254,25 @@ ${body}`;
               <tbody>
                 {entries.map((entry) => (
                   <tr key={entry.userId}>
-                    <td>{entry.name}</td>
-                    <td>{entry.email}</td>
-                    <td>{entry.userId}</td>
-                    <td>{entry.code}</td>
-                    <td className="multiline-cell">{entry.strengths}</td>
-                    <td className="multiline-cell">{entry.weaknesses}</td>
+                    <td title={entry.name}>{entry.name}</td>
+                    <td title={entry.email}>{entry.email}</td>
+                    <td title={entry.userId}>{entry.userId}</td>
+                    <td title={entry.code}>{entry.code}</td>
+                    <td className="multiline-cell" title={entry.strengths}>{entry.strengths}</td>
+                    <td className="multiline-cell" title={entry.weaknesses}>{entry.weaknesses}</td>
                     <td className="action-buttons">
                       <button onClick={() => handleEdit(entry)} className="edit-button">
                         Edit
                       </button>
-                      <div className="email-dropdown">
-                        <button className="email-button">Email</button>
-                        <div className="email-dropdown-content">
-                          <button onClick={() => openEmailClient(entry)}>Open Email App</button>
-                          <button onClick={() => copyEmailToClipboard(entry)}>Copy to Clipboard</button>
-                        </div>
-                      </div>
+                      <button 
+                        onClick={() => {
+                          openEmailClient(entry);
+                          copyEmailToClipboard(entry);
+                        }} 
+                        className="email-button"
+                      >
+                        Email
+                      </button>
                     </td>
                   </tr>
                 ))}

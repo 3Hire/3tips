@@ -130,7 +130,61 @@
 
 .multiline-cell {
     white-space: pre-wrap;
-    max-width: 200px;
+    min-width: 250px;
+    max-width: 350px;
+}
+
+.entries-table th:nth-child(1), /* Name column */
+.entries-table td:nth-child(1) {
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.entries-table th:nth-child(2), /* Email column */
+.entries-table td:nth-child(2) {
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.entries-table th:nth-child(3), /* ID column */
+.entries-table td:nth-child(3) {
+    width: 80px;
+    max-width: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.entries-table th:nth-child(4), /* Code column */
+.entries-table td:nth-child(4) {
+    width: 70px;
+    max-width: 70px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Hover effect for truncated cells */
+.entries-table td[title] {
+    cursor: help;
+}
+
+.entries-table td:hover {
+    overflow: visible;
+    white-space: normal;
+    height: auto;
+    position: relative;
+    z-index: 2;
+}
+
+.entries-table th:nth-child(7), /* Actions column */
+.entries-table td:nth-child(7) {
+    width: 90px;
+    min-width: 90px;
 }
 
 .action-buttons {
@@ -142,14 +196,15 @@
     background-color: rgba(33, 150, 243, 0.85);
     color: white;
     border: none;
-    padding: 5px 10px;
+    padding: 4px 8px;
     cursor: pointer;
-    border-radius: 4px;
-    font-size: 0.8rem;
+    border-radius: 3px;
+    font-size: 0.75rem;
     font-weight: 500;
     transition: all 0.2s ease;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
-    min-width: 50px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+    width: 40px;
+    text-align: center;
 }
 
 .edit-button:hover, .email-button:hover {
@@ -166,44 +221,6 @@
     background-color: #43a047;
 }
 
-.email-dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.email-dropdown-content {
-    display: none;
-    position: absolute;
-    right: 0;
-    min-width: 180px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    z-index: 10;
-    overflow: hidden;
-}
-
-.email-dropdown-content button {
-    width: 100%;
-    text-align: left;
-    color: #333;
-    padding: 10px 15px;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    font-size: 0.85rem;
-}
-
-.email-dropdown-content button:hover {
-    background-color: #f2f2f2;
-    transform: none;
-    box-shadow: none;
-}
-
-.email-dropdown:hover .email-dropdown-content {
-    display: block;
-}
 
 .cancel-button {
     background-color: rgba(244, 67, 54, 0.85) !important;
