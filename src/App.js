@@ -23,7 +23,7 @@ function App() {
             </Link>
             <ul className="nav-links">
               <li><Link to="/success-stories">Success Stories</Link></li>
-              <li><Link to="/deep-view">CareerGym</Link></li>
+              <li><Link to="/careergym">CareerGym</Link></li>
               <li><Link to="/deep-match">HiringBar</Link></li>
               <li><Link to="/about">About</Link></li>
             </ul>
@@ -38,7 +38,7 @@ function App() {
               <Routes>
                 <Route path="/about" element={<About />} />
                 <Route path="/success-stories" element={<SuccessStories />} />
-                <Route path="/deep-view" element={<CareerGym />} />
+                <Route path="/careergym" element={<CareerGym />} />
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/add-entry" element={<AddEntry />} />
                 <Route path="/deep-match" element={<HiringBar />} />

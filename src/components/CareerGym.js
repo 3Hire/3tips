@@ -1,7 +1,7 @@
 // src/components/CareerGym.js
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { getUserEntry } from "../api/dynamo";
-import { Link } from "react-router-dom";
 import "./CareerGym.css";
 import careergymBg from "../images/careergym.jpg";
 
@@ -11,18 +11,32 @@ function CareerGym() {
   const [entry, setEntry] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const location = useLocation();
 
-  // Check for saved credentials on first load
+  // Check for URL parameters, then saved credentials on first load
   useEffect(() => {
-    const savedUserId = localStorage.getItem("careerGymUserId");
-    const savedCode = localStorage.getItem("careerGymCode");
+    // Parse query parameters from the URL
+    const searchParams = new URLSearchParams(location.search);
+    const urlId = searchParams.get("id");
+    const urlCode = searchParams.get("code");
     
-    if (savedUserId && savedCode) {
-      setUserId(savedUserId);
-      setCode(savedCode);
-      fetchEntry(savedUserId, savedCode);
+    // If URL has parameters, use them
+    if (urlId && urlCode) {
+      setUserId(urlId);
+      setCode(urlCode);
+      fetchEntry(urlId, urlCode);
+    } else {
+      // Otherwise check for saved credentials
+      const savedUserId = localStorage.getItem("careerGymUserId");
+      const savedCode = localStorage.getItem("careerGymCode");
+      
+      if (savedUserId && savedCode) {
+        setUserId(savedUserId);
+        setCode(savedCode);
+        fetchEntry(savedUserId, savedCode);
+      }
     }
-  }, []);
+  }, [location.search]);
 
   const fetchEntry = async (id, accessCode) => {
     setLoading(true);
@@ -103,85 +117,32 @@ function CareerGym() {
           Where candidates train, strengthen, and level up their careers, just like a gym for professional growth.
           </p>
           
-          <div className="membership-plans">
-            
-            <div className="plan-cards">
-              <div className="plan-card">
-                <h3>Free Plan</h3>
-                <ul>
-                  <li>✅ Email support (ask 1 career question per month)</li>
-                  <li>✅ Book one free 30-min session, only Fridays PM, limited slots</li>
-                </ul>
-                <Link to="/contact?plan=free" className="plan-button">Contact Us</Link>
-              </div>
-              
-              <div className="plan-card featured">
-                <div className="featured-badge">Popular</div>
-                <h3>CareerGym</h3>
-                <p className="plan-price">$19.99/month</p>
-                <ul>
-                  <li>✅ Resume feedback (2 per month)</li>
-                  <li>✅ Career Q&A via email (24-hour response time)</li>
-                  <li>✅ Priority booking for live coaching</li>
-                </ul>
-                <div className="stripe-button-container">
-                  <stripe-buy-button
-                    buy-button-id="buy_btn_1R9ZGCEwQ0lOmZ27thwlyA00"
-                    publishable-key="pk_live_51OQIovEwQ0lOmZ27UUwSbVd7yzah8nDIHXsKFIic642Bg5vWJif4vzsh5PegmNtvUhVFzSGrgADkZ7gZHrDVzqOz00VcNLBC0o"
-                  >
-                  </stripe-buy-button>
-                </div>
-              </div>
-              
-              <div className="plan-card">
-                <h3>CareerGym Pro</h3>
-                <p className="plan-price">$99/month</p>
-                <ul>
-                  <li>✅ 1-on-1 live coaching (30 mins, up to 2 sessions/month)</li>
-                  <li>✅ Interview prep, salary negotiation, career strategy</li>
-                  <li>✅ Includes all CareerGym text-based services</li>
-                </ul>
-                <div className="stripe-button-container">
-                  <stripe-buy-button
-                    buy-button-id="buy_btn_1R9ZNSEwQ0lOmZ274dY0kdAY"
-                    publishable-key="pk_live_51OQIovEwQ0lOmZ27UUwSbVd7yzah8nDIHXsKFIic642Bg5vWJif4vzsh5PegmNtvUhVFzSGrgADkZ7gZHrDVzqOz00VcNLBC0o"
-                  >
-                  </stripe-buy-button>
-                </div>
-              </div>
+          {error && <div className="error-message">{error}</div>}
+          <form className="careergym-form" onSubmit={handleFetch}>
+            <div className="form-group">
+              <label>User ID</label>
+              <input
+                type="text"
+                placeholder="Enter your user ID"
+                value={userId}
+                onChange={(e) => setUserId(e.target.value)}
+                required
+              />
             </div>
-            
-          </div>
-          
-          <div className="member-login">
-            <h2>Already a Member?</h2>
-            {error && <div className="error-message">{error}</div>}
-            <form className="careergym-form" onSubmit={handleFetch}>
-              <div className="form-group">
-                <label>User ID</label>
-                <input
-                  type="text"
-                  placeholder="Enter your user ID"
-                  value={userId}
-                  onChange={(e) => setUserId(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label>Access Code</label>
-                <input
-                  type="text"
-                  placeholder="Enter your access code"
-                  value={code}
-                  onChange={(e) => setCode(e.target.value)}
-                  required
-                />
-              </div>
-              <button type="submit" disabled={loading}>
-                {loading ? "Loading..." : "Log In"}
-              </button>
-            </form>
-          </div>
+            <div className="form-group">
+              <label>Access Code</label>
+              <input
+                type="text"
+                placeholder="Enter your access code"
+                value={code}
+                onChange={(e) => setCode(e.target.value)}
+                required
+              />
+            </div>
+            <button type="submit" disabled={loading}>
+              {loading ? "Loading..." : "Access My Report"}
+            </button>
+          </form>
         </>
       )}
     </div>
