@@ -18,7 +18,12 @@ function DonateModal({ onClose }) {
             <div className="payment-option">
               <h3>Venmo</h3>
               <p className="payment-id">Jianhong-Zhou-3</p>
-              <div className="qr-placeholder">
+              <div className="qr-container">
+                <img 
+                  src="/images/Venmo-J.jpg" 
+                  alt="Venmo QR code" 
+                  className="qr-code"
+                />
                 <p>Scan QR with Venmo app</p>
               </div>
             </div>
@@ -26,7 +31,12 @@ function DonateModal({ onClose }) {
             <div className="payment-option">
               <h3>Zelle</h3>
               <p className="payment-id">626-362-9441</p>
-              <div className="qr-placeholder">
+              <div className="qr-container">
+                <img 
+                  src="/images/zelle-J.jpg" 
+                  alt="Zelle QR code" 
+                  className="qr-code"
+                />
                 <p>Use Zelle in your banking app</p>
               </div>
             </div>

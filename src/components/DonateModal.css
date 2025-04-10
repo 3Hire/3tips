@@ -111,24 +111,24 @@
   border: 1px dashed #ced4da;
 }
 
-.qr-placeholder {
-  width: 150px;
-  height: 150px;
+.qr-container {
   margin: 15px auto;
-  border: 1px dashed #ccc;
-  border-radius: 10px;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  background-color: #eee;
 }
 
-.qr-placeholder p {
-  margin: 0;
-  padding: 10px;
+.qr-code {
+  max-width: 180px;
+  max-height: 180px;
+  border-radius: 10px;
+  border: 1px solid #eee;
+}
+
+.qr-container p {
+  margin: 10px 0 0;
   font-size: 14px;
   color: #666;
-  text-align: center;
 }
 
 .donate-thanks {

@@ -20,7 +20,7 @@ function CoachingModal({ onClose }) {
               <p className="payment-id">$99 - 30 Minute Session</p>
               <div className="qr-container">
                 <img 
-                  src="/images/coaching_99.png" 
+                  src="/images/coaching_99.jpg" 
                   alt="Coaching payment QR code" 
                   className="qr-code"
                 />
