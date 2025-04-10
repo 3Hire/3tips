@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { getUserEntry, updateAgreementStatus } from "../api/dynamo";
 import AgreementModal from "./AgreementModal";
+import DonateModal from "./DonateModal";
+import CoachingModal from "./CoachingModal";
 import "./CareerGym.css";
 import careergymBg from "../images/careergym.jpg";
 
@@ -14,6 +16,8 @@ function CareerGym() {
   const [error, setError] = useState(null);
   const [showAgreement, setShowAgreement] = useState(false);
   const [agreementAccepted, setAgreementAccepted] = useState(false);
+  const [showDonateModal, setShowDonateModal] = useState(false);
+  const [showCoachingModal, setShowCoachingModal] = useState(false);
   const location = useLocation();
 
   // No need to check localStorage anymore, we're using the database field
@@ -124,9 +128,27 @@ function CareerGym() {
     };
   }, []);
 
+  const handleOpenDonateModal = () => {
+    setShowDonateModal(true);
+  };
+
+  const handleCloseDonateModal = () => {
+    setShowDonateModal(false);
+  };
+  
+  const handleOpenCoachingModal = () => {
+    setShowCoachingModal(true);
+  };
+  
+  const handleCloseCoachingModal = () => {
+    setShowCoachingModal(false);
+  };
+  
   return (
     <div className="careergym-container">
       {showAgreement && <AgreementModal onAccept={handleAcceptAgreement} />}
+      {showDonateModal && <DonateModal onClose={handleCloseDonateModal} />}
+      {showCoachingModal && <CoachingModal onClose={handleCloseCoachingModal} />}
       
       {entry ? (
         <>
@@ -149,6 +171,18 @@ function CareerGym() {
             <div className="assessment-section">
               <h4>Growth Opportunities</h4>
               <div className="assessment-content">{entry.weaknesses}</div>
+            </div>
+            
+            <div className="feedback-actions">
+              <a href="https://www.linkedin.com/in/zhoujianhong/" target="_blank" rel="noopener noreferrer" className="action-button recommend-button">
+                Recommend
+              </a>
+              <button onClick={handleOpenDonateModal} className="action-button donate-button">
+                Donate
+              </button>
+              <button onClick={handleOpenCoachingModal} className="action-button book-button">
+                Book
+              </button>
             </div>
           </div>
         </>
