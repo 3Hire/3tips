@@ -160,7 +160,20 @@ function CareerGym() {
                 <p className="email">{entry.email}</p>
                 <p className="timestamp">Feedback Date: {new Date(entry.timestamp).toLocaleDateString()}</p>
               </div>
-              <button onClick={handleLogout} className="logout-button">Logout</button>
+              <button 
+                onClick={handleLogout} 
+                style={{
+                  width: 'auto',
+                  backgroundColor: 'rgba(150, 150, 150, 0.5)',
+                  padding: '8px 15px',
+                  fontSize: '12px',
+                  borderRadius: '4px',
+                  margin: '0',
+                  color: 'rgba(255, 255, 255, 0.8)'
+                }}
+              >
+                Logout
+              </button>
             </div>
             
             <div className="assessment-section">
@@ -181,11 +194,13 @@ function CareerGym() {
                   backgroundColor: '#0077B5',
                   color: 'white',
                   border: 'none',
-                  padding: '15px 10px',
-                  borderRadius: '8px',
+                  padding: '8px 12px',
+                  borderRadius: '4px',
                   fontWeight: 600,
                   cursor: 'pointer',
-                  flex: 1
+                  flex: 1,
+                  maxWidth: '100px',
+                  fontSize: '0.85rem'
                 }}
               >
                 Recommend
@@ -197,11 +212,13 @@ function CareerGym() {
                   backgroundColor: '#6772E5',
                   color: 'white',
                   border: 'none',
-                  padding: '15px 10px',
-                  borderRadius: '8px',
+                  padding: '8px 12px',
+                  borderRadius: '4px',
                   fontWeight: 600,
                   cursor: 'pointer',
-                  flex: 1
+                  flex: 1,
+                  maxWidth: '100px',
+                  fontSize: '0.85rem'
                 }}
               >
                 Donate
@@ -213,14 +230,16 @@ function CareerGym() {
                   backgroundColor: '#00A2FF',
                   color: 'white',
                   border: 'none',
-                  padding: '15px 10px',
-                  borderRadius: '8px',
+                  padding: '8px 12px',
+                  borderRadius: '4px',
                   fontWeight: 600,
                   cursor: 'pointer',
-                  flex: 1
+                  flex: 1,
+                  maxWidth: '100px',
+                  fontSize: '0.85rem'
                 }}
               >
-                Book a Session
+                Book
               </button>
             </div>
           </div>

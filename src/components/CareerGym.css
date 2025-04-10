@@ -182,6 +182,14 @@ h3 {
   margin-top: 10px;
 }
 
+.feedback-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: nowrap;
+  margin-top: 30px;
+}
+
 .error-message {
   background-color: #ffeeee;
   color: #cc0000;
@@ -400,17 +408,17 @@ stripe-buy-button {
   }
   
   .report-header {
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
-  }
-  
-  .logout-button {
-    width: 100%;
-    margin-top: 15px;
+    justify-content: space-between;
   }
   
   .assessment-content {
     padding: 15px;
+  }
+  
+  .feedback-actions {
+    gap: 8px;
   }
   
   /* Responsive styles for membership plans */
