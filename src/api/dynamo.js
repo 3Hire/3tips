@@ -28,6 +28,7 @@ export async function addUserEntry({ name, email, strengths, weaknesses, userId 
       strengths: strengths || "",
       weaknesses: weaknesses || "",
       timestamp: new Date().toISOString(),
+      agreementSigned: false // Default to false for new entries
     },
   };
   
@@ -97,4 +98,25 @@ export async function listAllEntries() {
   const params = { TableName: dynamoTableName };
   const result = await docClient.scan(params);
   return result.Items;
+}
+
+export async function updateAgreementStatus(userId, signed = true) {
+  const params = {
+    TableName: dynamoTableName,
+    Key: { userId },
+    UpdateExpression: "SET agreementSigned = :signed",
+    ExpressionAttributeValues: {
+      ":signed": signed
+    },
+    ReturnValues: "ALL_NEW"
+  };
+  
+  try {
+    const result = await docClient.update(params);
+    console.log("Successfully updated agreement status in DynamoDB");
+    return result.Attributes;
+  } catch (error) {
+    console.error("DynamoDB update agreement status error:", error);
+    throw new Error(`Database error: ${error.message}`);
+  }
 }

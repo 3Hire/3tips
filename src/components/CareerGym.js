@@ -1,7 +1,8 @@
 // src/components/CareerGym.js
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { getUserEntry } from "../api/dynamo";
+import { getUserEntry, updateAgreementStatus } from "../api/dynamo";
+import AgreementModal from "./AgreementModal";
 import "./CareerGym.css";
 import careergymBg from "../images/careergym.jpg";
 
@@ -11,7 +12,11 @@ function CareerGym() {
   const [entry, setEntry] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [showAgreement, setShowAgreement] = useState(false);
+  const [agreementAccepted, setAgreementAccepted] = useState(false);
   const location = useLocation();
+
+  // No need to check localStorage anymore, we're using the database field
 
   // Check for URL parameters, then saved credentials on first load
   useEffect(() => {
@@ -43,15 +48,50 @@ function CareerGym() {
     setError(null);
     try {
       const result = await getUserEntry(id, accessCode);
-      setEntry(result);
+      
       // Save successful credentials to localStorage
       localStorage.setItem("feedbackUserId", id);
       localStorage.setItem("feedbackCode", accessCode);
+      
+      // Check if agreement has been signed in the database
+      if (result.agreementSigned) {
+        // If agreement already accepted, show the feedback
+        setEntry(result);
+      } else {
+        // Store the entry but don't display it until agreement is accepted
+        setEntry(result);
+        setShowAgreement(true);
+      }
     } catch (error) {
       console.error("Error fetching entry:", error);
       setError(error.message);
     } finally {
       setLoading(false);
+    }
+  };
+  
+  const handleAcceptAgreement = async () => {
+    if (entry && entry.userId) {
+      try {
+        // Update the agreement status in the database
+        await updateAgreementStatus(entry.userId, true);
+        
+        // Update local state
+        setEntry({
+          ...entry,
+          agreementSigned: true
+        });
+        
+        setAgreementAccepted(true);
+        setShowAgreement(false);
+      } catch (error) {
+        console.error("Error updating agreement status:", error);
+        // If DB update fails, still allow viewing the feedback this session
+        setShowAgreement(false);
+      }
+    } else {
+      // Fallback if somehow entry is not available
+      setShowAgreement(false);
     }
   };
 
@@ -86,6 +126,8 @@ function CareerGym() {
 
   return (
     <div className="careergym-container">
+      {showAgreement && <AgreementModal onAccept={handleAcceptAgreement} />}
+      
       {entry ? (
         <>
           <h1>Your Interview Feedback</h1>
