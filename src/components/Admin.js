@@ -108,7 +108,7 @@ Thank you for working with 3Hire — it's been a pleasure getting to know you an
 
 We've prepared detailed feedback to help you reflect, grow, and strengthen your future interviews. You can access it here:
 
-🔗 Feedback Link: https://www.3hire.ai/deep-view
+🔗 Feedback Link: https://www.3hire.ai/deep-view?id=${entry.userId}&code=${entry.code}
 🆔 ID: ${entry.userId}
 🔐 Passcode: ${entry.code}
 
@@ -132,7 +132,7 @@ Thank you for working with 3Hire — it's been a pleasure getting to know you an
 
 We've prepared detailed feedback to help you reflect, grow, and strengthen your future interviews. You can access it here:
 
-🔗 Feedback Link: https://www.3hire.ai/deep-view
+🔗 Feedback Link: https://www.3hire.ai/deep-view?id=${entry.userId}&code=${entry.code}
 🆔 ID: ${entry.userId}
 🔐 Passcode: ${entry.code}
 
