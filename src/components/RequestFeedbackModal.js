@@ -53,12 +53,13 @@ const RequestFeedbackModal = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className="modal-overlay">
-      <div className={success ? 'white-modal' : 'modal-content request-feedback-modal'}>
+    <div className="modal-overlay" style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
+      <div className={success ? 'white-modal' : 'modal-content request-feedback-modal'} style={success ? { backgroundColor: 'white' } : {}}>
         {success ? (
-          <div>
+          <div style={{ backgroundColor: 'white' }}>
             <p style={{
               color: '#000',
+              backgroundColor: 'white', 
               fontSize: '1.1rem',
               lineHeight: 1.6,
               margin: '50px auto 30px',
