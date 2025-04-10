@@ -57,14 +57,12 @@ const RequestFeedbackModal = ({ isOpen, onClose }) => {
       <div className="modal-content request-feedback-modal">
         {success ? (
           <div className="success-message">
-            <h2>Request Submitted!</h2>
-            <p>Thank you for your interest in receiving interview feedback.</p>
-            <p>If we have a record of your interview, we will prepare your feedback within 24 hours and send you access instructions via email.</p>
+            <p>You are expected to receive email notification about your interview feedback in 1-2 business days. Keep alert on your email box from 3hire.</p>
             <button 
               className="close-button"
               onClick={handleClose}
             >
-              Close (auto-closes in 10s)
+              Close
             </button>
           </div>
         ) : (
