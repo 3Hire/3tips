@@ -1,10 +1,10 @@
 .careergym-container {
   width: 100%;
   min-height: calc(100vh - 72px); /* Account for header height */
-  padding: 20px 20px 40px;
+  padding: 0 20px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   background-size: cover;
   background-position: center;
@@ -12,7 +12,6 @@
   color: white;
   position: relative;
   animation: fadeIn 1s ease-in;
-  margin-top: -30px; /* Pull everything up */
 }
 
 @keyframes fadeIn {
@@ -23,7 +22,7 @@
 
 .careergym-form {
   max-width: 350px;
-  margin: 20px auto 0;
+  margin: 20px auto 20px;
   width: 100%;
 }
 
@@ -53,8 +52,8 @@
 h1 {
   color: white;
   font-size: 3rem;
-  margin-bottom: 15px;
-  margin-top: 10px;
+  margin-bottom: 20px;
+  margin-top: 0;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
@@ -63,7 +62,7 @@ h1 {
   font-size: 1.2rem;
   max-width: 600px;
   text-align: center;
-  margin: 0 auto 20px;
+  margin: 0 auto 25px;
   line-height: 1.6;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
@@ -488,14 +487,14 @@ stripe-buy-button {
   .careergym-container {
     padding-top: 20px;
     padding-bottom: 20px;
-    justify-content: flex-start;
+    justify-content: center;
   }
   
   h1 {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
   }
   
   .careergym-tagline {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
   }
 }
