@@ -170,6 +170,9 @@ footer {
 
 .social-links {
   margin-top: 0.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .social-links a {
@@ -178,12 +181,33 @@ footer {
   border: 1px solid #007bff;
   border-radius: 4px;
   transition: all 0.3s ease;
+  text-align: center;
 }
 
 .social-links a:hover {
   background-color: #007bff;
   color: #fff;
   text-decoration: none;
+}
+
+.social-links .donate-link {
+  border-color: #6772E5;
+  color: #6772E5;
+}
+
+.social-links .donate-link:hover {
+  background-color: #6772E5;
+  color: #fff;
+}
+
+.social-links .book-link {
+  border-color: #00A2FF;
+  color: #00A2FF;
+}
+
+.social-links .book-link:hover {
+  background-color: #00A2FF;
+  color: #fff;
 }
 
 .footer-bottom {
