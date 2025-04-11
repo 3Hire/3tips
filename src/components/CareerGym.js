@@ -273,9 +273,6 @@ function CareerGym() {
       ) : (
         <>
           <h1>Interview Feedback Access</h1>
-          <p className="careergym-tagline">
-          Enter your unique ID and passcode to view your personalized interview feedback.
-          </p>
           
           {error && <div className="error-message">{error}</div>}
           <form className="careergym-form" onSubmit={handleFetch}>
