@@ -30,6 +30,16 @@ function CareerGym() {
     const searchParams = new URLSearchParams(location.search);
     const urlId = searchParams.get("id");
     const urlCode = searchParams.get("code");
+    const action = searchParams.get("action");
+    
+    // Check if action parameter exists to open a specific modal
+    if (action) {
+      if (action === "donate") {
+        setShowDonateModal(true);
+      } else if (action === "book") {
+        setShowCoachingModal(true);
+      }
+    }
     
     // If URL has parameters, use them
     if (urlId && urlCode) {

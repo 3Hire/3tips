@@ -65,12 +65,10 @@ function App() {
             </div>
             <div className="footer-section">
               <h3>Connect</h3>
-              <div className="social-links">
-                <div style={{ display: 'flex', gap: '0.5rem', width: '100%' }}>
-                  <a href="https://www.linkedin.com/company/threehire/posts/?feedView=all" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                  <a href="/careergym" className="donate-link">Donate</a>
-                </div>
-                <a href="/careergym" className="book-link">Book a Session</a>
+              <div className="social-links" style={{ display: 'flex', gap: '0.5rem' }}>
+                <a href="https://www.linkedin.com/company/threehire/posts/?feedView=all" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <a href="/careergym?action=donate" className="donate-link">Donate</a>
+                <a href="/careergym?action=book" className="book-link">Book</a>
               </div>
             </div>
           </div>
