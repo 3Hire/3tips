@@ -66,8 +66,10 @@ function App() {
             <div className="footer-section">
               <h3>Connect</h3>
               <div className="social-links">
-                <a href="https://www.linkedin.com/company/threehire/posts/?feedView=all" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                <a href="/careergym" className="donate-link">Donate</a>
+                <div style={{ display: 'flex', gap: '0.5rem', width: '100%' }}>
+                  <a href="https://www.linkedin.com/company/threehire/posts/?feedView=all" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                  <a href="/careergym" className="donate-link">Donate</a>
+                </div>
                 <a href="/careergym" className="book-link">Book a Session</a>
               </div>
             </div>
