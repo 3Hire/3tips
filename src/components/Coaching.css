@@ -1,0 +1,197 @@
+.coaching-container {
+  width: 100%;
+  min-height: calc(100vh - 72px); /* Account for header height */
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: white;
+  position: relative;
+  animation: fadeIn 1s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+h1 {
+  color: white;
+  font-size: 3rem;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+.coaching-tagline {
+  color: white;
+  font-size: 1.2rem;
+  max-width: 600px;
+  text-align: center;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.coaching-plans {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto 40px;
+  text-align: center;
+}
+
+.plan-cards {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.plan-card {
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 30px;
+  width: 300px;
+  text-align: left;
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.plan-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.plan-card h3 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  color: white;
+}
+
+.plan-price {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #2196F3;
+  margin-bottom: 20px;
+}
+
+.plan-card ul {
+  margin: 0 0 25px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.plan-card li {
+  margin-bottom: 12px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  position: relative;
+  padding-left: 20px;
+}
+
+.plan-card li:before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #2196F3;
+}
+
+.plan-button {
+  background-color: rgba(33, 150, 243, 0.9);
+  width: 100%;
+  margin: 0;
+  border-radius: 8px;
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+  padding: 14px 15px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+  border: none;
+  cursor: pointer;
+}
+
+.plan-button:hover {
+  background-color: #0c7cd5;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.4);
+}
+
+.featured {
+  border: 2px solid #2196F3;
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(33, 150, 243, 0.3);
+}
+
+.featured:hover {
+  transform: translateY(-10px) scale(1.05);
+}
+
+.featured-badge {
+  position: absolute;
+  top: -12px;
+  right: 20px;
+  background-color: #2196F3;
+  color: white;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .coaching-container {
+    padding: 20px 15px;
+  }
+  
+  h1 {
+    font-size: 2.2rem;
+    margin-top: 40px;
+  }
+  
+  .coaching-tagline {
+    font-size: 1rem;
+    width: 90%;
+    margin-bottom: 30px;
+  }
+  
+  .plan-cards {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .plan-card {
+    width: 90%;
+    max-width: 300px;
+  }
+  
+  .featured {
+    transform: scale(1);
+    order: -1;
+  }
+  
+  .featured:hover {
+    transform: translateY(-10px);
+  }
+}
+
+@media (max-height: 700px) {
+  .coaching-container {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    justify-content: flex-start;
+  }
+}

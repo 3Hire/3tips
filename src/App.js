@@ -10,6 +10,7 @@ import AddEntry from "./components/AddEntry";
 import SuccessStories from "./components/SuccessStories";
 import HiringBar from "./components/HiringBar";
 import Contact from "./components/Contact";
+import Coaching from "./components/Coaching";
 import "./App.css";
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
             <ul className="nav-links">
               <li><Link to="/success-stories">Success Stories</Link></li>
               <li><Link to="/careergym">CareerGym</Link></li>
+              <li><Link to="/coaching">Coaching</Link></li>
               <li><Link to="/deep-match">HiringBar</Link></li>
               <li><Link to="/about">About</Link></li>
             </ul>
@@ -39,6 +41,7 @@ function App() {
                 <Route path="/about" element={<About />} />
                 <Route path="/success-stories" element={<SuccessStories />} />
                 <Route path="/careergym" element={<CareerGym />} />
+                <Route path="/coaching" element={<Coaching />} />
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/add-entry" element={<AddEntry />} />
                 <Route path="/deep-match" element={<HiringBar />} />
