@@ -9,13 +9,13 @@ function Home() {
   
   // Slideshow content - welcome messages to display one by one
   const slides = [
-    "Welcome to HiringBar & Feedback! 🍻📝",
+    "Welcome to HiringBar & CareerGym! 🍻💪",
     "Where hiring feels less like an interview and more like a great conversation over drinks.",
-    "Where candidates receive valuable feedback to improve their interviewing skills.",
+    "Where candidates don't just search for jobs—they train, grow, and level up their careers.",
     "We're not your typical recruiting firm.",
     "We blend AI-powered deep matching, expert coaching, and a human touch.",
     "We make hiring and job-seeking effortless, fun, and rewarding.",
-    "Grab a seat at the HiringBar or get feedback from experts—your next big move starts here!"
+    "Grab a seat at the HiringBar or break a sweat at the CareerGym—your next big move starts here!"
   ];
 
   useEffect(() => {
@@ -55,7 +55,7 @@ function Home() {
         </div>
         <div className="hero-buttons">
           <Link to="/deep-match" className="btn btn-hiring">Start HiringBar</Link>
-          <Link to="/careergym" className="btn btn-coaching">Get Feedback</Link>
+          <Link to="/coaching" className="btn btn-coaching">Start CareerGym</Link>
         </div>
       </div>
     </div>
