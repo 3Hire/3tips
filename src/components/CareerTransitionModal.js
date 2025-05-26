@@ -19,7 +19,7 @@ function CareerTransitionModal({ onClose }) {
             <p className="payment-id">$99/month - 6 Month Program</p>
             <div className="qr-container">
               <img 
-                src="/images/Career transition pay.jpg" 
+                src="/images/Group Career Support.jpg" 
                 alt="Career Transition payment QR code" 
                 className="qr-code"
               />
