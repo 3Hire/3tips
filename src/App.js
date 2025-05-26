@@ -35,22 +35,16 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="*" element={
-            <div className="container">
-              <Routes>
-                <Route path="/about" element={<About />} />
-                <Route path="/success-stories" element={<SuccessStories />} />
-                <Route path="/careergym" element={<CareerGym />} />
-                <Route path="/coaching" element={<Coaching />} />
-                <Route path="/admin" element={<Admin />} />
-                <Route path="/add-entry" element={<AddEntry />} />
-                <Route path="/deep-match" element={<HiringBar />} />
-                <Route path="/contact" element={<Contact />} />
-                {/* Fallback route */}
-                <Route path="*" element={<Home />} />
-              </Routes>
-            </div>
-          } />
+          <Route path="/about" element={<About />} />
+          <Route path="/success-stories" element={<SuccessStories />} />
+          <Route path="/careergym" element={<CareerGym />} />
+          <Route path="/coaching" element={<Coaching />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/add-entry" element={<AddEntry />} />
+          <Route path="/deep-match" element={<HiringBar />} />
+          <Route path="/contact" element={<Contact />} />
+          {/* Fallback route */}
+          <Route path="*" element={<Home />} />
         </Routes>
       </main>
       <footer>
