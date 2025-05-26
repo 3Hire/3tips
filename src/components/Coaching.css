@@ -40,7 +40,7 @@ h1 {
 
 .coaching-plans {
   width: 100%;
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto 40px;
   text-align: center;
 }
@@ -49,8 +49,9 @@ h1 {
   display: flex;
   justify-content: center;
   gap: 25px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   margin-bottom: 30px;
+  width: 100%;
 }
 
 .plan-card {
@@ -58,7 +59,9 @@ h1 {
   backdrop-filter: blur(10px);
   border-radius: 15px;
   padding: 30px;
-  width: 300px;
+  flex: 1;
+  min-width: 0;
+  max-width: 300px;
   text-align: left;
   transition: transform 0.3s, box-shadow 0.3s;
   position: relative;
@@ -149,6 +152,23 @@ h1 {
   border-radius: 20px;
   font-size: 0.85rem;
   font-weight: 600;
+}
+
+@media (max-width: 992px) {
+  .plan-cards {
+    flex-wrap: wrap;
+  }
+  
+  .plan-card {
+    max-width: 45%;
+    margin-bottom: 20px;
+  }
+  
+  .featured {
+    order: -1;
+    flex-basis: 100%;
+    max-width: 300px;
+  }
 }
 
 @media (max-width: 768px) {
