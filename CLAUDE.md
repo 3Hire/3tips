@@ -8,24 +8,66 @@
 
 ### Main Application Components
 - Home page and navigation
-- Service components (DeepView, DeepMatch, CareerGym, HiringBar)
-- Admin interface
+- Service components:
+  - CareerGym (coaching services - Coaching.js)
+  - Feedback system (original CareerGym.js)
+  - HiringBar (DeepMatch.js)
+  - SuccessStories
+- Admin interface and AddEntry for data management
 - Contact and About pages
-- Multiple modal components (Agreement, Coaching, Donate, RequestFeedback)
+- Multiple modal components:
+  - AgreementModal (for feedback access)
+  - CareerTransitionModal (for career transition service payment)
+  - CoachingModal (for 1-1 coaching session booking)
+  - DonateModal (for donations)
+  - RequestFeedbackModal (for requesting interview feedback)
 
 ### Key Technologies
 - React.js
 - AWS (DynamoDB integration via dynamo.js)
 - CSS for styling
 
-## Recent Changes
-- Fixed button alignment in RequestFeedbackModal
-- Improved vertical centering on CareerGym and HiringBar pages
-- Added functional links for Donate and Book buttons in footer
-- Made footer buttons more compact
-- Added Donate and Book buttons to footer
+## Recent Changes (May 2025)
+
+### New Pages and Features
+- Added CareerGym services page (Coaching.js) with three service options:
+  - Jobseekers Support (donation-based)
+  - Career Transition (featured, $99/month)
+  - 1-1 Coaching ($99/30 minutes)
+- Created CareerTransitionModal with QR code payment
+- Updated all modals with consistent contact information and email links
+- Fixed router configuration to ensure proper navigation
+
+### Rebranding and Navigation Updates
+- Renamed "Coaching" to "CareerGym" in navigation menu
+- Updated homepage button to direct "Start CareerGym" to the coaching services page
+- Maintained original CareerGym page (for feedback) but removed from navigation
+- Added highlighted contact message in all payment modals
+
+### UI Improvements
+- Improved horizontal alignment of service cards
+- Set Career Transition as the middle featured option
+- Added styling for email links in all modals
+- Fixed QR code image display in CareerTransitionModal
+
+### Cleanup
+- Removed duplicate 3tips directory
+- Removed unused frontend-chatbot directory
 
 ## File Structure Reference
-Main application components located in `/src/components/`
-Image assets in `/public/images/` and `/src/images/`
-API integration in `/src/api/`
+
+### Key Files
+- `/src/App.js` - Main application routes and navigation
+- `/src/components/Home.js` - Homepage with intro and main buttons
+- `/src/components/Coaching.js` - CareerGym services page (renamed to CareerGym in UI)
+- `/src/components/CareerGym.js` - Original feedback system (hidden from navigation)
+- `/src/components/CareerTransitionModal.js` - Modal for Career Transition service
+- `/src/components/CoachingModal.js` - Modal for 1-1 coaching bookings
+- `/src/components/DonateModal.js` - Modal for donations
+
+### Asset Locations
+- React components located in `/src/components/`
+- Component CSS files alongside their respective JS files
+- Image assets in `/public/images/` and `/src/images/`
+- API integration in `/src/api/`
+- QR code payment images in `/public/images/`
