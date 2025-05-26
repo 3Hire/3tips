@@ -57,11 +57,28 @@ function Coaching() {
       {showCoachingModal && <CoachingModal onClose={handleCloseCoachingModal} />}
       {showCareerTransitionModal && <CareerTransitionModal onClose={handleCloseCareerTransitionModal} />}
       
-      <h1>Coaching Services</h1>
+      <h1>CareerGym Services</h1>
       <p className="coaching-tagline">Personalized support to help you achieve your career goals</p>
       
       <div className="coaching-plans">
         <div className="plan-cards">
+          <div className="plan-card">
+            <h3>Jobseekers Support</h3>
+            <p className="plan-price">Donation-Based</p>
+            <ul>
+              <li>Group support for laid-off workers</li>
+              <li>Resources for new graduates</li>
+              <li>Job search strategies</li>
+              <li>Resume review sessions</li>
+              <li>Interview practice</li>
+              <li>Peer networking opportunities</li>
+              <li>No fees required</li>
+            </ul>
+            <button onClick={handleOpenDonateModal} className="plan-button">
+              Donate to Support
+            </button>
+          </div>
+          
           <div className="plan-card featured">
             <span className="featured-badge">Most Popular</span>
             <h3>Career Transition</h3>
@@ -77,23 +94,6 @@ function Coaching() {
             </ul>
             <button onClick={handleOpenCareerTransitionModal} className="plan-button">
               Join Now
-            </button>
-          </div>
-          
-          <div className="plan-card">
-            <h3>Jobseekers Support</h3>
-            <p className="plan-price">Donation-Based</p>
-            <ul>
-              <li>Group support for laid-off workers</li>
-              <li>Resources for new graduates</li>
-              <li>Job search strategies</li>
-              <li>Resume review sessions</li>
-              <li>Interview practice</li>
-              <li>Peer networking opportunities</li>
-              <li>No fees required</li>
-            </ul>
-            <button onClick={handleOpenDonateModal} className="plan-button">
-              Donate to Support
             </button>
           </div>
           
