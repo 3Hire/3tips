@@ -55,7 +55,7 @@ function Home() {
         </div>
         <div className="hero-buttons">
           <Link to="/deep-match" className="btn btn-hiring">Start HiringBar</Link>
-          <Link to="/deep-view" className="btn btn-coaching">Start CareerGym</Link>
+          <Link to="/coaching" className="btn btn-coaching">Start CareerGym</Link>
         </div>
       </div>
     </div>
