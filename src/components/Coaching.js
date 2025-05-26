@@ -53,6 +53,23 @@ function Coaching() {
         <div className="plan-cards">
           <div className="plan-card featured">
             <span className="featured-badge">Most Popular</span>
+            <h3>Career Transition</h3>
+            <p className="plan-price">$99/month</p>
+            <ul>
+              <li>Group support for career changers</li>
+              <li>Weekly group coaching sessions</li>
+              <li>Career transition strategies</li>
+              <li>Resume and LinkedIn optimization</li>
+              <li>Interview preparation</li>
+              <li>Network building techniques</li>
+              <li>6-month package</li>
+            </ul>
+            <button onClick={handleOpenCoachingModal} className="plan-button">
+              Join Now
+            </button>
+          </div>
+          
+          <div className="plan-card">
             <h3>Jobseekers Support</h3>
             <p className="plan-price">Donation-Based</p>
             <ul>
