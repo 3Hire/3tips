@@ -42,7 +42,9 @@ function DonateModal({ onClose }) {
             </div>
           </div>
           
-          <p className="donate-thanks">Your support makes a difference! Thank you for helping us help others.</p>
+          <p className="donate-thanks">
+            <strong>Important:</strong> After payment, please email us directly with your name and the service you need at <a href="mailto:3@threehire.com" className="email-link">3@threehire.com</a>.
+          </p>
         </div>
       </div>
     </div>

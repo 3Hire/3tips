@@ -132,10 +132,26 @@
 }
 
 .donate-thanks {
-  margin-top: 30px;
-  text-align: center;
-  font-style: italic;
-  color: #666;
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #6772E5;
+  text-align: left;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.email-link {
+  color: #6772E5;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.email-link:hover {
+  color: #555abf;
+  text-decoration: underline;
 }
 
 @media (max-width: 600px) {

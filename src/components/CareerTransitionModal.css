@@ -159,6 +159,18 @@
   border-left: 4px solid #2196F3;
 }
 
+.email-link {
+  color: #2196F3;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.email-link:hover {
+  color: #0c7cd5;
+  text-decoration: underline;
+}
+
 @media (max-width: 600px) {
   .career-transition-modal {
     width: 95%;

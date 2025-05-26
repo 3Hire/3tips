@@ -43,7 +43,7 @@ function CoachingModal({ onClose }) {
           </div>
           
           <p className="coaching-details">
-            <strong>What to expect:</strong> Personalized feedback, targeted practice, actionable strategies, and immediate improvements in your interview performance.
+            <strong>Important:</strong> After payment, please email us directly with your name and the service you need at <a href="mailto:3@threehire.com" className="email-link">3@threehire.com</a>.
           </p>
         </div>
       </div>

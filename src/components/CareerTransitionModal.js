@@ -28,7 +28,7 @@ function CareerTransitionModal({ onClose }) {
           </div>
           
           <p className="transition-note">
-            <strong>Note:</strong> After payment, you will receive an email with program details and access to our online community.
+            <strong>Important:</strong> After payment, please email us directly with your name and the service you need at <a href="mailto:3@threehire.com" className="email-link">3@threehire.com</a>.
           </p>
         </div>
       </div>

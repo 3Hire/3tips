@@ -156,6 +156,18 @@
   border-left: 4px solid #00A2FF;
 }
 
+.email-link {
+  color: #00A2FF;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.email-link:hover {
+  color: #0088d9;
+  text-decoration: underline;
+}
+
 @media (max-width: 600px) {
   .coaching-options {
     flex-direction: column;
