@@ -27,18 +27,6 @@ function CareerTransitionModal({ onClose }) {
             </div>
           </div>
           
-          <div className="program-details">
-            <h3>What's Included:</h3>
-            <ul>
-              <li>Weekly group coaching sessions</li>
-              <li>Career transition strategy planning</li>
-              <li>Resume and LinkedIn profile optimization</li>
-              <li>Interview preparation and practice</li>
-              <li>Networking strategies and support</li>
-              <li>Access to career resources and tools</li>
-            </ul>
-          </div>
-          
           <p className="transition-note">
             <strong>Note:</strong> After payment, you will receive an email with program details and access to our online community.
           </p>
