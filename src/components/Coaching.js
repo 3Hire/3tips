@@ -2,12 +2,14 @@
 import React, { useState, useEffect } from "react";
 import DonateModal from "./DonateModal";
 import CoachingModal from "./CoachingModal";
+import CareerTransitionModal from "./CareerTransitionModal";
 import "./Coaching.css";
 import oceanWaves from "../images/ocean-waves.jpg";
 
 function Coaching() {
   const [showDonateModal, setShowDonateModal] = useState(false);
   const [showCoachingModal, setShowCoachingModal] = useState(false);
+  const [showCareerTransitionModal, setShowCareerTransitionModal] = useState(false);
 
   useEffect(() => {
     // Add body background when component mounts
@@ -40,11 +42,20 @@ function Coaching() {
   const handleCloseCoachingModal = () => {
     setShowCoachingModal(false);
   };
+  
+  const handleOpenCareerTransitionModal = () => {
+    setShowCareerTransitionModal(true);
+  };
+  
+  const handleCloseCareerTransitionModal = () => {
+    setShowCareerTransitionModal(false);
+  };
 
   return (
     <div className="coaching-container">
       {showDonateModal && <DonateModal onClose={handleCloseDonateModal} />}
       {showCoachingModal && <CoachingModal onClose={handleCloseCoachingModal} />}
+      {showCareerTransitionModal && <CareerTransitionModal onClose={handleCloseCareerTransitionModal} />}
       
       <h1>Coaching Services</h1>
       <p className="coaching-tagline">Personalized support to help you achieve your career goals</p>
@@ -64,7 +75,7 @@ function Coaching() {
               <li>Network building techniques</li>
               <li>6-month package</li>
             </ul>
-            <button onClick={handleOpenCoachingModal} className="plan-button">
+            <button onClick={handleOpenCareerTransitionModal} className="plan-button">
               Join Now
             </button>
           </div>
