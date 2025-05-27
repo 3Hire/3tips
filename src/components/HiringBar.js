@@ -1,7 +1,6 @@
 // src/components/HiringBar.js
 import React, { useState, useEffect } from 'react';
 import './HiringBar.css';
-import hiringbarBg from '../images/hiringbar.jpg';
 
 const HiringBar = () => {
   const [id, setId] = useState('');
@@ -16,7 +15,7 @@ const HiringBar = () => {
 
   useEffect(() => {
     // Add body background when component mounts
-    document.body.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.7)), url(${hiringbarBg})`;
+    document.body.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.7)), url(/images/hiringbar.jpg)`;
     document.body.style.backgroundSize = 'cover';
     document.body.style.backgroundPosition = 'center';
     document.body.style.backgroundAttachment = 'fixed';

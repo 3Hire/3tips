@@ -4,7 +4,6 @@ import DonateModal from "./DonateModal";
 import CoachingModal from "./CoachingModal";
 import CareerTransitionModal from "./CareerTransitionModal";
 import "./Coaching.css";
-import oceanWaves from "../images/ocean-waves.jpg";
 
 function Coaching() {
   const [showDonateModal, setShowDonateModal] = useState(false);
@@ -13,7 +12,7 @@ function Coaching() {
 
   useEffect(() => {
     // Add body background when component mounts
-    document.body.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.7)), url(${oceanWaves})`;
+    document.body.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.7)), url(/images/careergym.jpg)`;
     document.body.style.backgroundSize = 'cover';
     document.body.style.backgroundPosition = 'center';
     document.body.style.backgroundAttachment = 'fixed';

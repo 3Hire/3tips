@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Home.css";
-import oceanBg from "../images/ocean-waves.jpg";
 
 function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -23,7 +22,7 @@ function Home() {
     document.body.classList.add('home-page');
     
     // Apply background directly to ensure it works
-    document.body.style.backgroundImage = `url(${oceanBg})`;
+    document.body.style.backgroundImage = `url(/images/ocean-waves.jpg)`;
     document.body.style.backgroundSize = 'cover';
     document.body.style.backgroundPosition = 'center';
     document.body.style.backgroundAttachment = 'fixed';
