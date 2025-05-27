@@ -27,6 +27,27 @@
 - AWS (DynamoDB integration via dynamo.js)
 - CSS for styling
 
+## CRITICAL: Image Path Patterns
+
+### ✅ WORKING PATTERNS (DO NOT CHANGE):
+1. **JavaScript background images**: Use `import imageName from "../images/filename.jpg"` then `url(${imageName})`
+   - Example: Home.js, HiringBar.js, Admin.js, Coaching.js
+   - These images must exist in `/src/images/` folder
+
+2. **HTML img src and CSS background-image**: Use `/images/filename.jpg` paths
+   - Example: About.js slideshow, Logo.js component  
+   - These images must exist in `/public/images/` folder
+
+### ❌ NEVER USE:
+- `/images/` paths in JavaScript `document.body.style.backgroundImage`
+- Direct imports from `/public/images/` folder
+- Changing working components
+
+### Image Storage:
+- **Keep `/src/images/`**: For JavaScript imports (background images)
+- **Keep `/public/images/`**: For HTML src and CSS references
+- **Both folders needed**: Do not delete either folder
+
 ## Recent Changes (May 2025)
 
 ### New Pages and Features
