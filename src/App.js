@@ -23,9 +23,9 @@ function App() {
               <Logo />
             </Link>
             <ul className="nav-links">
-              <li><Link to="/success-stories">Success Stories</Link></li>
               <li><Link to="/coaching">CareerGym</Link></li>
               <li><Link to="/deep-match">HiringBar</Link></li>
+              <li><Link to="/success-stories">Success Stories</Link></li>
               <li><Link to="/about">About</Link></li>
             </ul>
           </div>
