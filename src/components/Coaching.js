@@ -56,7 +56,7 @@ function Coaching() {
       {showCareerAcceleratorModal && <CareerAcceleratorModal onClose={handleCloseCareerAcceleratorModal} />}
       {showIndustryPivotModal && <IndustryPivotModal onClose={handleCloseIndustryPivotModal} />}
       
-      <h1>careerGYM Coaching Services</h1>
+      <h1>CareerGym Coaching Services</h1>
       <p className="coaching-tagline">Personalized support to help you achieve your career goals</p>
       
       <div className="coaching-plans">
