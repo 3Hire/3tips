@@ -1,14 +1,14 @@
 // src/components/Coaching.js
 import React, { useState, useEffect } from "react";
-import DonateModal from "./DonateModal";
 import CoachingModal from "./CoachingModal";
-import CareerTransitionModal from "./CareerTransitionModal";
+import CareerAcceleratorModal from "./CareerAcceleratorModal";
+import IndustryPivotModal from "./IndustryPivotModal";
 import "./Coaching.css";
 
 function Coaching() {
-  const [showDonateModal, setShowDonateModal] = useState(false);
   const [showCoachingModal, setShowCoachingModal] = useState(false);
-  const [showCareerTransitionModal, setShowCareerTransitionModal] = useState(false);
+  const [showCareerAcceleratorModal, setShowCareerAcceleratorModal] = useState(false);
+  const [showIndustryPivotModal, setShowIndustryPivotModal] = useState(false);
 
   useEffect(() => {
     // Add body background when component mounts
@@ -26,14 +26,6 @@ function Coaching() {
     };
   }, []);
 
-  const handleOpenDonateModal = () => {
-    setShowDonateModal(true);
-  };
-
-  const handleCloseDonateModal = () => {
-    setShowDonateModal(false);
-  };
-  
   const handleOpenCoachingModal = () => {
     setShowCoachingModal(true);
   };
@@ -42,65 +34,72 @@ function Coaching() {
     setShowCoachingModal(false);
   };
   
-  const handleOpenCareerTransitionModal = () => {
-    setShowCareerTransitionModal(true);
+  const handleOpenCareerAcceleratorModal = () => {
+    setShowCareerAcceleratorModal(true);
   };
   
-  const handleCloseCareerTransitionModal = () => {
-    setShowCareerTransitionModal(false);
+  const handleCloseCareerAcceleratorModal = () => {
+    setShowCareerAcceleratorModal(false);
+  };
+  
+  const handleOpenIndustryPivotModal = () => {
+    setShowIndustryPivotModal(true);
+  };
+  
+  const handleCloseIndustryPivotModal = () => {
+    setShowIndustryPivotModal(false);
   };
 
   return (
     <div className="coaching-container">
-      {showDonateModal && <DonateModal onClose={handleCloseDonateModal} />}
       {showCoachingModal && <CoachingModal onClose={handleCloseCoachingModal} />}
-      {showCareerTransitionModal && <CareerTransitionModal onClose={handleCloseCareerTransitionModal} />}
+      {showCareerAcceleratorModal && <CareerAcceleratorModal onClose={handleCloseCareerAcceleratorModal} />}
+      {showIndustryPivotModal && <IndustryPivotModal onClose={handleCloseIndustryPivotModal} />}
       
-      <h1>CareerGym Services</h1>
+      <h1>careerGYM Coaching Services</h1>
       <p className="coaching-tagline">Personalized support to help you achieve your career goals</p>
       
       <div className="coaching-plans">
         <div className="plan-cards">
           <div className="plan-card">
-            <h3>Jobseekers Support</h3>
-            <p className="plan-price">Donation-Based</p>
+            <h3>Career Accelerator</h3>
+            <p className="plan-price">$499 upfront + 4% annual pay</p>
             <ul>
-              <li>Group support for laid-off workers</li>
-              <li>Resources for new graduates</li>
-              <li>Job search strategies</li>
-              <li>Resume review sessions</li>
-              <li>Interview practice</li>
-              <li>Peer networking opportunities</li>
-              <li>No fees required</li>
+              <li>For ambitious professionals ready to level up</li>
+              <li>3 months intensive support</li>
+              <li>Leadership skills development</li>
+              <li>Performance optimization</li>
+              <li>Promotion strategy</li>
+              <li>Salary negotiation</li>
+              <li>Target: Mid-career professionals</li>
             </ul>
-            <button onClick={handleOpenDonateModal} className="plan-button">
-              Donate to Support
+            <button onClick={handleOpenCareerAcceleratorModal} className="plan-button">
+              Get Started
             </button>
           </div>
           
           <div className="plan-card featured">
             <span className="featured-badge">Most Popular</span>
-            <h3>Career Transition</h3>
-            <p className="plan-price">$99/month</p>
+            <h3>Industry Pivot Pro</h3>
+            <p className="plan-price">$1999 upfront + 3% annual pay</p>
             <ul>
-              <li>Group support for career changers</li>
-              <li>Weekly group coaching sessions</li>
-              <li>Career transition strategies</li>
-              <li>Resume and LinkedIn optimization</li>
-              <li>Interview preparation</li>
-              <li>Network building techniques</li>
-              <li>6-month package</li>
+              <li>For professionals changing industries</li>
+              <li>6 months comprehensive transformation</li>
+              <li>Skills translation & industry research</li>
+              <li>Network building & personal branding</li>
+              <li>Target: Career path switchers</li>
+              <li>Extension: $299/month after 6 months</li>
             </ul>
-            <button onClick={handleOpenCareerTransitionModal} className="plan-button">
-              Join Now
+            <button onClick={handleOpenIndustryPivotModal} className="plan-button">
+              Start Your Pivot
             </button>
           </div>
           
           <div className="plan-card">
             <h3>1-1 Coaching</h3>
-            <p className="plan-price">$99/30 minutes</p>
+            <p className="plan-price">Personalized guidance</p>
             <ul>
-              <li>Personalized 1-on-1 coaching</li>
+              <li>For new grads & career explorers</li>
               <li>Customized to your specific needs</li>
               <li>Career advancement strategies</li>
               <li>Personal development</li>

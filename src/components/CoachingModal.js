@@ -12,7 +12,7 @@ function CoachingModal({ onClose }) {
         </div>
         
         <div className="coaching-content">
-          <p>Ready to take your interview skills to the next level? Book a personalized coaching session to address your specific needs and challenges.</p>
+          <p>Perfect for new grads, career explorers, and anyone seeking personalized career guidance. Book a 1-on-1 coaching session customized to your specific needs and goals.</p>
           
           <div className="coaching-options">
             <div className="payment-option">
@@ -20,7 +20,7 @@ function CoachingModal({ onClose }) {
               <p className="payment-id">$99 - 30 Minute Session</p>
               <div className="qr-container">
                 <img 
-                  src="/coaching_99.jpg" 
+                  src="/images/coaching_99.jpg" 
                   alt="Coaching payment QR code" 
                   className="qr-code"
                 />
